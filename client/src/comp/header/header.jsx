@@ -23,7 +23,7 @@ function Header() {
         </div>
         <span> boking.com</span>
       </H1>
-      <div>
+      <SearchBar>
         {searchBarState === "default" ? (
           <DefaultSearchBar />
         ) : searchBarState === "anywhere" ? (
@@ -31,7 +31,7 @@ function Header() {
         ) : (
           ""
         )}
-      </div>
+      </SearchBar>
       <HeaderRight>
         <SellMyAirbnb>당신의 공간을 에어비앤비하세요</SellMyAirbnb>
         <BiGlobes></BiGlobes>
@@ -56,6 +56,9 @@ const H1 = styled.span`
   margin: 0px;
 `;
 
+const SearchBar = styled.div`
+  margin-left: 250px;
+`;
 // const SearchButtons = styled.div`
 //   display: flex;
 //   border: 1px solid #e9e9e9;

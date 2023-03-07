@@ -30,6 +30,7 @@ const LoginMenus = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  margin-right: 20px;
 `;
 
 const LoginMenuIcon = styled.div`
