@@ -7,13 +7,13 @@ import { searchBarStates } from "../../store/global/index";
 function DefaultSearchBar() {
   const [searchBarState, setSearchBarState] = useAtom(searchBarStates);
 
-  const handButton = (e) => {
+  const handlebuttonclick = (e) => {
     console.log("e.targer :>> ", e.target.value);
     setSearchBarState(e.target.value);
   };
   return (
     <DefaultSearchBarBox>
-      <Button first="true" onClick={handButton} value="anywhere">
+      <Button first={true} onClick={handlebuttonclick} value="anywhere">
         어디든
       </Button>
       <Button value="whenever"> 언제든 일주일</Button>
@@ -41,7 +41,6 @@ const DefaultSearchBarBox = styled.div`
 
 const BsSearchs = styled(BsSearch)`
   color: white;
-
   width: 13px;
   height: 13px;
   background-color: red;
@@ -57,6 +56,6 @@ const Button = styled.button`
   border-right: 1px solid #e9e9e9;
   padding-right: 10px;
   padding-left: ${(props) => {
-    props.first === "true" ? "10px" : 0;
+    props.first === true ? "10px" : "0px";
   }};
 `;
