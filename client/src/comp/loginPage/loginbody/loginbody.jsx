@@ -1,13 +1,18 @@
 import styled from "@emotion/styled";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAtom } from "jotai";
+import { userDatas, loginModals } from "../../store/global/index";
+
 function Loginbody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loginData, setLoginData] = useState([]);
-
+  const [passwords, setPasswords] = useState("");
+  const [userData, setUserData] = useAtom(userDatas);
+  const [loginModal, setLoginModal] = useAtom(loginModals);
   const handleButtonClick = (e) => {
-    if (phoneNumber !== "") {
+    if (phoneNumber !== "" || passwords !== "") {
       console.log(phoneNumber);
       serverLoginData();
     }
@@ -15,26 +20,19 @@ function Loginbody() {
   const serverLoginData = async () => {
     const response = await axios.get(`http://127.0.0.1:4000/api/countryCode`);
     const loginDatas = response.data;
-    setLoginData(
-      loginDatas?.find((item) => item.country === "Korea").phoneNumber
-    );
+    setLoginData(loginDatas?.find((item) => item.country === "Korea").user);
 
     // loginData.find((item) => item.country === "Korea");
   };
 
   useEffect(() => {
-    if (loginData !== []) {
-      loginData.forEach((numbers) => {
-        console.log("numbers :>> ", numbers);
-        console.log(phoneNumber);
-        if (numbers == phoneNumber) {
-        }
-        // if (numbers === phoneNumber) {
-        //   console.log("통과1");
-        // }
-      });
+    if (loginData.length > 1) {
+      const user = loginData.find((user) => user.phoneNumber == phoneNumber);
 
-      console.log("통과2");
+      if (user.password == passwords) {
+        setUserData({ login: true, ...user });
+        setLoginModal(false);
+      }
     }
   }, [loginData]);
 
@@ -60,6 +58,15 @@ function Loginbody() {
           onChange={(e) => {
             console.log(e.target.value);
             setPhoneNumber(e.target.value);
+          }}
+        ></Input>
+        <Input
+          type="text"
+          value={passwords}
+          placeholder="비밀번호입력해줘"
+          onChange={(e) => {
+            console.log(e.target.value);
+            setPasswords(e.target.value);
           }}
         ></Input>
       </FromBox>

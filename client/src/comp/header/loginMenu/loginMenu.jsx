@@ -2,12 +2,14 @@ import styled from "@emotion/styled";
 import React from "react";
 import { SlMenu } from "react-icons/sl";
 import { FiUser } from "react-icons/fi";
-import { loginMenuToggles } from "../../store/global";
+import { loginMenuToggles, userDatas } from "../../store/global";
 import { useAtom } from "jotai";
 import LoginMenuBox from "./loginMenuBox/loginMenuBox";
 
 function LoginMenu() {
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
+  const [userData, setUserData] = useAtom(userDatas);
+
   const toggleLoginMenu = () => {
     if (loginMenuToggle === false) {
       setLoginMenuToggle(true);
@@ -15,10 +17,12 @@ function LoginMenu() {
   };
   return (
     <LoginMenus>
-      <LoginMenuIcon onClick={toggleLoginMenu}>
+      <LoginMenuIcon onClick={toggleLoginMenu} userData={userData.login}>
         <SlMenus />
-        <FiUsers />
+        <FiUsers userData={userData.login} />
+        {userData.login === true ? <Namespan>{userData.name}</Namespan> : ""}
       </LoginMenuIcon>
+
       {loginMenuToggle === true ? <LoginMenuBox /> : ""}
     </LoginMenus>
   );
@@ -38,7 +42,9 @@ const LoginMenuIcon = styled.div`
   align-items: center;
   border: 1px solid #e9e9e9;
   border-radius: 10px;
-  width: 40px;
+  width: ${(props) => {
+    return props.userData === true ? "50px" : "40px";
+  }};
   height: 20px;
   justify-content: space-around;
   box-shadow: 0.5px 0.5px 00 #c0c0c0;
@@ -54,5 +60,10 @@ const FiUsers = styled(FiUser)`
   color: white;
   width: 13px;
   height: 13px;
-  background-color: gray;
+  background-color: ${(props) => {
+    return props.userData === true ? "red" : "gray";
+  }};
+`;
+const Namespan = styled.span`
+  font-size: 3px;
 `;

@@ -31,10 +31,15 @@ app.get("/api/countryCode", (req, res) => {
       country: "Korea",
       countryCode: +82,
       phoneNumber: [00000, 1231232, 345345345],
+      user: [
+        { name: "대성", phoneNumber: 1231232, password: "eotjd" },
+        { name: "만조메", phoneNumber: 123123222, password: 1231232 },
+      ],
     },
     {
       country: "Paraguay",
       countryCode: +595,
+
       phoneNumber: [00000, 123123, 345345345],
     },
   ]);
