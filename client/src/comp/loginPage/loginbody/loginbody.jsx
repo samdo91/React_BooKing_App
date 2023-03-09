@@ -1,15 +1,42 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 function Loginbody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [loginData, setLoginData] = useState([]);
 
   const handleButtonClick = (e) => {
     if (phoneNumber !== "") {
       console.log(phoneNumber);
+      serverLoginData();
     }
   };
+  const serverLoginData = async () => {
+    const response = await axios.get(`http://127.0.0.1:4000/api/countryCode`);
+    const loginDatas = response.data;
+    setLoginData(
+      loginDatas?.find((item) => item.country === "Korea").phoneNumber
+    );
+
+    // loginData.find((item) => item.country === "Korea");
+  };
+
+  useEffect(() => {
+    if (loginData !== []) {
+      loginData.forEach((numbers) => {
+        console.log("numbers :>> ", numbers);
+        console.log(phoneNumber);
+        if (numbers == phoneNumber) {
+        }
+        // if (numbers === phoneNumber) {
+        //   console.log("통과1");
+        // }
+      });
+
+      console.log("통과2");
+    }
+  }, [loginData]);
 
   return (
     <BodyBox>
