@@ -11,6 +11,7 @@ function Loginbody() {
   const [passwords, setPasswords] = useState("");
   const [userData, setUserData] = useAtom(userDatas);
   const [loginModal, setLoginModal] = useAtom(loginModals);
+
   const handleButtonClick = (e) => {
     if (phoneNumber !== "" || passwords !== "") {
       console.log(phoneNumber);
