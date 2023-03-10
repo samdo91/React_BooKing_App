@@ -6,6 +6,7 @@ import { loginModals } from "../store/global/index";
 import { ModalDecorator } from "../store/wrapper/modalDecorator";
 import { IoMdClose } from "react-icons/io";
 import Loginbody from "./loginbody/loginbody";
+import LoginFooter from "./loginFooter/loginFooter";
 
 function LoginPopUp() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
@@ -24,6 +25,7 @@ function LoginPopUp() {
           <Spans> 로그인 또는 회원가입</Spans>
         </ModalHaeder>
         <Loginbody />
+        <LoginFooter />
       </StyledModal>
     </div>
   );

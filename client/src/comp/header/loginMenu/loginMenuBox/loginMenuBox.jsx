@@ -62,7 +62,6 @@ const PopUp = styled.div`
   width: 100px;
   height: 100px;
   vertical-align: middle;
-
   font-size: 5px;
   margin: 10px;
 `;
