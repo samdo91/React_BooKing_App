@@ -31,9 +31,9 @@ const DefaultSearchBarBox = styled.div`
   display: flex;
   border: 1px solid #e9e9e9;
   border-radius: 10px;
-  width: 200px;
-  height: 20px;
-  font-size: 7px;
+  width: 600px;
+  height: 30px;
+  font-size: 15px;
   align-items: center;
   justify-content: space-around;
   box-shadow: 0.5px 0.5px 00 #c0c0c0;

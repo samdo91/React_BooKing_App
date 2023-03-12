@@ -8,39 +8,38 @@ import React, { useRef, useState } from "react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-import "swiper/css/pagination";
 
-import "./styled.css";
+import "swiper/css/navigation";
 
 // import required modules
-import { FreeMode, Pagination } from "swiper";
+import { FreeMode } from "swiper";
+import { Navigation } from "swiper";
 
 function MainPageHeader() {
   return (
     <Body>
       <Swipers
+        navigation={true}
         slidesPerView={10}
         spaceBetween={30}
         freeMode={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[FreeMode, Pagination]}
+        pagination={true}
+        modules={[FreeMode, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
-        <SwiperSlides></SwiperSlides>
+        <SwiperSlides>1</SwiperSlides>
+        <SwiperSlides>2</SwiperSlides>
+        <SwiperSlides>3</SwiperSlides>
+        <SwiperSlides>4</SwiperSlides>
+        <SwiperSlides>5</SwiperSlides>
+        <SwiperSlides>6</SwiperSlides>
+        <SwiperSlides>7</SwiperSlides>
+        <SwiperSlides>8</SwiperSlides>
+        <SwiperSlides>9</SwiperSlides>
+        <SwiperSlides>10</SwiperSlides>
+        <SwiperSlides>11</SwiperSlides>
+        <SwiperSlides>12</SwiperSlides>
+        <SwiperSlides>13</SwiperSlides>
       </Swipers>
     </Body>
   );
@@ -67,6 +66,8 @@ const SwiperSlides = styled(SwiperSlide)`
   background: #ffffff;
   height: 50px;
   display: flex;
+  width: 20px;
   justify-content: center;
   align-items: center;
+  background-color: red;
 `;

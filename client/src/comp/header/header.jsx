@@ -48,6 +48,7 @@ const HeaderPage = styled.div`
   justify-content: space-between;
   margin-top: 10px;
   border-bottom: 1px solid #e9e9e9;
+  font-size: 20px;
 `;
 
 const H1 = styled.span`
@@ -74,15 +75,15 @@ const SearchBar = styled.div`
 const HeaderRight = styled.div`
   display: flex;
   align-items: center;
-  width: 300px;
-  height: 25px;
+  width: 500px;
+  height: 40px;
   justify-content: flex-end;
   padding-left: 100px;
 `;
 
 const SellMyAirbnb = styled.div`
   border-radius: 10px;
-  font-size: 7px;
+  font-size: 15px;
   padding: 3px;
   padding-right: 10px;
   :hover {

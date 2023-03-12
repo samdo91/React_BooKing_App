@@ -59,8 +59,8 @@ function LoginMenuBox() {
 export default LoginMenuBox;
 const PopUp = styled.div`
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   vertical-align: middle;
   font-size: 5px;
   margin: 10px;
@@ -71,22 +71,23 @@ const LoginMenu = styled.div`
   justify-content: space-around;
   flex-direction: column;
   border-radius: 10px;
-  width: 100px;
+  width: 200px;
   height:  ${(props) => {
-    props.userData ? "80px" : "100px";
+    props.userData ? "200px" : "200px";
   }}
   background-color: White;
   border: 1px solid #e9e9e9; ;
 `;
 
 const SellMyAirbnb = styled.div`
-  font-size: 0.5px;
+  font-size: 15px;
   :hover {
     background-color: #e9e9e9;
   }
 `;
 
 const Membership = styled.div`
+  font-size: 15px;
   font-weight: bold;
   :hover {
     background-color: #e9e9e9;
@@ -94,6 +95,7 @@ const Membership = styled.div`
 `;
 
 const LoginButton = styled.div`
+  font-size: 15px;
   border-bottom: 1px solid #c0c0c0;
   margin-bottom: 5px;
   :hover {
@@ -101,6 +103,7 @@ const LoginButton = styled.div`
   }
 `;
 const Span = styled.div`
+  font-size: 15px;
   :hover {
     background-color: #e9e9e9;
   }

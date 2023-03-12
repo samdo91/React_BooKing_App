@@ -41,29 +41,29 @@ const LoginMenuIcon = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #e9e9e9;
-  border-radius: 10px;
+  border-radius: 15px;
   width: ${(props) => {
-    return props.userData === true ? "50px" : "40px";
+    return props.userData === true ? "100px" : "40px";
   }};
-  height: 20px;
+  height: 30px;
   justify-content: space-around;
   box-shadow: 0.5px 0.5px 00 #c0c0c0;
 `;
 
 const SlMenus = styled(SlMenu)`
-  font-size: 7px;
+  font-size: 15px;
 `;
 
 const FiUsers = styled(FiUser)`
-  font-size: 7px;
+  font-size: 20px;
   border-radius: 10px;
   color: white;
-  width: 13px;
-  height: 13px;
+  width: 20px;
+  height: 20px;
   background-color: ${(props) => {
     return props.userData === true ? "red" : "gray";
   }};
 `;
 const Namespan = styled.span`
-  font-size: 3px;
+  font-size: 15px;
 `;
