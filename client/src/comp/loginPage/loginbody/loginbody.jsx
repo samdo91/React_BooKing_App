@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import { userDatas, loginModals } from "../../store/global/index";
 
-function Loginbody() {
+function LoginBody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loginData, setLoginData] = useState([]);
@@ -81,7 +81,7 @@ function Loginbody() {
   );
 }
 
-export default Loginbody;
+export default LoginBody;
 const BodyBox = styled.div`
   display: flex;
   flex-direction: column;

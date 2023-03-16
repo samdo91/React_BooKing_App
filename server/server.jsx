@@ -3,19 +3,17 @@ const app = express();
 http = require("http");
 const cors = require("cors");
 app.use(cors());
+// import { address } from "./address";
+
+// const {
+//   address,
+// } = require(" 'C:\\Users\\R2D2\\Desktop\\react\\React_BooKing_App\\server\\address.jsx");
 
 app.get("/server", function (req, res) {
   res.send("안들어가지네");
 });
 
 app.get("/api/countryCode", (req, res) => {
-  // res.json([
-  //   {
-  //     country: "Usa",
-  //     countryCode: +1,
-  //     phoneNumber: [0000000, 0000001, 0000002],
-  //   },
-  // ]);
   res.json([
     {
       country: "USA",
@@ -44,6 +42,10 @@ app.get("/api/countryCode", (req, res) => {
     },
   ]);
 });
+
+// app.get(`/address`, (req, res) => {
+//   res.json(address);
+// });
 
 const PORT = 4000 || process.nev.PORT;
 const localhost = "127.0.0.1";

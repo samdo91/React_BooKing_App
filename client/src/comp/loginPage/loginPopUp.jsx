@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { loginModals } from "../store/global/index";
 import { ModalDecorator } from "../store/wrapper/modalDecorator";
 import { IoMdClose } from "react-icons/io";
-import Loginbody from "./loginbody/loginbody";
+import LoginBody from "./loginbody/loginBody";
 import LoginFooter from "./loginFooter/loginFooter";
 
 function LoginPopUp() {
@@ -24,7 +24,7 @@ function LoginPopUp() {
           />
           <Spans> 로그인 또는 회원가입</Spans>
         </ModalHaeder>
-        <Loginbody />
+        <LoginBody />
         <LoginFooter />
       </StyledModal>
     </div>
