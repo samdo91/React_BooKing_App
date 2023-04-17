@@ -39,6 +39,9 @@ import { FreeMode } from "swiper";
 import { Navigation } from "swiper";
 
 function MainPageHeader() {
+  const clickIcon = (e) => {
+    console.dir(e.target);
+  };
   return (
     <Body>
       <Swipers
@@ -55,7 +58,7 @@ function MainPageHeader() {
           <GiSouthKorea />
           한옥
         </SwiperSlides>
-        <SwiperSlides value="surprise">
+        <SwiperSlides value="surprise" onClick={clickIcon}>
           <GiSurprised />
           깜짝!
         </SwiperSlides>

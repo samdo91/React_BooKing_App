@@ -16,3 +16,9 @@ export const userDataAtom = atom({
   phoneNumber: "",
   password: "",
 });
+
+//  qpi로 불러온 item 데이터, 에어비엔비 데이터를 저장한다.
+
+export const itemDatas = atom([
+  { country: "", city: "", hostName: "", picture: " ", price: " ", type: [] },
+]);
