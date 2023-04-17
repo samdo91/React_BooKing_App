@@ -2,14 +2,14 @@ import styled from "@emotion/styled";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { userDatas, loginModals } from "../../store/global/index";
+import { userDataAtom, loginModals } from "../../store/global/index";
 
 function LoginBody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loginData, setLoginData] = useState([]);
   const [passwords, setPasswords] = useState("");
-  const [userData, setUserData] = useAtom(userDatas);
+  const [userDatas, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);
 
   const handleButtonClick = (e) => {

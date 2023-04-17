@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import {
   loginModals,
   loginMenuToggles,
-  userDatas,
+  userDataAtom,
 } from "../../../store/global";
 function LoginMenuBox() {
   /*loginModal: true면 모달창이 떠있음 
@@ -18,7 +18,7 @@ function LoginMenuBox() {
      */
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
-  const [userData, setUserData] = useAtom(userDatas);
+  const [userDatas, setUserData] = useAtom(userDataAtom);
   useEffect(() => {
     if (loginModal === true) {
       setLoginMenuToggle(false);
@@ -26,8 +26,8 @@ function LoginMenuBox() {
   }, [loginModal]);
   return (
     <PopUp>
-      <LoginMenu userData={userData.login}>
-        {userData.login === true ? (
+      <LoginMenu userData={userDatas.login}>
+        {userDatas.login === true ? (
           <LoginButton>마이페이지</LoginButton>
         ) : (
           <dic>
@@ -73,7 +73,7 @@ const LoginMenu = styled.div`
   border-radius: 10px;
   width: 200px;
   height:  ${(props) => {
-    props.userData ? "200px" : "200px";
+    props.userDatas ? "200px" : "200px";
   }}
   background-color: White;
   border: 1px solid #e9e9e9; ;

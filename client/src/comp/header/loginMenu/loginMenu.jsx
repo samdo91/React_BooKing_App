@@ -2,13 +2,13 @@ import styled from "@emotion/styled";
 import React from "react";
 import { SlMenu } from "react-icons/sl";
 import { FiUser } from "react-icons/fi";
-import { loginMenuToggles, userDatas } from "../../store/global";
+import { loginMenuToggles, userDataAtom } from "../../store/global";
 import { useAtom } from "jotai";
 import LoginMenuBox from "./loginMenuBox/loginMenuBox";
 
 function LoginMenu() {
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
-  const [userData, setUserData] = useAtom(userDatas);
+  const [userDatas, setUserData] = useAtom(userDataAtom);
 
   const toggleLoginMenu = () => {
     if (loginMenuToggle === false) {
@@ -17,10 +17,10 @@ function LoginMenu() {
   };
   return (
     <LoginMenus>
-      <LoginMenuIcon onClick={toggleLoginMenu} userData={userData.login}>
+      <LoginMenuIcon onClick={toggleLoginMenu} userData={userDatas.login}>
         <SlMenus />
-        <FiUsers userData={userData.login} />
-        {userData.login === true ? <Namespan>{userData.name}</Namespan> : ""}
+        <FiUsers userData={userDatas.login} />
+        {userDatas.login === true ? <Namespan>{userDatas.name}</Namespan> : ""}
       </LoginMenuIcon>
 
       {loginMenuToggle === true ? <LoginMenuBox /> : ""}

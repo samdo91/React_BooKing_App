@@ -10,7 +10,7 @@ export const loginMenuToggles = atom(false);
 export const loginModals = atom(false);
 
 // 유저데이터가 저장된다.
-export const userDatas = atom({
+export const userDataAtom = atom({
   login: false,
   name: "",
   phoneNumber: "",
