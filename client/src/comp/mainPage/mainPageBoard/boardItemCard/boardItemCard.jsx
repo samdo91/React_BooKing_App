@@ -24,15 +24,15 @@ export default BoardItemCard;
 const CardBox = styled.div`
   display: flex;
   width: 270px;
-  height: 300px;
-  border: 1px solid #e9e9e9;
+  height: 320px;
+
   margin: 10px;
   flex-direction: column;
 `;
 
 const Image = styled.img`
   width: 260px;
-  height: 200px;
+  height: 250px;
   border-radius: 10px;
   justify-content: center;
   align-items: center;s

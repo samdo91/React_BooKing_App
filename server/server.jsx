@@ -183,7 +183,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "Mexico",
       city: "Cabo San Lucas",
-      type: ["beach", "private"],
+      type: ["beach", "private", "koreaHome"],
       price: 98000,
       hostName: "Maria",
       picture:
@@ -210,7 +210,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "India",
       city: "Jaipur",
-      type: ["private", "mansion"],
+      type: ["private", "mansion", "koreaHome"],
       price: 48000,
       hostName: "Raj",
       picture:
@@ -255,7 +255,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "Spain",
       city: "Barcelona",
-      type: ["city", "apartment"],
+      type: ["city", "apartment", "koreaHome"],
       price: 45000,
       hostName: "Javier",
       picture:
@@ -282,7 +282,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "South Africa",
       city: "Cape Town",
-      type: ["beach", "luxury"],
+      type: ["beach", "luxury", "surprise"],
       price: 82000,
       hostName: "Marius",
       picture:
@@ -291,7 +291,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "Italy",
       city: "Rome",
-      type: ["mansion"],
+      type: ["mansion", "koreaHome"],
       price: 40000,
       hostName: "Francesca",
       picture:
@@ -345,7 +345,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "United States",
       city: "Los Angeles",
-      type: ["design"],
+      type: ["design", "surprise"],
       price: 64000,
       hostName: "Jackson",
       picture:
@@ -363,7 +363,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "Italy",
       city: "Rome",
-      type: ["mansion"],
+      type: ["mansion", "surprise"],
       price: 40000,
       hostName: "Francesca",
       picture:
@@ -390,7 +390,7 @@ app.get(`/address`, (req, res) => {
     {
       country: "Australia",
       city: "Sydney",
-      type: ["cliff", "luxury"],
+      type: ["cliff", "luxury", "surprise"],
       price: 110000,
       hostName: "Ava",
       picture:

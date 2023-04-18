@@ -22,3 +22,6 @@ export const userDataAtom = atom({
 export const itemDatas = atom([
   { country: "", city: "", hostName: "", picture: " ", price: " ", type: [] },
 ]);
+
+// 더 이상 노출할 에어비앤비가 없다면?
+export const zoroItems = atom(false);

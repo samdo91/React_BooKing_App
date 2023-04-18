@@ -27,7 +27,7 @@ import styled from "@emotion/styled";
 
 import React, { useRef, useState } from "react";
 import { useAtom } from "jotai";
-import { itemDatas } from "../../store/global";
+import { itemDatas, zoroItems } from "../../store/global";
 // Import Swiper React components
 
 // Import Swiper styles
@@ -42,24 +42,35 @@ import { Navigation } from "swiper";
 
 function MainPageHeader() {
   const [itemData, setItemData] = useAtom(itemDatas);
+  const [zoroItem, setZoroItem] = useAtom(zoroItems);
 
   // Object.keys로 키를 추출해 리턴한다.
   const findKeys = (e) => {
     const List = Object.keys(e.target);
     const propsKeys = List[1];
     const types = e.target[propsKeys].value;
-    return types;
-  };
 
-  //아이콘의 값을 타입과 비교하여 필터를 돌린다.
-  const clickIcon = (event) => {
-    const keys = findKeys(event);
     const selectList = [];
     const itemList = [...itemData];
     itemList.map((item) => {
-      console.log(item.type);
+      if (item.type.includes(types)) {
+        selectList.push(item);
+      }
     });
-    itemData;
+
+    setItemData(selectList);
+    return selectList;
+  };
+
+  //
+  const clickIcon = (event) => {
+    const selectList = findKeys(event);
+    console.log(selectList);
+
+    // 인클루드 메서드를 돌았는 데도 불러온 에어비앤비 아이템이 0이라면 zoroItem을 true값으로 한다.
+    if (Array.isArray(selectList) && selectList.length === 0) {
+      setZoroItem(true);
+    }
 
     // for (let i = 0, keys = Object.keys(e); i < keys.length; i++) {
     //   if ((id = keys[i].match(/^__react[^$]*(\$.+)$/))) {
