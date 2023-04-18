@@ -3,7 +3,7 @@ import axios from "axios";
 import BoardItemCard from "./boardItemCard/boardItemCard";
 import styled from "@emotion/styled";
 import { useAtom } from "jotai";
-import { itemDatas, zoroItems } from "../../store/global";
+import { itemDatas, zoroItems, itemDataLists } from "../../store/global";
 import { Link } from "react-router-dom";
 
 function MainPageBoard() {
@@ -14,12 +14,14 @@ function MainPageBoard() {
   price: 1박당 가격, 
   type: 해더부분의 검색에 이용*/
   const [itemData, setItemData] = useAtom(itemDatas);
+  const [itemDataList, setItemDataList] = useAtom(itemDataLists);
   const [zoroItem, setZoroItem] = useAtom(zoroItems);
 
   const itemDataFuntion = async () => {
     const response = await axios.get(`http://127.0.0.1:4000/address`);
     const itemDatas = response.data;
     setItemData(itemDatas);
+    setItemDataList(itemDatas);
     return itemDatas;
   };
   useEffect(() => {
@@ -30,7 +32,7 @@ function MainPageBoard() {
     <div> 조건에 맞는 에어비앤비가 준비되지 않았어요 </div>
   ) : (
     <Div>
-      {itemData.map((item) => {
+      {itemDataList.map((item) => {
         const hostName = item.hostName;
 
         return (

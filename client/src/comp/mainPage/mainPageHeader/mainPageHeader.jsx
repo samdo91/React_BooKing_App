@@ -27,7 +27,7 @@ import styled from "@emotion/styled";
 
 import React, { useRef, useState } from "react";
 import { useAtom } from "jotai";
-import { itemDatas, zoroItems } from "../../store/global";
+import { itemDatas, zoroItems, itemDataLists } from "../../store/global";
 // Import Swiper React components
 
 // Import Swiper styles
@@ -42,6 +42,7 @@ import { Navigation } from "swiper";
 
 function MainPageHeader() {
   const [itemData, setItemData] = useAtom(itemDatas);
+  const [itemDataList, setItemDataList] = useAtom(itemDataLists);
   const [zoroItem, setZoroItem] = useAtom(zoroItems);
 
   // Object.keys로 키를 추출해 리턴한다.
@@ -58,13 +59,14 @@ function MainPageHeader() {
       }
     });
 
-    setItemData(selectList);
+    setItemDataList(selectList);
     return selectList;
   };
 
   //
   const clickIcon = (event) => {
     const selectList = findKeys(event);
+    setZoroItem(false);
     console.log(selectList);
 
     // 인클루드 메서드를 돌았는 데도 불러온 에어비앤비 아이템이 0이라면 zoroItem을 true값으로 한다.
@@ -234,6 +236,5 @@ const SwiperSlides = styled(SwiperSlide)`
   width: 20px;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
   flex-direction: column;
 `;

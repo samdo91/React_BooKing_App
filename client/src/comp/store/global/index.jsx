@@ -17,9 +17,12 @@ export const userDataAtom = atom({
   password: "",
 });
 
-//  qpi로 불러온 item 데이터, 에어비엔비 데이터를 저장한다.
-
+//  주의!!! 이게 원본이다. 이 데이터를 임의로 수정하지 말것!! qpi로 불러온 item 데이터, 에어비엔비 데이터를 저장한다.
 export const itemDatas = atom([
+  { country: "", city: "", hostName: "", picture: " ", price: " ", type: [] },
+]);
+// 이게 필터 관리에 사용되는 itemData다. 이걸 씹고뜯고맛보고 즐기자.
+export const itemDataLists = atom([
   { country: "", city: "", hostName: "", picture: " ", price: " ", type: [] },
 ]);
 

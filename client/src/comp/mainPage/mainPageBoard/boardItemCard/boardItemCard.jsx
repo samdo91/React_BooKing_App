@@ -10,7 +10,7 @@ function BoardItemCard(props) {
         <b>{city}</b> <b>{country}</b>
         <div>
           {type.map((item) => {
-            return <span>{item}</span>;
+            return <Span>{item}</Span>;
           })}
         </div>
         <div>₩ {price}/ 박</div>
@@ -36,4 +36,8 @@ const Image = styled.img`
   border-radius: 10px;
   justify-content: center;
   align-items: center;s
+`;
+
+const Span = styled.span`
+  margin-right: 10px;
 `;

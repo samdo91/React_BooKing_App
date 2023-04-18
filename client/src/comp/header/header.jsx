@@ -2,26 +2,40 @@ import React, { useState } from "react";
 import { DiAtom } from "react-icons/di";
 import styled from "@emotion/styled";
 import { useAtom } from "jotai";
-import { searchBarStates, loginMenuToggles } from "../store/global/index";
+import {
+  searchBarStates,
+  itemDatas,
+  zoroItems,
+  itemDataLists,
+} from "../store/global/index";
 import DefaultSearchBar from "./searchBar/defaultSearchBar";
 import AnywhereSearchBar from "./searchBar/anywhereSearchBar/anywhereSearchBar";
 import { BiGlobe } from "react-icons/bi";
 import LoginMenu from "./loginMenu/loginMenu";
-import LoginMenuBox from "./loginMenu/loginMenuBox/loginMenuBox";
-
+import { Link } from "react-router-dom";
 function Header() {
   /* searchBarState: 서치바의 변경에 사용한다. 서치바의 값을 변경하여 디폴트, 웨어, 에니워어로 서치창을 변경
       loginMenuToggle: 로그인메뉴아이콘을 클릭했을 떄 로그인 메뉴의 메뉴를 토글한다.
   */
   const [searchBarState, setSearchBarState] = useAtom(searchBarStates);
-  const [loginMenuToggle, setLoginMenuToggles] = useAtom(loginMenuToggles);
+  const [itemData, setItemData] = useAtom(itemDatas);
+  const [itemDataList, setItemDataList] = useAtom(itemDataLists);
+  const [zoroItem, setZoroItem] = useAtom(zoroItems);
+
+  const logoLink = () => {
+    setZoroItem(false);
+    setItemDataList(itemData);
+  };
+
   return (
     <HeaderPage>
       <H1>
         <div>
           <DiAtom />
         </div>
-        <span> boking.com</span>
+        <Link to={"/"} onClick={logoLink}>
+          <span> boking.com</span>
+        </Link>
       </H1>
       <SearchBar>
         {searchBarState === "default" ? (
