@@ -70,7 +70,7 @@ app.get(`/address`, (req, res) => {
       price: 75759,
       hostName: "Lee Jinho",
       picture:
-        "https://a0.muscache.com/im/pictures/miso/Hosting-51199169/original/c3b0ab02-dbd8-4a51-98b2-d9a31233f6c8.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-607458038229062130/original/1e20dfc7-ea12-44b2-a837-2bdcd8502133.jpeg?im_w=720",
     },
     {
       country: "India",
@@ -79,7 +79,7 @@ app.get(`/address`, (req, res) => {
       price: 828673,
       hostName: "Park Jihyo",
       picture:
-        "https://a0.muscache.com/im/pictures/9ca0d3f3-7412-4740-a160-460f16b7fb37.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-50876204/original/9df41105-3c80-40c3-829a-d7fae852c15b.jpeg?im_w=720",
     },
     {
       country: "Spain",
@@ -88,7 +88,7 @@ app.get(`/address`, (req, res) => {
       price: 242848,
       hostName: "Kim Jongin",
       picture:
-        "https://a0.muscache.com/im/pictures/9a2e0b4d-d295-4e99-ba6c-2cf77dc6146d.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/5b6242a9-8832-432b-ac79-38de2a3d0b0d.jpg?im_w=720",
     },
     {
       country: "Japan",
@@ -97,7 +97,7 @@ app.get(`/address`, (req, res) => {
       price: 819765,
       hostName: "Kang Seulgi",
       picture:
-        "https://a0.muscache.com/im/pictures/9d1c09ec-30c5-49ea-bf31-8dc3b2d6ee51.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/f18bc1db-e914-4931-aa9f-8f3a03bc22c2.jpg?im_w=720",
     },
     {
       country: "Italy",
@@ -106,7 +106,7 @@ app.get(`/address`, (req, res) => {
       price: 542422,
       hostName: "Jung Jaehyun",
       picture:
-        "https://a0.muscache.com/im/pictures/83e5a335-325c-43ec-974f-1167b1d06c51.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-50079213/original/dd5cbdce-5770-4326-be8c-32693885d9c0.jpeg?im_w=720",
     },
     {
       country: "Thailand",
@@ -115,7 +115,7 @@ app.get(`/address`, (req, res) => {
       price: 75000,
       hostName: "Nong",
       picture:
-        "https://a0.muscache.com/im/pictures/6d03ed08-ba33-4047-b37c-2e11a39f0b64.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/fe92456e-6d0b-4758-a0fa-bb80bf4f4ac1.jpg?im_w=720",
     },
     {
       country: "Japan",
@@ -124,7 +124,7 @@ app.get(`/address`, (req, res) => {
       price: 55000,
       hostName: "Sakura",
       picture:
-        "https://a0.muscache.com/im/pictures/374f3842-1ef6-413a-8b8f-1a6f3a62be0b.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/95b6a758-2acc-4861-ba67-eca78cb2f6c7.jpg?im_w=720",
     },
     {
       country: "Italy",
@@ -133,7 +133,7 @@ app.get(`/address`, (req, res) => {
       price: 95000,
       hostName: "Giovanni",
       picture:
-        "https://a0.muscache.com/im/pictures/85e5c3f5-7aeb-4c43-b4a2-afad5f7b9825.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-51954152/original/9649a1f2-384d-4a12-9f6c-690171e8bb7d.jpeg?im_w=720",
     },
     {
       country: "Mexico",
@@ -142,7 +142,7 @@ app.get(`/address`, (req, res) => {
       price: 125000,
       hostName: "Alejandro",
       picture:
-        "https://a0.muscache.com/im/pictures/58a7aaff-0291-40e2-8c62-3d6a2dbf5b5c.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-646814822102982021/original/a040ce6f-245b-42af-95db-7a5a7c59a272.jpeg?im_w=720",
     },
     {
       country: "France",
@@ -151,7 +151,7 @@ app.get(`/address`, (req, res) => {
       price: 80000,
       hostName: "Marie",
       picture:
-        "https://a0.muscache.com/im/pictures/08d41a4e-4f7b-4c80-975d-0d1d8c42b085.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-547414591513302121/original/e03b9625-1915-48eb-afad-bf3b2fe21459.jpeg?im_w=720",
     },
     {
       country: "Canada",
@@ -160,7 +160,7 @@ app.get(`/address`, (req, res) => {
       price: 110000,
       hostName: "Emily",
       picture:
-        "https://a0.muscache.com/im/pictures/475b5f5e-6d8a-4687-bcea-ef1aa08675a6.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/8340b03d-6405-4a61-ac8a-fc9d9d445f0f.jpg?im_w=720",
     },
     {
       country: "Brazil",
@@ -169,7 +169,7 @@ app.get(`/address`, (req, res) => {
       price: 95000,
       hostName: "Lucas",
       picture:
-        "https://a0.muscache.com/im/pictures/c3b17ba2-3d5a-4651-a29f-42af6da0b0c9.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/9bd8b267-03ae-4ab8-ae7a-c4dc039c9af0.jpg?im_w=720",
     },
     {
       country: "Germany",
@@ -178,7 +178,7 @@ app.get(`/address`, (req, res) => {
       price: 75000,
       hostName: "Max",
       picture:
-        "https://a0.muscache.com/im/pictures/9b5f1e5d-faad-4a70-8a4e-3ebc23f1a0d3.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/8fc60ec1-ab3c-4c1a-afd7-bfea97a5babc.jpg?im_w=720",
     },
     {
       country: "Mexico",
@@ -187,7 +187,7 @@ app.get(`/address`, (req, res) => {
       price: 98000,
       hostName: "Maria",
       picture:
-        "https://a0.muscache.com/im/pictures/59fd2836-d1ba-4271-ba7d-6c105cd6f148.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-53655482/original/61f23390-01ad-4daf-b20f-4c86f3e05a58.jpeg?im_w=720",
     },
     {
       country: "Thailand",
@@ -196,7 +196,7 @@ app.get(`/address`, (req, res) => {
       price: 125000,
       hostName: "Somchai",
       picture:
-        "https://a0.muscache.com/im/pictures/fb0e0f97-e9a9-45c5-96d7-70c76f8b1ab2.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-44030609/original/abe0ffb1-8c83-4ce3-ad41-8f67e0f4eeef.jpeg?im_w=720",
     },
     {
       country: "Australia",
@@ -205,7 +205,7 @@ app.get(`/address`, (req, res) => {
       price: 275000,
       hostName: "Jack",
       picture:
-        "https://a0.muscache.com/im/pictures/194eb5a5-9f5b-4c4b-bd1e-44cf8ee833ad.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-634978112134674011/original/b7b963d6-f76d-4f40-88fd-444df9389e22.jpeg?im_w=720",
     },
     {
       country: "India",
@@ -214,7 +214,7 @@ app.get(`/address`, (req, res) => {
       price: 48000,
       hostName: "Raj",
       picture:
-        "https://a0.muscache.com/im/pictures/f52d91d5-71c3-47e5-b5d9-9f0d4462ca7c.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/bc01e788-59d2-4e39-8d60-0c0c14689763.jpg?im_w=720",
     },
     {
       country: "Brazil",
