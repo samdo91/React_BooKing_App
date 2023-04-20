@@ -3,8 +3,17 @@ const app = express();
 http = require("http");
 const cors = require("cors");
 app.use(cors());
+app.use(express.json());
 //mongoDB를 사용해보자.
 const { MongoClient, ServerApiVersion } = require("mongodb");
+// mogoosef로 업그레이드
+const mongoose = require("mongoose");
+// 거기에 dotenv를 뿌리면?
+require("dotenv").config();
+const User = require(`./models/user.jsx`);
+// bcrypt 란 암호 복호화이다.
+const bcrypt = require("bcrypt");
+const userPasswordBcrypt = bcrypt.genSaltSync(10);
 
 // import { address } from "./address";
 
@@ -13,32 +22,28 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 // } = require(" 'C:\\Users\\R2D2\\Desktop\\react\\React_BooKing_App\\server\\address.jsx");
 
 // 내 mongoDB uri인겁니다 api에 연결해줘요.
-const uri =
-  "mongodb+srv://bigcastle0415:<ehehto23!@9bsnd4>@samdo91.acmqq7q.mongodb.net/?retryWrites=true&w=majority";
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+const { DB_URL, DB_URL_TEST } = process.env;
 
-async function run() {
+// mongoose를 사용해보자.
+mongoose.connect(DB_URL_TEST);
+
+app.post(`/register`, async (req, res) => {
+  console.log(req.body);
+  const { name, email, password } = req.body;
+
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    const userDoc = await User.create({
+      name,
+      email,
+      password: bcrypt.hashSync(password, userPasswordBcrypt),
+    });
+
+    console.log(userDoc);
+    res.json(userDoc);
+  } catch (e) {
+    res.status(422).json(e);
   }
-}
-run().catch(console.dir);
+});
 
 app.get("/server", function (req, res) {
   res.send("안들어가지네");

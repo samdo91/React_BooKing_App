@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { loginModals } from "../store/global/index";
 import { ModalDecorator } from "../store/wrapper/modalDecorator";
 import { IoMdClose } from "react-icons/io";
-import LoginBody from "./loginbody/loginBody";
+import LoginBody from "./loginbody/loginbody";
 import LoginFooter from "./loginFooter/loginFooter";
 
 function LoginPopUp() {
