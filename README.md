@@ -17,6 +17,12 @@
       
     -4. 로그인페이지를 업그레이드 해보자. 데이터베이스를 사용하는 법  
     
-        MongoDB Atlas란?
-
+        1. MongoDB Atlas란?
+        2. Mongoose
+            -Mongoose는 Node.js와 MongoDB를 위한 ODM(Object Data Mapping) library이다. Java 기반의 Hibernate. iBatis 등의 ORM(Object Relational Mapping)과 유사한 개념이다.
+        3. dotenv 
+            -환경 변수를 파일에 저장해놓고 접근할 수 있게 도와주는 dotenv 라이브러리에 대해서 알아보겟습니다.
+            
+        4. bcypt
+            -bcypt는 블로피시 암호에 기반을 둔 암호화 해시 함수로서 Niels Provos와 David Mazières가 설계하였으며 1999년 USENIX에서 발표되었다. 
     -5. 마이페이지 만들기 
