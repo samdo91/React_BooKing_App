@@ -12,30 +12,41 @@ function LoginBody() {
   const [userDatas, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);
 
-  const handleButtonClick = (e) => {
-    if (phoneNumber !== "" || passwords !== "") {
-      console.log(phoneNumber);
-      serverLoginData();
+  const registerPost = async () => {
+    console.log("first");
+    try {
+      await axios.post("http://127.0.0.1:4000/login", {
+        password: passwords,
+        countryCode: countryCode,
+        phoneNumber: phoneNumber,
+      });
+    } catch (e) {
+      alert("제출이 제대로 되지 않았음 왜일까????");
     }
-  };
-  const serverLoginData = async () => {
-    const response = await axios.get(`http://127.0.0.1:4000/api/countryCode`);
-    const loginDatas = response.data;
-    setLoginData(loginDatas?.find((item) => item.country === "Korea").user);
-
-    // loginData.find((item) => item.country === "Korea");
+    console.log("scoed");
   };
 
-  useEffect(() => {
-    if (loginData.length > 1) {
-      const user = loginData.find((user) => user.phoneNumber == phoneNumber);
+  // const handleButtonClick = (e) => {
+  //   if (phoneNumber !== "" || passwords !== "") {
+  //     serverLoginData();
+  //   }
+  // };
+  // const serverLoginData = async () => {
+  //   const response = await axios.get(`http://127.0.0.1:4000/api/countryCode`);
+  //   const loginDatas = response.data;
+  //   setLoginData(loginDatas?.find((item) => item.country === "Korea").user);
+  // };
 
-      if (user.password == passwords) {
-        setUserData({ login: true, ...user });
-        setLoginModal(false);
-      }
-    }
-  }, [loginData]);
+  // useEffect(() => {
+  //   if (loginData.length > 1) {
+  //     const user = loginData.find((user) => user.phoneNumber == phoneNumber);
+
+  //     if (user.password == passwords) {
+  //       setUserData({ login: true, ...user });
+  //       setLoginModal(false);
+  //     }
+  //   }
+  // }, [loginData]);
 
   return (
     <BodyBox>
@@ -46,10 +57,10 @@ function LoginBody() {
             setCountryCode(e.target.value);
           }}
         >
-          <option value="+1">미국(+1)</option>
-          <option value="+60">말레이시아(+60)</option>
-          <option value="+82">한국(+82)</option>
-          <option value="+595">파라과이(+595)</option>
+          <option value="1">미국(+1)</option>
+          <option value="60">말레이시아(+60)</option>
+          <option value="82">한국(+82)</option>
+          <option value="595">파라과이(+595)</option>
           <option value="이하 생략">이하 생략</option>
         </Select>
         <Input
@@ -76,7 +87,7 @@ function LoginBody() {
         요금이 부과됩니다.
         <div>개인정보처리방침</div>
       </Counseling>
-      <Button onClick={handleButtonClick}>계속</Button>
+      <Button onClick={registerPost}>계속</Button>
     </BodyBox>
   );
 }

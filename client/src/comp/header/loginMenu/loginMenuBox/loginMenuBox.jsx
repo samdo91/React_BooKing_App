@@ -6,6 +6,7 @@ import {
   loginMenuToggles,
   userDataAtom,
 } from "../../../store/global";
+import { Link } from "react-router-dom";
 function LoginMenuBox() {
   /*loginModal: true면 모달창이 떠있음 
   loginMenuToggle: 상단 로그인 창의 메뉴를 토글함
@@ -31,13 +32,9 @@ function LoginMenuBox() {
           <LoginButton>마이페이지</LoginButton>
         ) : (
           <dic>
-            <Membership
-              onClick={() => {
-                setLoginModal(true);
-              }}
-            >
-              회원가입
-            </Membership>
+            <Link to="/register">
+              <Membership>회원가입</Membership>
+            </Link>
             <LoginButton
               onClick={() => {
                 setLoginModal(true);

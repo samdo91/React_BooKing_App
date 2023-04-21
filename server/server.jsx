@@ -1,8 +1,15 @@
 const express = require("express");
 const app = express();
 http = require("http");
-const cors = require("cors");
-app.use(cors());
+var cors = require("cors");
+const localhost = "127.0.0.1";
+app.use(
+  cors({
+    optionSuccessStatus: 200,
+    origin: `http://${localhost}:5173`,
+    credential: "true", // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
+  })
+); // Use this after the variable declaration
 app.use(express.json());
 //mongoDB를 사용해보자.
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -14,12 +21,9 @@ const User = require(`./models/user.jsx`);
 // bcrypt 란 암호 복호화이다.
 const bcrypt = require("bcrypt");
 const userPasswordBcrypt = bcrypt.genSaltSync(10);
-
-// import { address } from "./address";
-
-// const {
-//   address,
-// } = require(" 'C:\\Users\\R2D2\\Desktop\\react\\React_BooKing_App\\server\\address.jsx");
+// jsonwebtoken을 사용해보자. 토큰 만들기
+const jwt = require("jsonwebtoken");
+const jwtSecret = "1q2w3e4r!";
 
 // 내 mongoDB uri인겁니다 api에 연결해줘요.
 const { DB_URL, DB_URL_TEST } = process.env;
@@ -29,13 +33,16 @@ mongoose.connect(DB_URL_TEST);
 
 app.post(`/register`, async (req, res) => {
   console.log(req.body);
-  const { name, email, password } = req.body;
+  const { name, email, password, countryCode, phoneNumber } = req.body;
 
   try {
+    // User.create를 사용하여 도큐먼트를 만들면 DB에 저장된다.
     const userDoc = await User.create({
       name,
       email,
       password: bcrypt.hashSync(password, userPasswordBcrypt),
+      countryCode,
+      phoneNumber,
     });
 
     console.log(userDoc);
@@ -45,11 +52,52 @@ app.post(`/register`, async (req, res) => {
   }
 });
 
-app.get("/server", function (req, res) {
-  res.send("안들어가지네");
+const findPhoneNumber = (userDoc, countryCode, password) => {
+  const userId = userDoc.filter((item) => {
+    return item.countryCode === countryCode;
+  });
+
+  // bcrypt.compareSync 통해 복호화된 페스워드와 loginpage에서 포스트한 페스워드와 비교한다. 결과는 boolean으로 재출된다.
+  const passOK = bcrypt.compareSync(password, userId[0].password);
+
+  if (passOK) {
+    return userId[0];
+  } else {
+    alert("비밀번호가 틀렸어");
+  }
+};
+
+app.get(`/login`, async (req, res) => {
+  const { password, countryCode, phoneNumber } = req.body;
+  // find로 맞는 폰 넘버를 가진 쿼리? 도큐먼트?를 찾아온다.
+  const userDoc = await User.find({ phoneNumber });
+
+  const users = findPhoneNumber(userDoc, countryCode, password);
+
+  if (users) {
+    res.json("pass");
+    // jwt.sign(
+    //   { email: users.email, id: users._id },
+    //   jwtSecret,
+    //   {},
+    //   (err, token) => {
+    //     if (err) throw err;
+
+    //     res.cookie(`token`, token).json("pass ok");
+    //   }
+    // );
+  } else {
+    res.status(422).json("pass not ok");
+  }
+});
+
+app.post("/server", function (req, res) {
+  console.log(2);
+  res.json("안들어가지네");
 });
 
 app.get("/api/countryCode", (req, res) => {
+  res.setHeader("Access-Control-Allow-origin", "*");
   res.json([
     {
       country: "USA",
@@ -80,6 +128,7 @@ app.get("/api/countryCode", (req, res) => {
 });
 
 app.get(`/address`, (req, res) => {
+  res.setHeader("Access-Control-Allow-origin", "*");
   res.json([
     {
       country: "South Korea",
@@ -598,7 +647,7 @@ app.get(`/address`, (req, res) => {
 });
 
 const PORT = 4000 || process.nev.PORT;
-const localhost = "127.0.0.1";
-http.createServer(app).listen(PORT, localhost, () => {
-  console.log(`${PORT} 연결 완료`);
+
+app.listen(PORT, localhost, () => {
+  console.log(`${localhost} ${PORT} 연결 완료`);
 });
