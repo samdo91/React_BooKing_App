@@ -15,11 +15,17 @@ function LoginBody() {
   const registerPost = async () => {
     console.log("first");
     try {
-      await axios.post("http://127.0.0.1:4000/login", {
-        password: passwords,
-        countryCode: countryCode,
-        phoneNumber: phoneNumber,
-      });
+      await axios.post(
+        "http://127.0.0.1:4000/login",
+        {
+          password: passwords,
+          countryCode: countryCode,
+          phoneNumber: phoneNumber,
+        },
+        {
+          withCredentials: true, // credentials 설정
+        }
+      );
     } catch (e) {
       alert("제출이 제대로 되지 않았음 왜일까????");
     }

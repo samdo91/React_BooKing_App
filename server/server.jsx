@@ -6,10 +6,11 @@ const localhost = "127.0.0.1";
 app.use(
   cors({
     optionSuccessStatus: 200,
-    origin: `http://${localhost}:5173`,
-    credential: "true", // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
+    origin: `http://localhost:5173`,
+    credentials: true, // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
   })
 ); // Use this after the variable declaration
+
 app.use(express.json());
 //mongoDB를 사용해보자.
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -67,25 +68,25 @@ const findPhoneNumber = (userDoc, countryCode, password) => {
   }
 };
 
-app.get(`/login`, async (req, res) => {
+app.post(`/login`, async (req, res) => {
+  // post로 변경
   const { password, countryCode, phoneNumber } = req.body;
   // find로 맞는 폰 넘버를 가진 쿼리? 도큐먼트?를 찾아온다.
   const userDoc = await User.find({ phoneNumber });
-
   const users = findPhoneNumber(userDoc, countryCode, password);
+  console.log(users);
 
   if (users) {
-    res.json("pass");
-    // jwt.sign(
-    //   { email: users.email, id: users._id },
-    //   jwtSecret,
-    //   {},
-    //   (err, token) => {
-    //     if (err) throw err;
+    jwt.sign(
+      { email: users.email, id: users._id },
+      jwtSecret,
+      {},
+      (err, token) => {
+        if (err) throw err;
 
-    //     res.cookie(`token`, token).json("pass ok");
-    //   }
-    // );
+        res.cookie(`token`, token).json("pass ok");
+      }
+    );
   } else {
     res.status(422).json("pass not ok");
   }
