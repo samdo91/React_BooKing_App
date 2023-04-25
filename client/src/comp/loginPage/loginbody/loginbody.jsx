@@ -7,15 +7,15 @@ import { userDataAtom, loginModals } from "../../store/global/index";
 function LoginBody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [loginData, setLoginData] = useState([]);
+  const [loginData, setLoginData] = useState(false);
   const [passwords, setPasswords] = useState("");
-  const [userDatas, setUserData] = useAtom(userDataAtom);
+  const [userData, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);
 
   const registerPost = async () => {
     console.log("first");
     try {
-      await axios.post(
+      const loginSuccessData = await axios.post(
         "http://127.0.0.1:4000/login",
         {
           password: passwords,
@@ -26,10 +26,12 @@ function LoginBody() {
           withCredentials: true, // credentials 설정
         }
       );
+
+      setUserData({ login: true, token: true, ...loginSuccessData.data });
+      setLoginModal(false);
     } catch (e) {
       alert("제출이 제대로 되지 않았음 왜일까????");
     }
-    console.log("scoed");
   };
 
   // const handleButtonClick = (e) => {

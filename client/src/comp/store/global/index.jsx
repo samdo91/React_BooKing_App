@@ -12,9 +12,12 @@ export const loginModals = atom(false);
 // 유저데이터가 저장된다.
 export const userDataAtom = atom({
   login: false,
+  token: false,
   name: "",
+  email: "",
   phoneNumber: "",
   password: "",
+  countryCode: "",
 });
 
 //  주의!!! 이게 원본이다. 이 데이터를 임의로 수정하지 말것!! qpi로 불러온 item 데이터, 에어비엔비 데이터를 저장한다.
@@ -28,3 +31,8 @@ export const itemDataLists = atom([
 
 // 더 이상 노출할 에어비앤비가 없다면?
 export const zoroItems = atom(false);
+
+// 로그인이 되어 있는가?
+export const loginStates = atom(false);
+
+//

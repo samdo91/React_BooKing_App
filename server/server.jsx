@@ -25,6 +25,9 @@ const userPasswordBcrypt = bcrypt.genSaltSync(10);
 // jsonwebtoken을 사용해보자. 토큰 만들기
 const jwt = require("jsonwebtoken");
 const jwtSecret = "1q2w3e4r!";
+//cookieParser? 쿠키 데이터를 JavaScript 객체로 변환하는 기능을 제공한다.
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 // 내 mongoDB uri인겁니다 api에 연결해줘요.
 const { DB_URL, DB_URL_TEST } = process.env;
@@ -73,18 +76,25 @@ app.post(`/login`, async (req, res) => {
   const { password, countryCode, phoneNumber } = req.body;
   // find로 맞는 폰 넘버를 가진 쿼리? 도큐먼트?를 찾아온다.
   const userDoc = await User.find({ phoneNumber });
+  // 최종적으로 걸러낸 진짜 유저다.
   const users = findPhoneNumber(userDoc, countryCode, password);
-  console.log(users);
 
+  //토큰의 수명
+  const options = {
+    expiresIn: 30, // 30 seconds
+  };
   if (users) {
     jwt.sign(
-      { email: users.email, id: users._id },
+      { email: users.email, id: users._id, name: users.name },
+
       jwtSecret,
-      {},
+      { expiresIn: "30s" },
       (err, token) => {
         if (err) throw err;
 
-        res.cookie(`token`, token).json("pass ok");
+        res
+          .cookie(`token`, token, { sameSite: "none", secure: true })
+          .json(users);
       }
     );
   } else {
@@ -645,6 +655,34 @@ app.get(`/address`, (req, res) => {
         "https://a0.muscache.com/im/pictures/2c06e7e1-3606-4611-a8af-bf11c0dab19d.jpg?im_w=720",
     },
   ]);
+});
+
+//토큰의 유무를 검사하는 함수
+function verifyToken(token) {
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+app.post(`/profile`, (req, res) => {
+  const { token } = req.cookies;
+  const tokens = verifyToken(token);
+
+  if (tokens) {
+    // Token(JWT)을 검증하는 함수 verify
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      const cookies = await User.findById(userData.id);
+
+      res.json(cookies);
+    });
+    token;
+  } else {
+    res.json(false);
+  }
 });
 
 const PORT = 4000 || process.nev.PORT;

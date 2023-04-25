@@ -14,7 +14,7 @@ function MainPage() {
       <Header />
       <MainPageHeader />
       {loginModal ? <LoginPopUp /> : ""}
-      <MainPageBoard />
+      {/* <MainPageBoard /> */}
     </Div>
   );
 }

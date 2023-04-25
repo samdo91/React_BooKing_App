@@ -1,14 +1,51 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SlMenu } from "react-icons/sl";
 import { FiUser } from "react-icons/fi";
-import { loginMenuToggles, userDataAtom } from "../../store/global";
+import {
+  loginMenuToggles,
+  userDataAtom,
+  loginStates,
+} from "../../store/global";
 import { useAtom } from "jotai";
+import axios from "axios";
 import LoginMenuBox from "./loginMenuBox/loginMenuBox";
 
 function LoginMenu() {
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
   const [userDatas, setUserData] = useAtom(userDataAtom);
+  const [loginState, setLoginState] = useAtom(loginStates);
+
+  //쿠키가 있나 없나 검증하며 있다면 쿠키를 불러온다.
+  const logincookie = async () => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:4000/profile`);
+
+      if (response.data === false) {
+        return;
+      } else {
+        setUserData({ login: true, token: true, ...response.data });
+        console.log("토큰 있음", response.data);
+      }
+    } catch (e) {
+      ("어딘가 갔어");
+    }
+
+    return response.data;
+  };
+
+  useEffect(() => {
+    if (userDatas.token === false) {
+      const response = logincookie();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userDatas.login) {
+      setLoginState(true);
+      console.log(userDatas);
+    }
+  }, [userDatas]);
 
   const toggleLoginMenu = () => {
     if (loginMenuToggle === false) {
@@ -19,8 +56,8 @@ function LoginMenu() {
     <LoginMenus>
       <LoginMenuIcon onClick={toggleLoginMenu} userData={userDatas.login}>
         <SlMenus />
-        <FiUsers userData={userDatas.login} />
-        {userDatas.login === true ? <Namespan>{userDatas.name}</Namespan> : ""}
+        <FiUsers userData={loginState} />
+        {loginState === true ? <Namespan>{userDatas.name}</Namespan> : ""}
       </LoginMenuIcon>
 
       {loginMenuToggle === true ? <LoginMenuBox /> : ""}
