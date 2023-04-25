@@ -35,4 +35,6 @@
               1.쿠키를 첨부해서 보내는 요청
               2.헤더에 Authorization 항목이 있는 요청
               따라서, 보내고자 하는 요청이 위 두 가지 항목 중 한 가지라도 포함하고 있다면 withCredentials 옵션을 true로 설정해야만 합니다.
+         6. cookie-parser
+              
     -5. 마이페이지 만들기 
