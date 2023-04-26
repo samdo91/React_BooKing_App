@@ -88,7 +88,7 @@ app.post(`/login`, async (req, res) => {
       { email: users.email, id: users._id, name: users.name },
 
       jwtSecret,
-      { expiresIn: "30s" },
+      { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
 
@@ -108,7 +108,7 @@ app.post("/server", function (req, res) {
 });
 
 app.get("/api/countryCode", (req, res) => {
-  res.setHeader("Access-Control-Allow-origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
   res.json([
     {
       country: "USA",
@@ -138,8 +138,8 @@ app.get("/api/countryCode", (req, res) => {
   ]);
 });
 
-app.get(`/address`, (req, res) => {
-  res.setHeader("Access-Control-Allow-origin", "*");
+app.post(`/address`, (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
   res.json([
     {
       country: "South Korea",
@@ -682,6 +682,21 @@ app.post(`/profile`, (req, res) => {
     token;
   } else {
     res.json(false);
+  }
+});
+
+app.post(`/logout`, (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  const { token } = req.cookies;
+  const tokens = verifyToken(token);
+  if (tokens) {
+    jwt.sign({}, jwtSecret, { expiresIn: "1s" }, (err, token) => {
+      if (err) throw err;
+
+      res
+        .cookie(`token`, token, { sameSite: "none", secure: true })
+        .json("Love");
+    });
   }
 });
 

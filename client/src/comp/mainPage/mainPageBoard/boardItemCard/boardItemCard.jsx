@@ -25,7 +25,6 @@ const CardBox = styled.div`
   display: flex;
   width: 270px;
   height: 320px;
-
   margin: 10px;
   flex-direction: column;
 `;
@@ -33,9 +32,9 @@ const CardBox = styled.div`
 const Image = styled.img`
   width: 260px;
   height: 250px;
-  border-radius: 10px;
+
   justify-content: center;
-  align-items: center;s
+  align-items: center;
 `;
 
 const Span = styled.span`

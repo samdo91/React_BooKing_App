@@ -28,7 +28,7 @@ function LoginMenu() {
         console.log("토큰 있음", response.data);
       }
     } catch (e) {
-      ("어딘가 갔어");
+      console.log("토큰 없음");
     }
 
     return response.data;

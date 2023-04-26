@@ -5,8 +5,10 @@ import {
   loginModals,
   loginMenuToggles,
   userDataAtom,
+  loginStates,
 } from "../../../store/global";
 import { Link } from "react-router-dom";
+import axios from "axios";
 function LoginMenuBox() {
   /*loginModal: true면 모달창이 떠있음 
   loginMenuToggle: 상단 로그인 창의 메뉴를 토글함
@@ -20,18 +22,37 @@ function LoginMenuBox() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
   const [userDatas, setUserData] = useAtom(userDataAtom);
+  const [loginState, setLoginState] = useAtom(loginStates);
   useEffect(() => {
     if (loginModal === true) {
       setLoginMenuToggle(false);
     }
   }, [loginModal]);
+
+  // 로그아웃 펑션
+  const handlerLogout = async () => {
+    const response = await axios.post(`http://127.0.0.1:4000/logout`);
+    setUserData({
+      login: false,
+      token: false,
+      ...response,
+    });
+
+    setLoginState(false);
+  };
   return (
     <PopUp>
       <LoginMenu userData={userDatas.login}>
         {userDatas.login === true ? (
-          <LoginButton>마이페이지</LoginButton>
+          <div>
+            <Link to="/myPage">
+              <LoginButton>마이페이지</LoginButton>
+            </Link>
+
+            <LoginButton onClick={handlerLogout}>로그아웃</LoginButton>
+          </div>
         ) : (
-          <dic>
+          <div>
             <Link to="/register">
               <Membership>회원가입</Membership>
             </Link>
@@ -42,7 +63,7 @@ function LoginMenuBox() {
             >
               로그인
             </LoginButton>
-          </dic>
+          </div>
         )}
 
         <SellMyAirbnb>당신의 공간을 에어비앤비하세요</SellMyAirbnb>
