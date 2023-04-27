@@ -46,3 +46,22 @@
             
             1.회원가입과 비슷하다고 생각하면 된다. mongoose를 이용하여 스키마를 만들고 스키마로 모델을 만들어 acommodatonPage를 만들고 input을 만들어 서버에 명령어를 넣어주된다.
             !!근데 사진은???
+                    사진을 넣은 법은 두가지다
+                    -1. 링크로 
+                        물론 이전에 배운 방식대로 인터넷에 떠도는 이미지를 가져올 수도 있다. img 태그에 링크만 입력해주면 ok
+                        하지만  그걸로 될까? 안전하지 않다. 그럼? 이미지를 내가 가지고 있게 하자.
+                       1. Node Image Downloader 
+                       
+                             download.image({
+                                // 다운 받을 이미지의 url
+                                url: link,
+                                // 파일을 저장할 곳과 파일의 이름
+                                dest: __dirname + `/uploads/` + newName,
+                                })
+                                
+                                
+                       2. app.use("/uploads", express.static(__dirname + "/uploads"));
+                        
+                        -Node Image Downloader는 Node.js 환경에서 이미지를 다운로드하는 라이브러리입니다.
+                    -2. 내가 가진 디렉토리로 
+                        나는 이것을 알고 있다. input type="file"
