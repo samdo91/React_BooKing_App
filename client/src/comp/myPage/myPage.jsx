@@ -18,20 +18,19 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   const MyPageList = [
     {
       name: "개인정보",
-      introduction: " 개인정보 및 연락처를 알려주세요",
+      introduction: " 개인정보 및 연락처를 등록하고 관리하세요.",
       to: "/myPage/Account",
     },
     {
-      name: "로그인 및 보안 ",
-      introduction: "비밀번호를 번경하고 계정을 안전하게",
+      name: "예약 상황 ",
+      introduction: "내가 예약한 숙소를 확인해보세요.",
       to: "",
     },
-    { name: "블라블라", introduction: "자리 채우기", to: "" },
-    { name: "블라블리", introduction: "자리채우기", to: "" },
-    { name: "블라블라", introduction: "자리 채우기", to: "" },
-    { name: "블라블리", introduction: "자리채우기", to: "" },
-    { name: "블라블라", introduction: "자리 채우기", to: "" },
-    { name: "블라블리", introduction: "자리채우기", to: "" },
+    {
+      name: "acommodatons",
+      introduction: "숙박 업소를 등록해보자",
+      to: "/myPage/Acommodaton ",
+    },
   ];
 
   useEffect(() => {
@@ -44,10 +43,10 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
       <Header />
       <Body>
         <Link to="/myPage">
-          <H1>계정</H1>
+          <H1>마이 페이지</H1>
         </Link>
         <span>
-          {userData.name}, {userData.email} 프로필로 이동
+          {userData.name}, {userData.email}
         </span>
         <MyPageBody>
           {MyPageList.map((item) => {

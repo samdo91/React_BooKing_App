@@ -5,6 +5,8 @@ import DetailPage from "../../detailPage/detailPage";
 import RegisterPage from "../../registerPage/registerPage";
 import MyPage from "../../myPage/myPage";
 import AccountPage from "../../myPage/accountpage/accountPage";
+import PrivacyPage from "../../myPage/accountPage/PrivacyPage/PrivacyPage";
+import AcommodatonPage from "../../myPage/acommodatonPage/acommodatonPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -29,5 +31,13 @@ export const router = createBrowserRouter([
   {
     path: "/myPage/Account",
     element: <AccountPage />,
+  },
+  {
+    path: "/myPage/Account/privacy",
+    element: <PrivacyPage />,
+  },
+  {
+    path: `/myPage/Acommodaton`,
+    element: <AcommodatonPage />,
   },
 ]);
