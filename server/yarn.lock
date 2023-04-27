@@ -380,6 +380,11 @@
     "statuses" "2.0.1"
     "unpipe" "~1.0.0"
 
+"follow-redirects@^1.15.0":
+  "integrity" "sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA=="
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
+  "version" "1.15.2"
+
 "forwarded@0.2.0":
   "integrity" "sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow=="
   "resolved" "https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz"
@@ -502,6 +507,13 @@
   "integrity" "sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA=="
   "resolved" "https://registry.npmjs.org/ignore-by-default/-/ignore-by-default-1.0.1.tgz"
   "version" "1.0.1"
+
+"image-downloader@^4.3.0":
+  "integrity" "sha512-UBioN0E+8zu8N0lLC6wkZmPA/MA1A3yx9B1whjy5O/YiOV9XrSxLLKi7JqLLj6knQ3n9N1OBoHFS7shp8sehBQ=="
+  "resolved" "https://registry.npmjs.org/image-downloader/-/image-downloader-4.3.0.tgz"
+  "version" "4.3.0"
+  dependencies:
+    "follow-redirects" "^1.15.0"
 
 "inflight@^1.0.4":
   "integrity" "sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA=="

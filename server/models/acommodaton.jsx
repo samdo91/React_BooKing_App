@@ -12,8 +12,8 @@ const acommodatonSchema = new mongoose.Schema({
   description: String,
   perks: [String],
   extraInfo: String,
-  chekIn: Number,
-  chekOut: Number,
+  checkIn: Number,
+  checkOut: Number,
   maxGuests: Number,
 });
 

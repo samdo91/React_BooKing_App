@@ -14,20 +14,30 @@ app.use(
 app.use(express.json());
 //mongoDB를 사용해보자.
 const { MongoClient, ServerApiVersion } = require("mongodb");
+
 // mogoosef로 업그레이드
 const mongoose = require("mongoose");
+
 // 거기에 dotenv를 뿌리면?
 require("dotenv").config();
+
+// rgister와 login에 쓰이는 모델
 const User = require(`./models/user.jsx`);
 // bcrypt 란 암호 복호화이다.
+
 const bcrypt = require("bcrypt");
 const userPasswordBcrypt = bcrypt.genSaltSync(10);
+
 // jsonwebtoken을 사용해보자. 토큰 만들기
 const jwt = require("jsonwebtoken");
 const jwtSecret = "1q2w3e4r!";
+
 //cookieParser? 쿠키 데이터를 JavaScript 객체로 변환하는 기능을 제공한다.
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
+// Node Image Downloader Node.js 환경에서 이미지를 다운로드하는 라이브러리
+const download = require("image-downloader");
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 // 내 mongoDB uri인겁니다 api에 연결해줘요.
 const { DB_URL, DB_URL_TEST } = process.env;
@@ -699,6 +709,47 @@ app.post(`/logout`, (req, res) => {
     });
   }
 });
+
+app.post("/photoLink", async (req, res) => {
+  const { link } = req.body;
+  const newName = "photo" + Date.now() + ".jpg";
+
+  try {
+    await new Promise((resolve, reject) => {
+      download
+        .image({
+          // 다운 받을 이미지의 url
+          url: link,
+          // 파일을 저장할 곳과 파일의 이름
+          dest: __dirname + `/uploads/` + newName,
+        })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+
+    res.json(newName);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// app.post("/photoLink", (req, res) => {
+//   const { link } = req.body;
+//   const newName = "photo" + Date.now() + ".jpg";
+
+//   download.image({
+//     // 다운 받을 이미지의 url
+//     url: link,
+//     // 파일을 저장할 곳과 파일의 이름
+//     dest: __dirname + `/uploads` + newName,
+//   });
+//   res.json(newName);
+// });
 
 const PORT = 4000 || process.nev.PORT;
 
