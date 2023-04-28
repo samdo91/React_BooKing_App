@@ -65,3 +65,4 @@
                         -Node Image Downloader는 Node.js 환경에서 이미지를 다운로드하는 라이브러리입니다.
                     -2. 내가 가진 디렉토리로 
                         나는 이것을 알고 있다. input type="file"
+                        multer
