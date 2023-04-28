@@ -14,7 +14,8 @@ import {
   AiOutlineCar,
 } from "react-icons/ai";
 import axios from "axios";
-
+import PerksSection from "./Section/PerksSection";
+import TypeSection from "./Section/typeSection";
 function AcommodatonPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
 loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
@@ -27,6 +28,12 @@ acommodatonDescription: 숙소 설명
 acommodatonCheckIn: 체크인 시간 
 acommodatonCheckOut: 체크 아웃 시간
 acommodatonMaxGuests: 최대 인원
+acommodatonType:숙소의 타입
+acommodatonhostName: 호스트 이름 
+acommodatonCountry: 나라, 
+acommodatonCity: 도시, 
+acommodatonPrice: 1박당 가격,
+
 */
   const [userData, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);
@@ -37,10 +44,15 @@ acommodatonMaxGuests: 최대 인원
   const [acommodatonPhotos, setAcommodatonPhotos] = useState([]);
   const [acommodatonDescription, setAcommodatonDescription] = useState([]);
   const [acommodatonPerks, setAcommodatonPerks] = useState([]);
+  const [acommodatonType, setAcommodatonType] = useState([]);
   const [acommodatonExtraInfo, setAcommodatonExtraInfo] = useState("");
   const [acommodatonCheckIn, setAcommodatonCheckIn] = useState("");
   const [acommodatonCheckOut, setAcommodatonCheckOut] = useState("");
   const [acommodatonMaxGuests, setAcommodatonMaxGuests] = useState("");
+  const [acommodatonCountry, setAcommodatonCountry] = useState("");
+  const [acommodatonCity, setAcommodatonCity] = useState("");
+  const [acommodatonPrice, setAcommodatonPrice] = useState("");
+  const [acommodatonhostName, setAcommodatonhostName] = useState("");
 
   const state_LIST = [
     acommodatonTitle,
@@ -52,16 +64,11 @@ acommodatonMaxGuests: 최대 인원
     acommodatonCheckIn,
     acommodatonCheckOut,
     acommodatonMaxGuests,
-  ];
-
-  // perk 리스트만듬
-  const CATEGORY_LIST = [
-    { id: 0, value: "wife", icon: "AiOutlineWifi" },
-    { id: 1, value: "TV", icon: false },
-    { id: 2, value: "Pets", icon: false },
-    { id: 3, value: "Free parking spot", icon: "AiOutlineCar" },
-    { id: 4, value: "라디오", icon: false },
-    { id: 5, value: "드라이기", icon: false },
+    acommodatonPrice,
+    acommodatonCity,
+    acommodatonhostName,
+    acommodatonCountry,
+    acommodatonType,
   ];
 
   useEffect(() => {
@@ -69,16 +76,6 @@ acommodatonMaxGuests: 최대 인원
       setLoginModal(true);
     }
   }, []);
-
-  // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
-  const onCheckedElement = (checked, item) => {
-    if (checked) {
-      setAcommodatonPerks([...acommodatonPerks, item]);
-    } else if (!checked) {
-      setAcommodatonPerks(acommodatonPerks.filter((el) => el !== item));
-    }
-    console.log(acommodatonPerks);
-  };
 
   // photoLink에 링크를 추가한다.
   const photoLinkButton = async (e) => {
@@ -99,7 +96,7 @@ acommodatonMaxGuests: 최대 인원
     }
   };
   // saveButten 펑션임
-  const savebuttons = (e) => {
+  const savebuttons = async (e) => {
     e.preventDefault();
     //항목들이 비어 있는가 채크. 채워져있다면 true, 아니라면 false
     const blankTest = state_LIST.every((value) => {
@@ -107,11 +104,77 @@ acommodatonMaxGuests: 최대 인원
     });
 
     if (blankTest) {
+      const response = await axios.post(
+        "http://127.0.0.1:4000/acommodatonSeve",
+        {
+          title: acommodatonTitle,
+          address: acommodatonAddress,
+          photos: acommodatonPhotos,
+          description: acommodatonDescription,
+          perks: acommodatonPerks,
+          extraInfo: acommodatonExtraInfo,
+          checkIn: acommodatonCheckIn,
+          checkOut: acommodatonCheckOut,
+          maxGuests: acommodatonMaxGuests,
+          type: acommodatonType,
+          hostName: acommodatonhostName,
+          city: acommodatonCity,
+          price: acommodatonPrice,
+          country: acommodatonCountry,
+        }
+      );
     } else {
       alert("빈칸이 있어요.");
     }
   };
 
+  /*
+   하나의 파일만 들어올때는 set으로 만들면 된다.
+  const photoUpload = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const filesData = new FormData();
+    filesData.set("photos", file);
+    console.log(file);
+
+    console.log(filesData);
+
+    await axios
+      .post("http://127.0.0.1:4000/photosUploads", filesData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        const { data: filename } = response;
+        const links = filename[0].filename;
+        console.log("response", response);
+        console.log("link", links);
+        setAcommodatonPhotos([...acommodatonPhotos, links]);
+      });
+  };
+   */
+  // 두개 이상의 파일이 들어온다면 set이 아닌 append를 사용해서 추가해야 한다. 물론 하나도 가능하다.
+  const photoUpload = async (e) => {
+    e.preventDefault();
+    const files = e.target.files; // 파일 리스트
+    const filesData = new FormData();
+
+    // 파일 리스트를 FormData 객체에 추가
+    for (let i = 0; i < files.length; i++) {
+      filesData.append("photos", files[i]);
+    }
+
+    await axios
+      .post("http://127.0.0.1:4000/photosUploads", filesData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        const links = response.data;
+
+        console.log("links", links);
+        console.log("response", response);
+        setAcommodatonPhotos([...acommodatonPhotos, ...links]);
+      });
+  };
   return (
     <div>
       <Header />
@@ -136,13 +199,52 @@ acommodatonMaxGuests: 최대 인원
               setAcommodatonTitle(e.target.value);
             }}
           />
+
           <p>주소를 적어주세요. </p>
           <Input
             type="text"
-            placeholder="주소를 적어주세요."
+            placeholder="나라를 적어주세요."
+            value={acommodatonCountry}
+            onChange={(e) => {
+              setAcommodatonCountry(e.target.value);
+            }}
+          />
+          <Input
+            type="text"
+            placeholder="도시를 적어주세요."
+            value={acommodatonCity}
+            onChange={(e) => {
+              setAcommodatonCity(e.target.value);
+            }}
+          />
+          <Input
+            type="text"
+            placeholder=" 나머지 주소를 적어주세요."
             value={acommodatonAddress}
             onChange={(e) => {
               setAcommodatonAddress(e.target.value);
+            }}
+          />
+
+          <H2>HostName</H2>
+          <p>숙소의 주인 이름 적어주세요.</p>
+          <Input
+            type="text"
+            placeholder="당신 혹은 숙소 주인 이름이요."
+            value={acommodatonhostName}
+            onChange={(e) => {
+              setAcommodatonhostName(e.target.value);
+            }}
+          />
+
+          <H2>Price</H2>
+          <p>1박 당 cost를 적어주세요.</p>
+          <Input
+            type="text"
+            placeholder="₩"
+            value={acommodatonPrice}
+            onChange={(e) => {
+              setAcommodatonPrice(e.target.value);
             }}
           />
 
@@ -168,7 +270,7 @@ acommodatonMaxGuests: 최대 인원
               </div>
             </PhotoLink>
             <PhotoLabel>
-              <PhotoInput type="file" />
+              <PhotoInput type="file" onChange={photoUpload} />
               <div>
                 <AiOutlineCloudUpload />
                 사진 +
@@ -179,11 +281,7 @@ acommodatonMaxGuests: 최대 인원
                 <h3>여기서 등록된 사진을 볼 수 있습니다. </h3>
                 <PhotoZoneBorad>
                   {acommodatonPhotos.map((link) => {
-                    return (
-                      <SamplePhotos
-                        src={`http://localhost:4000/uploads/${link}`}
-                      />
-                    );
+                    return <SamplePhotos src={`${link}`} />;
                   })}
                 </PhotoZoneBorad>
               </PhotoZone>
@@ -234,33 +332,14 @@ acommodatonMaxGuests: 최대 인원
             </PerksInput>
           </PerksSection> */}
 
-          <PerksSection>
-            <H2>Perks</H2>
-            <p> 당신의 에어비엔비에 포함된 요소를 적어주세요.</p>
-            <PerksInput>
-              {CATEGORY_LIST.map((item) => {
-                const icons = item.icon;
-                return (
-                  <Perkslabel key={item.id}>
-                    <input
-                      type="checkbox"
-                      value={item.value}
-                      onChange={(e) => {
-                        // onChange로 값이 변경할 때마다.  onCheckedElement 펑션을 실행시킨다.
-                        onCheckedElement(e.target.checked, e.target.value);
-                      }}
-                      checked={
-                        acommodatonPerks.includes(item.value) ? true : false
-                      }
-                    />
-                    {item.icon ? <item.icon /> : ""}
-                    <span>{item.value}</span>
-                  </Perkslabel>
-                );
-              })}
-            </PerksInput>
-          </PerksSection>
-
+          <PerksSection
+            acommodatonPerks={acommodatonPerks}
+            setAcommodatonPerks={setAcommodatonPerks}
+          />
+          <TypeSection
+            acommodatonType={acommodatonType}
+            setAcommodatonType={setAcommodatonType}
+          />
           <H2>Extra Info</H2>
           <p>숙소의 규칙이나 기타 정보를 기입해주세요. </p>
           <Input
@@ -359,6 +438,7 @@ const PhotoLabel = styled.label`
   align-items: center;
   font-size: 30px;
   flex-direction: column;
+  background-color: white;
 `;
 const PhotoInput = styled.input`
   ::file-selector-button {
@@ -406,30 +486,6 @@ const SamplePhotos = styled.img`
   height: 300px;
   border-radius: 10px;
   margin: 15px;
-`;
-const PerksSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-`;
-
-const PerksInput = styled.div`
-  display: flex;
-  margin: 10px;
-  flex-wrap: wrap;
-`;
-
-const Perkslabel = styled.label`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px;
-  font-size: 20px;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #dcdcdc;
-  height: 50px;
-  width: 300px;
 `;
 
 const CheckInSection = styled.div`

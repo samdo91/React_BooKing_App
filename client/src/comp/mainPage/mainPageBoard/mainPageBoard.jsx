@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 function MainPageBoard() {
   /* country: 나라, 
   city: 도시, 
-  hostName: 집주인, 
-  picture: 사진, 
+   picture: 사진, 
   price: 1박당 가격, 
-  type: 해더부분의 검색에 이용*/
+  type: 해더부분의 검색에 이용
+   hostName: 집주인, */
   const [itemData, setItemData] = useAtom(itemDatas);
   const [itemDataList, setItemDataList] = useAtom(itemDataLists);
   const [zoroItem, setZoroItem] = useAtom(zoroItems);

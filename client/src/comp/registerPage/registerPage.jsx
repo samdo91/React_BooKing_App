@@ -20,7 +20,7 @@ function RegisterPage() {
   // axios.post로 보낸다.
   const registerPost = async () => {
     try {
-      await axios.post("/register", {
+      await axios.post("http://127.0.0.1:4000//register", {
         name: name,
         email: email,
         password: password,

@@ -23,6 +23,7 @@ require("dotenv").config();
 
 // rgister와 login에 쓰이는 모델
 const User = require(`./models/user.jsx`);
+const Acommodaton = require(`./models/acommodaton.jsx`);
 // bcrypt 란 암호 복호화이다.
 
 const bcrypt = require("bcrypt");
@@ -35,6 +36,13 @@ const jwtSecret = "1q2w3e4r!";
 //cookieParser? 쿠키 데이터를 JavaScript 객체로 변환하는 기능을 제공한다.
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
+
+//multer를 쓰자. 내 파일 업로드
+const multer = require("multer");
+// "fs" 모듈은 파일 시스템 관련 작업, 즉 파일 생성, 삭제, 읽기, 쓰기 등을 수행할 수 있는 메서드를 제공함
+// 예를 들어, "fs" 모듈을 사용하여 파일을 읽거나 쓸 수 있으며, 파일을 복사하거나 이동할 수있다!
+const fs = require("fs");
+
 // Node Image Downloader Node.js 환경에서 이미지를 다운로드하는 라이브러리
 const download = require("image-downloader");
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -45,6 +53,57 @@ const { DB_URL, DB_URL_TEST } = process.env;
 // mongoose를 사용해보자.
 mongoose.connect(DB_URL_TEST);
 
+// 숙소 저장
+app.post(`/acommodatonSeve`, async (req, res) => {
+  console.log(req.body);
+  const { token } = req.cookies;
+  const {
+    title,
+    address,
+    photos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+    type,
+    hostName,
+    city,
+    price,
+    country,
+  } = req.body;
+  jwt.verify(token, jwtSecret, {}, async (err, useData) => {
+    if (err) throw err;
+
+    try {
+      //  Acommodaton.create를 사용하여 도큐먼트를 만들면 DB에 저장된다.
+      const acommodatonDoc = await Acommodaton.create({
+        owner: useData.id,
+        title,
+        address,
+        photos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+        type,
+        hostName,
+        city,
+        price,
+        country,
+      });
+
+      res.json(acommodatonDoc);
+    } catch (e) {
+      res.status(422).json(e);
+    }
+  });
+});
+
+// 회원가입
 app.post(`/register`, async (req, res) => {
   console.log(req.body);
   const { name, email, password, countryCode, phoneNumber } = req.body;
@@ -713,6 +772,7 @@ app.post(`/logout`, (req, res) => {
 app.post("/photoLink", async (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Date.now() + ".jpg";
+  const newNames = "http://localhost:4000/uploads/photo" + Date.now() + ".jpg";
 
   try {
     await new Promise((resolve, reject) => {
@@ -730,26 +790,49 @@ app.post("/photoLink", async (req, res) => {
           reject(error);
         });
     });
-
-    res.json(newName);
+    console.log(newNames);
+    res.json(newNames);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
   }
 });
 
-// app.post("/photoLink", (req, res) => {
-//   const { link } = req.body;
-//   const newName = "photo" + Date.now() + ".jpg";
+const photosmulter = multer({ dest: "uploads/" });
+app.post(`/photosUploads`, photosmulter.array("photos", 100), (req, res) => {
+  const files = req.files;
+  const uploadfiles = [];
 
-//   download.image({
-//     // 다운 받을 이미지의 url
-//     url: link,
-//     // 파일을 저장할 곳과 파일의 이름
-//     dest: __dirname + `/uploads` + newName,
-//   });
-//   res.json(newName);
-// });
+  try {
+    // 다수의 파일을 서버에 저장
+    for (let i = 0; i < files.length; i++) {
+      const { path, originalname } = files[i];
+      const paths = originalname.split(".");
+      const ext = paths[paths.length - 1];
+      const newPath = path + "." + ext;
+      const nowPath = "http://127.0.0.1:4000/" + path + "." + ext;
+
+      fs.renameSync(path, newPath);
+      console.log("path", path);
+      console.log("ext", ext);
+      console.log("newPath", newPath);
+
+      // 파일 저장 경로 검증 .fs사용
+      if (!fs.existsSync("uploads/")) {
+        fs.mkdirSync("uploads/");
+      }
+
+      uploadfiles.push(nowPath);
+    }
+    console.log(uploadfiles);
+
+    res.json(uploadfiles);
+    // 예외처리 완료
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to upload files.");
+  }
+});
 
 const PORT = 4000 || process.nev.PORT;
 

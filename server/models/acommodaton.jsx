@@ -15,8 +15,13 @@ const acommodatonSchema = new mongoose.Schema({
   checkIn: Number,
   checkOut: Number,
   maxGuests: Number,
+  hostName: String,
+  city: String,
+  price: String,
+  country: String,
+  type: [String],
 });
 
-const acommodatonModel = mongoose.model(`acommodatonModel`, acommodatonSchema);
+const acommodatonModel = mongoose.model(`Acommodaton`, acommodatonSchema);
 
 module.exports = acommodatonModel;
