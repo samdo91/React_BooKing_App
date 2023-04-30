@@ -18,8 +18,9 @@ function MainPageBoard() {
   const [zoroItem, setZoroItem] = useAtom(zoroItems);
 
   const itemDataFuntion = async () => {
-    const response = await axios.post(`http://127.0.0.1:4000/address`);
+    const response = await axios.post(`http://127.0.0.1:4000/mainacommodaton`);
 
+    console.log(response);
     const itemDatas = response.data;
     setItemData(itemDatas);
     setItemDataList(itemDatas);
@@ -37,13 +38,13 @@ function MainPageBoard() {
         const hostName = item.hostName;
 
         return (
-          <Link to={`/${hostName}`}>
+          <Link to={`DetailPage/${item._id}`}>
             <BoardItemCard
               key={item.price}
               country={item.country}
               city={item.city}
               hostName={item.hostName}
-              picture={item.picture}
+              picture={item.photos?.[0]}
               price={item.price}
               type={item.type}
             />

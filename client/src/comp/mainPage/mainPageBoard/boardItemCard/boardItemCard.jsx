@@ -5,7 +5,7 @@ function BoardItemCard(props) {
 
   return (
     <CardBox>
-      <Image src={picture} />
+      <Image src={`http://127.0.0.1:4000/${picture}`} />
       <div>
         <b>{city}</b> <b>{country}</b>
         <div>

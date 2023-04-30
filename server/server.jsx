@@ -53,6 +53,11 @@ const { DB_URL, DB_URL_TEST } = process.env;
 // mongoose를 사용해보자.
 mongoose.connect(DB_URL_TEST);
 
+//
+app.post(`/mainacommodaton`, async (req, res) => {
+  res.json(await Acommodaton.find());
+});
+
 // 숙소 저장
 app.post(`/acommodatonSeve`, async (req, res) => {
   console.log(req.body);
@@ -97,6 +102,66 @@ app.post(`/acommodatonSeve`, async (req, res) => {
       });
 
       res.json(acommodatonDoc);
+    } catch (e) {
+      res.status(422).json(e);
+    }
+  });
+});
+
+// 숙소 다시 저장
+app.post(`/acommodatonReseve`, async (req, res) => {
+  const { token } = req.cookies;
+  const {
+    id,
+    title,
+    address,
+    photos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+    type,
+    hostName,
+    city,
+    price,
+    country,
+  } = req.body;
+  jwt.verify(token, jwtSecret, {}, async (err, useData) => {
+    if (err) throw err;
+
+    try {
+      //  req로 넘어온 id로 대상이 될 데이터 리스트를 찾아온다.
+      const acommodatonDoc = await Acommodaton.findById(id);
+
+      // 찾아온 데이터와 내 데이터를 비교해서 맞으면 실행
+      if (useData.id.toString() === acommodatonDoc.owner.toString()) {
+      }
+      /* set() 메서드는 Mongoose 문서 객체의 메서드.
+문서 객체의 속성 값을 변경하고, 변경된 문서 객체를 반환한다
+set() 메서드는 이전 문서 객체의 내용을 바꾸지 않고 새로운 객체를 반환하기 때문에,
+ 반환된 문서 객체를 저장해야한다. */
+      const reSaveDcoc = acommodatonDoc.set({
+        title,
+        address,
+        photos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+        type,
+        hostName,
+        city,
+        price,
+        country,
+      });
+      console.log(reSaveDcoc);
+      //save() 메서드는 Mongoose 모델 객체의 메서드 중 하나 데이터베이스에 저장된 문서의 내용이 모델 객체의 상태와 일치하도록 갱신함
+      const reAcommodatonDoc = acommodatonDoc.save();
+      res.json(reAcommodatonDoc);
     } catch (e) {
       res.status(422).json(e);
     }
@@ -806,10 +871,12 @@ app.post(`/logout`, (req, res) => {
   }
 });
 
+// 사진 링크로 저장
+
 app.post("/photoLink", async (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Date.now() + ".jpg";
-  const newNames = "http://localhost:4000/uploads/photo" + Date.now() + ".jpg";
+  const newNames = "uploads/photo" + Date.now() + ".jpg";
 
   try {
     await new Promise((resolve, reject) => {
@@ -847,7 +914,7 @@ app.post(`/photosUploads`, photosmulter.array("photos", 100), (req, res) => {
       const paths = originalname.split(".");
       const ext = paths[paths.length - 1];
       const newPath = path + "." + ext;
-      const nowPath = "http://127.0.0.1:4000/" + path + "." + ext;
+      const nowPath = path + "." + ext;
 
       fs.renameSync(path, newPath);
       console.log("path", path);
@@ -869,6 +936,12 @@ app.post(`/photosUploads`, photosmulter.array("photos", 100), (req, res) => {
     console.error(err);
     res.status(500).send("Failed to upload files.");
   }
+});
+
+app.post("/detailPage", async (req, res) => {
+  const { id } = req.body;
+  const acommodatonDoc = await Acommodaton.findById(id);
+  res.json(acommodatonDoc);
 });
 
 const PORT = 4000 || process.nev.PORT;

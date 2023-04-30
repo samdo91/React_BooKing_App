@@ -48,6 +48,7 @@ function MainPageHeader() {
   // Object.keys로 키를 추출해 리턴한다.
   const findKeys = (e) => {
     const List = Object.keys(e.target);
+    console.log(List);
     const propsKeys = List[1];
     const types = e.target[propsKeys].value;
 
@@ -96,95 +97,143 @@ function MainPageHeader() {
         modules={[FreeMode, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlides value="koreaHome" onClick={clickIcon}>
-          <GiSouthKorea />
-          한옥
+        <SwiperSlides>
+          <button value="koreaHome" onClick={clickIcon}>
+            <GiSouthKorea />
+            한옥
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="surprise" onClick={clickIcon}>
-          <GiSurprised />
-          깜짝!
+        <SwiperSlides>
+          <button value="surprise" onClick={clickIcon}>
+            <GiSurprised />
+            깜짝!
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="sea" onClick={clickIcon}>
-          <GiJugglingSeal />
-          해변
+        <label>
+          <SwiperSlides>
+            <button value="sea" onClick={clickIcon}>
+              <GiJugglingSeal />
+              해변
+            </button>
+          </SwiperSlides>
+        </label>
+        <SwiperSlides>
+          <button value="child" onClick={clickIcon}>
+            <FaChild />
+            키즈
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="child" onClick={clickIcon}>
-          <FaChild />
-          키즈
+        <SwiperSlides>
+          <button value="mansion" onClick={clickIcon}>
+            <GiCastle />
+            저택
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="mansion" onClick={clickIcon}>
-          <GiCastle />
-          저택
+        <SwiperSlides>
+          <button value="private" onClick={clickIcon}>
+            <GiPrivate />
+            개인실
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="private" onClick={clickIcon}>
-          <GiPrivate />
-          개인실
+        <SwiperSlides>
+          <button value="cliff" onClick={clickIcon}>
+            <GiSeaCliff />
+            전망
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="cliff" onClick={clickIcon}>
-          <GiSeaCliff />
-          전망
+        <SwiperSlides>
+          <button value="popularity" onClick={clickIcon}>
+            <GiThumbUp />
+            인기
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="popularity" onClick={clickIcon}>
-          <GiThumbUp />
-          인기
+        <SwiperSlides>
+          <button value="Ryokan" onClick={clickIcon}>
+            <GiJapan />
+            료칸
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="Ryokan" onClick={clickIcon}>
-          <GiJapan />
-          료칸
+        <SwiperSlides>
+          <button value="countrySide" onClick={clickIcon}>
+            <GiFarmer />
+            시골
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="countrySide" onClick={clickIcon}>
-          <GiFarmer />
-          시골
+        <SwiperSlides>
+          <button value="park" onClick={clickIcon}>
+            <GiParkBench />
+            국립공원
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="park" onClick={clickIcon}>
-          <GiParkBench />
-          국립공원
+        <SwiperSlides>
+          <button value="swimmingPool" onClick={clickIcon}>
+            <FaSwimmingPool />
+            수영장
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="swimmingPool" onClick={clickIcon}>
-          <FaSwimmingPool />
-          수영장
+        <SwiperSlides>
+          <button value="Luxe" onClick={clickIcon}>
+            <GiSparkles />
+            Luxe
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="Luxe" onClick={clickIcon}>
-          <GiSparkles />
-          Luxe
+        <SwiperSlides>
+          <button value="design" onClick={clickIcon}>
+            <GiAbdominalArmor /> 디자인
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="design" onClick={clickIcon}>
-          <GiAbdominalArmor /> 디자인
+        <SwiperSlides>
+          <button value="castle" onClick={clickIcon}>
+            <GiElvenCastle /> 캐슬
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="castle" onClick={clickIcon}>
-          <GiElvenCastle /> 캐슬
+        <SwiperSlides>
+          <button value="camping" onClick={clickIcon}>
+            <GiCampingTent />
+            캠핑장
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="camping" onClick={clickIcon}>
-          <GiCampingTent />
-          캠핑장
+        <SwiperSlides>
+          <button value="mini" onClick={clickIcon}>
+            <FiMinimize2 />
+            소형주택
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="mini" onClick={clickIcon}>
-          <FiMinimize2 />
-          소형주택
+        <SwiperSlides>
+          <button value="farm" onClick={clickIcon}>
+            <GiFarmTractor />
+            농장
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="farm" onClick={clickIcon}>
-          <GiFarmTractor />
-          농장
+        <SwiperSlides>
+          <button value="city" onClick={clickIcon}>
+            <FaCity />
+            상징적 도시
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="city" onClick={clickIcon}>
-          <FaCity />
-          상징적 도시
+        <SwiperSlides>
+          <button value="boat" onClick={clickIcon}>
+            <GiFishingBoat />
+            보트
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="boat" onClick={clickIcon}>
-          <GiFishingBoat />
-          보트
+        <SwiperSlides>
+          <button value="new" onClick={clickIcon}>
+            <GiNewBorn />
+            신규
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="new" onClick={clickIcon}>
-          <GiNewBorn />
-          신규
+        <SwiperSlides>
+          <button value="cabin" onClick={clickIcon}>
+            <GiWoodCabin />
+            통나무집
+          </button>
         </SwiperSlides>
-        <SwiperSlides value="cabin" onClick={clickIcon}>
-          <GiWoodCabin />
-          통나무집
-        </SwiperSlides>
-        <SwiperSlides value="tropical" onClick={clickIcon}>
-          <GiTropicalFish />
-          열대지역
+        <SwiperSlides>
+          <button value="tropical" onClick={clickIcon}>
+            <GiTropicalFish />
+            열대지역
+          </button>
         </SwiperSlides>
         {/* <SwiperSlides>속세를 벗어난 숙소</SwiperSlides>
         <SwiperSlides>와인농장</SwiperSlides>

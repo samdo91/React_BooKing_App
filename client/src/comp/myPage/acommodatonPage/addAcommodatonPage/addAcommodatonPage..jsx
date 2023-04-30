@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useAtom } from "jotai";
 import {
   userDataAtom,
@@ -17,6 +16,9 @@ import {
 import axios from "axios";
 import PerksSection from "./Section/PerksSection";
 import TypeSection from "./Section/typeSection";
+import { useParams } from "react-router-dom";
+import PhotoSection from "./Section/photoSection";
+
 function AddAcommodatonPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
 loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
@@ -73,6 +75,44 @@ acommodatonPrice: 1박당 가격,
     acommodatonCountry,
     acommodatonType,
   ];
+  const { id } = useParams();
+
+  const detailFixButton = async (e) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:4000/detailFixAcommodaton",
+        {
+          id: id,
+        }
+      );
+      const myAcommodaton = response.data[0];
+      setAcommodatonTitle(myAcommodaton.title);
+      setAcommodatonAddress(myAcommodaton.address);
+      setAcommodatonPhotos(myAcommodaton.photos);
+      setAcommodatonDescription(myAcommodaton.description);
+      setAcommodatonPerks(myAcommodaton.perks);
+      setAcommodatonType(myAcommodaton.type);
+      setAcommodatonExtraInfo(myAcommodaton.extraInfo);
+      setAcommodatonCheckIn(myAcommodaton.checkIn);
+      setAcommodatonCheckOut(myAcommodaton.checkOut);
+      setAcommodatonMaxGuests(myAcommodaton.maxGuests);
+      setAcommodatonCountry(myAcommodaton.country);
+      setAcommodatonCity(myAcommodaton.city);
+      setAcommodatonPrice(myAcommodaton.price);
+      setAcommodatonhostName(myAcommodaton.hostName);
+    } catch (error) {
+      console.error("id가 없은 토큰이 없거나 로그인이 안되어 있음");
+      // 에러 메시지를 사용자에게 알려줄 수 있는 방법을 구현해주세요.
+    }
+  };
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    } else {
+      detailFixButton();
+    }
+  }, [id]);
 
   useEffect(() => {
     if (!loginState) {
@@ -80,24 +120,23 @@ acommodatonPrice: 1박당 가격,
     }
   }, []);
 
-  // photoLink에 링크를 추가한다.
-  const photoLinkButton = async (e) => {
-    e.preventDefault();
-
-    if (photosLinks === "") {
-      alert("링크를 등록해주세요.");
-    } else {
-      const { data: filename } = await axios.post(
-        "http://127.0.0.1:4000/photoLink",
-        {
-          link: photosLinks,
-        }
-      );
-      console.log(filename);
-      setAcommodatonPhotos([...acommodatonPhotos, filename]);
-      setPhotosLinks("");
-    }
+  const acommodatoData = {
+    title: acommodatonTitle,
+    address: acommodatonAddress,
+    photos: acommodatonPhotos,
+    description: acommodatonDescription,
+    perks: acommodatonPerks,
+    extraInfo: acommodatonExtraInfo,
+    checkIn: acommodatonCheckIn,
+    checkOut: acommodatonCheckOut,
+    maxGuests: acommodatonMaxGuests,
+    type: acommodatonType,
+    hostName: acommodatonhostName,
+    city: acommodatonCity,
+    price: acommodatonPrice,
+    country: acommodatonCountry,
   };
+
   // saveButten 펑션 서버에 db로 데이터를 보내는 펑션
   const savebuttons = async (e) => {
     e.preventDefault();
@@ -107,25 +146,18 @@ acommodatonPrice: 1박당 가격,
     });
 
     if (blankTest) {
-      const response = await axios.post(
-        "http://127.0.0.1:4000/acommodatonSeve",
-        {
-          title: acommodatonTitle,
-          address: acommodatonAddress,
-          photos: acommodatonPhotos,
-          description: acommodatonDescription,
-          perks: acommodatonPerks,
-          extraInfo: acommodatonExtraInfo,
-          checkIn: acommodatonCheckIn,
-          checkOut: acommodatonCheckOut,
-          maxGuests: acommodatonMaxGuests,
-          type: acommodatonType,
-          hostName: acommodatonhostName,
-          city: acommodatonCity,
-          price: acommodatonPrice,
-          country: acommodatonCountry,
-        }
-      );
+      if (id) {
+        const response = await axios.post(
+          "http://127.0.0.1:4000/acommodatonReseve",
+          { id, ...acommodatoData }
+        );
+        console.log(response);
+      } else {
+        const response = await axios.post(
+          "http://127.0.0.1:4000/acommodatonSeve",
+          { ...acommodatoData }
+        );
+      }
     } else {
       alert("빈칸이 있어요.");
     }
@@ -157,28 +189,7 @@ acommodatonPrice: 1박당 가격,
   };
    */
   // 두개 이상의 파일이 들어온다면 set이 아닌 append를 사용해서 추가해야 한다. 물론 하나도 가능하다.
-  const photoUpload = async (e) => {
-    e.preventDefault();
-    const files = e.target.files; // 파일 리스트
-    const filesData = new FormData();
 
-    // 파일 리스트를 FormData 객체에 추가
-    for (let i = 0; i < files.length; i++) {
-      filesData.append("photos", files[i]);
-    }
-
-    await axios
-      .post("http://127.0.0.1:4000/photosUploads", filesData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((response) => {
-        const links = response.data;
-
-        console.log("links", links);
-        console.log("response", response);
-        setAcommodatonPhotos([...acommodatonPhotos, ...links]);
-      });
-  };
   return (
     <div>
       <Body>
@@ -241,48 +252,13 @@ acommodatonPrice: 1박당 가격,
               setAcommodatonPrice(e.target.value);
             }}
           />
+          <PhotoSection
+            acommodatonPhotos={acommodatonPhotos}
+            setAcommodatonPhotos={setAcommodatonPhotos}
+            photosLinks={photosLinks}
+            setPhotosLinks={setPhotosLinks}
+          />
 
-          <PhotoSection>
-            <H2>photos</H2>
-            <p>
-              사진을 추가해주세요. 링크를 등록하려면 "링크추가!" 컴퓨터 안의
-              사진을 추가하려면 "사진+"를 눌러주세요
-            </p>
-            <PhotoLink>
-              <div>
-                <Input
-                  type="text"
-                  placeholder=" 인터넷 링크 사진을 가지고 있다면 사진을 등록하세요."
-                  value={photosLinks}
-                  onChange={(e) => {
-                    setPhotosLinks(e.target.value);
-                  }}
-                />
-                <PhotoLinkButton onClick={photoLinkButton}>
-                  링크 추가!
-                </PhotoLinkButton>
-              </div>
-            </PhotoLink>
-            <PhotoLabel>
-              <PhotoInput type="file" onChange={photoUpload} />
-              <div>
-                <AiOutlineCloudUpload />
-                사진 +
-              </div>
-            </PhotoLabel>
-            {acommodatonPhotos.length > 0 ? (
-              <PhotoZone>
-                <h3>여기서 등록된 사진을 볼 수 있습니다. </h3>
-                <PhotoZoneBorad length={acommodatonPhotos.length}>
-                  {acommodatonPhotos.map((link) => {
-                    return <SamplePhotos src={`${link}`} />;
-                  })}
-                </PhotoZoneBorad>
-              </PhotoZone>
-            ) : (
-              ""
-            )}
-          </PhotoSection>
           <H2>Description</H2>
           <p>숙소 설명을 적어주세요. </p>
           <Input
@@ -397,13 +373,6 @@ const Body = styled.div`
   margin-right: 200px;
 `;
 
-const H1 = styled.div`
-  font-size: 30px;
-`;
-const Directory = styled.div`
-  display: flex;
-`;
-
 const Input = styled.input`
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px gray;
@@ -422,68 +391,6 @@ const Form = styled.form`
 const H2 = styled.div`
   font-size: 25px;
   margin: 20px;
-`;
-
-const PhotoLabel = styled.label`
-  display: flex;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  width: 300px;
-  height: 150px;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  flex-direction: column;
-  background-color: white;
-`;
-const PhotoInput = styled.input`
-  ::file-selector-button {
-    display: none;
-  }
-`;
-
-const PhotoSection = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const PhotoLink = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const PhotoLinkButton = styled.button`
-  border-radius: 10px;
-  width: 90px;
-  background-color: #ff59b3;
-  justify-content: center;
-  height: 30px;
-`;
-
-const PhotoZone = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin: 15px;
-`;
-
-const PhotoZoneBorad = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  height: ${(props) => {
-    Math.ceil(props.length / 3) * 300;
-  }}
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  align-items: center;
-`;
-
-const SamplePhotos = styled.img`
-  width: 250px;
-  height: 250px;
-  border-radius: 10px;
-  margin: 15px;
 `;
 
 const CheckInSection = styled.div`

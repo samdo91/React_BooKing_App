@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: `/:hostName`,
+    path: `detailPage/:id`,
     element: <DetailPage />,
   },
   {
@@ -43,6 +43,10 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/myPage/Acommodaton/add",
+        element: <AddAcommodatonPage />,
+      },
+      {
+        path: "/myPage/Acommodaton/add/:id",
         element: <AddAcommodatonPage />,
       },
     ],

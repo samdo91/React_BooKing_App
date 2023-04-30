@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { FiArrowRightCircle } from "react-icons/fi";
-import { useAtom } from "jotai";
 import { addPages } from "../../../store/global";
+import { useAtom } from "jotai";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -10,29 +10,15 @@ function MyAcommodatonList(props) {
   const { listData } = props;
   const [addPage, setAddPage] = useAtom(addPages);
 
-  const detailFixButton = async (e) => {
-    const itemId = e.target.id;
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:4000/detailFixAcommodaton",
-        {
-          id: itemId,
-        }
-      );
-      const myAcommodaton = response.data[0];
-
-      setAddPage(true);
-    } catch (error) {
-      console.error("id가 없은 토큰이 없거나 로그인이 안되어 있음");
-      // 에러 메시지를 사용자에게 알려줄 수 있는 방법을 구현해주세요.
-    }
-  };
   return (
     <MyListBox>
       {listData.map((itemList) => {
         return (
-          <ItemBox>
-            <ItemPhotos src={itemList.photos[0]} />
+          <ItemBox key={itemList._id}>
+            <ItemPhotosWrapper>
+              <ItemPhotos src={`http://127.0.0.1:4000/${itemList.photos[0]}`} />
+            </ItemPhotosWrapper>
+
             <Flex>
               <ItemData>
                 <div> 숙소명: {itemList.title} </div>
@@ -54,8 +40,13 @@ function MyAcommodatonList(props) {
                 </PerksDiv>
               </ItemData>
               <label>
-                <Link to="/myPage/Acommodaton/add">
-                  <Button id={itemList._id} onClick={detailFixButton}>
+                <Link to={`/myPage/Acommodaton/add/${itemList._id}`}>
+                  <Button
+                    onClick={() => {
+                      console.log(itemList._id);
+                      setAddPage(true);
+                    }}
+                  >
                     <FiArrowRightCircle /> 수정 및 세부 사항
                   </Button>
                 </Link>
@@ -82,18 +73,29 @@ const ItemBox = styled.div`
   border: 1px solid #dcdcdc;
   height: 280px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; // ItemBox 내의 Flexbox 내용물을 좌우로 정렬
 `;
 
 const ItemPhotos = styled.img`
-  width: 250px;
-  height: 240px;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+
+const ItemPhotosWrapper = styled.div`
+  width: 300px;
+  height: 250px;
   margin: 10px;
   border-radius: 10px;
+  overflow: hidden;
 `;
 
 const Flex = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%; // Flex 컴포넌트가 ItemBox의 너비를 100%로 채우도록 함
 `;
 
 const ItemData = styled.div`
@@ -101,9 +103,9 @@ const ItemData = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  align-items: baseline;
-  justify-content: center;
-  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 1; // ItemData 컴포넌트가 Flexbox 내에서 더 많은 공간을 차지하도록 함
 `;
 
 const PerksDiv = styled.div`
