@@ -84,5 +84,5 @@ const Perkslabel = styled.label`
   align-items: center;
   border: 1px solid #dcdcdc;
   height: 50px;
-  width: 300px;
+  width: 200px;
 `;

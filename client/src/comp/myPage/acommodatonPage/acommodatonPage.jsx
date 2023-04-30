@@ -9,11 +9,8 @@ import {
 } from "../../store/global/index";
 import styled from "@emotion/styled";
 import { Link, Outlet } from "react-router-dom";
-import {
-  AiOutlineCloudUpload,
-  AiOutlineWifi,
-  AiOutlineCar,
-} from "react-icons/ai";
+import MyAcommodatonList from "./myAcommodatonList/myAcommodatonList";
+
 import axios from "axios";
 
 function AcommodatonPage() {
@@ -25,6 +22,17 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginState, setLoginState] = useAtom(loginStates);
   const [addPage, setAddPage] = useAtom(addPages);
+  const [myAcommodatonList, setMyAcommodatonList] = useState("");
+
+  // 서버에 나의 id로 되어 있는 애어비앤비를 데이터 받아옴
+  const myAcommodatonFetchData = async () => {
+    const response = await axios.post("http://127.0.0.1:4000/myAcommodaton");
+    setMyAcommodatonList([...response.data]);
+  };
+  // 렌더링될 때 나의 id로 되어 있는 애어비앤비를 데이터를 찾아와서 렌더링
+  useEffect(() => {
+    myAcommodatonFetchData();
+  }, []);
 
   useEffect(() => {
     if (!loginState) {
@@ -35,6 +43,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   return (
     <div>
       <Header />
+
       <Body>
         <Directory>
           <Link to="/myPage">
@@ -45,18 +54,27 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
             <H1>숙소 등록</H1>
           </Link>
         </Directory>
+        {myAcommodatonList ? (
+          <MyAcommodatonList listData={myAcommodatonList} />
+        ) : (
+          ""
+        )}
+
         {addPage ? (
           <Outlet />
         ) : (
-          <Link to="/myPage/Acommodaton/add">
-            <SaveButton
-              onClick={() => {
-                setAddPage(true);
-              }}
-            >
-              add Acommodato
-            </SaveButton>
-          </Link>
+          <AddButtonSection>
+            <p>자신이 가진 에어비앤비를 등록하고 싶다면 이 버튼을 누르세요. </p>
+            <Link to="/myPage/Acommodaton/add">
+              <AddButton
+                onClick={() => {
+                  setAddPage(true);
+                }}
+              >
+                add Acommodato
+              </AddButton>
+            </Link>
+          </AddButtonSection>
         )}
       </Body>
     </div>
@@ -77,103 +95,18 @@ const Directory = styled.div`
   display: flex;
 `;
 
-const Input = styled.input`
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px 2px gray;
-  border: 1px solid #dcdcdc;
-  margin: 15px;
-  width: 800px;
-`;
-
-const Form = styled.form`
+const AddButtonSection = styled.div`
   display: flex;
-  flex-direction: column;
-  margin: 20px;
-  justify-content: flex-start;
-`;
-
-const H2 = styled.div`
-  font-size: 25px;
-  margin: 20px;
-`;
-
-const PhotoLabel = styled.label`
-  display: flex;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  width: 300px;
-  height: 150px;
-  justify-content: center;
   align-items: center;
-  font-size: 30px;
-  flex-direction: column;
-  background-color: white;
-`;
-const PhotoInput = styled.input`
-  ::file-selector-button {
-    display: none;
-  }
-`;
-
-const PhotoSection = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const PhotoLink = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const PhotoLinkButton = styled.button`
-  border-radius: 10px;
-  width: 90px;
-  background-color: #ff59b3;
   justify-content: center;
-  height: 30px;
-`;
-
-const PhotoZone = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin: 15px;
-`;
-
-const PhotoZoneBorad = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  height: 330px;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  align-items: center;
-`;
-
-const SamplePhotos = styled.img`
-  width: 300px;
-  height: 300px;
-  border-radius: 10px;
-  margin: 15px;
-`;
-
-const CheckInSection = styled.div`
-  display: flex;
   flex-direction: column;
 `;
 
-const CheckInput = styled.input`
-  display: flex;
-  border: 1px solid #dcdcdc;
-  height: 50px;
-  width: 300px;
-  border-radius: 10px;
-  margin: 10px;
-`;
-
-const SaveButton = styled.button`
+const AddButton = styled.button`
   border: 1px solid #dcdcdc;
   border-radius: 10px;
   background-color: #f5002d;
-  color: #dcdcdc;
+  color: white;
+  paddiog: 20px;
+  margin: 15px;
 `;

@@ -273,7 +273,7 @@ acommodatonPrice: 1박당 가격,
             {acommodatonPhotos.length > 0 ? (
               <PhotoZone>
                 <h3>여기서 등록된 사진을 볼 수 있습니다. </h3>
-                <PhotoZoneBorad>
+                <PhotoZoneBorad length={acommodatonPhotos.length}>
                   {acommodatonPhotos.map((link) => {
                     return <SamplePhotos src={`${link}`} />;
                   })}
@@ -380,7 +380,9 @@ acommodatonPrice: 1박당 가격,
                 }}
               />
             </div>
-            <SaveButton onClick={savebuttons}> 저장 </SaveButton>
+            <SaveLink to="/myPage/Acommodaton" onClick={savebuttons}>
+              <SaveButton> 저장</SaveButton>
+            </SaveLink>
           </CheckInSection>
         </Form>
       </Body>
@@ -469,15 +471,17 @@ const PhotoZone = styled.div`
 const PhotoZoneBorad = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: 330px;
+  height: ${(props) => {
+    Math.ceil(props.length / 3) * 300;
+  }}
   border: 1px solid #dcdcdc;
   border-radius: 10px;
   align-items: center;
 `;
 
 const SamplePhotos = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border-radius: 10px;
   margin: 15px;
 `;
@@ -496,9 +500,15 @@ const CheckInput = styled.input`
   margin: 10px;
 `;
 
-const SaveButton = styled.button`
+const SaveButton = styled.button``;
+
+const SaveLink = styled(Link)`
+  justify-content: center;
+  align-items: center;
+  display: flex;
   border: 1px solid #dcdcdc;
   border-radius: 10px;
   background-color: #f5002d;
   color: #dcdcdc;
+  text-decoration: none;
 `;

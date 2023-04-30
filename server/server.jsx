@@ -103,6 +103,43 @@ app.post(`/acommodatonSeve`, async (req, res) => {
   });
 });
 
+//myAcommodaton 불러오기
+app.post(`/myAcommodaton`, (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) {
+      console.error(err);
+      res.status(401).send("Unauthorized");
+      return;
+    }
+    try {
+      const acommodatonDoc = await Acommodaton.find({ owner: userData.id });
+      res.json(acommodatonDoc);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Internal server error");
+    }
+  });
+});
+
+app.post(`/detailFixAcommodaton`, async (req, res) => {
+  const { id } = req.body;
+  console.log("id", id);
+  const { token } = req.cookies;
+  // 쿠키가 있나 검사
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    //쿠키가 있으면 내 쿠키 안에 들어있는 id로 파인드를 돌려 내 id 같은  acommodaton리스트를 추출한다.
+    const acommodatonDoc = await Acommodaton.find({ _id: id });
+
+    console.log("my", acommodatonDoc);
+    res.json(acommodatonDoc);
+  } catch (err) {
+    console.error(err);
+    res.status(401).send("Unauthorized");
+  }
+});
+
 // 회원가입
 app.post(`/register`, async (req, res) => {
   console.log(req.body);
@@ -157,7 +194,7 @@ app.post(`/login`, async (req, res) => {
       { email: users.email, id: users._id, name: users.name },
 
       jwtSecret,
-      { expiresIn: "1h" },
+      { expiresIn: "1d" },
       (err, token) => {
         if (err) throw err;
 

@@ -35,5 +35,5 @@ export const zoroItems = atom(false);
 // 로그인이 되어 있는가?
 export const loginStates = atom(false);
 
-//
+// AcommodatonPage에 숙소 추가 페이지를 열고 닫는 아톰
 export const addPages = atom(false);
