@@ -36,3 +36,4 @@ export const zoroItems = atom(false);
 export const loginStates = atom(false);
 
 //
+export const addPages = atom(false);
