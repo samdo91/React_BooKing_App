@@ -37,7 +37,7 @@ function LoginMenuBox() {
       token: false,
       ...response,
     });
-
+    setLoginMenuToggle(false);
     setLoginState(false);
   };
   return (

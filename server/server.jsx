@@ -24,6 +24,7 @@ require("dotenv").config();
 // rgister와 login에 쓰이는 모델
 const User = require(`./models/user.jsx`);
 const Acommodaton = require(`./models/acommodaton.jsx`);
+const Booking = require(`./models/booking.jsx`);
 // bcrypt 란 암호 복호화이다.
 
 const bcrypt = require("bcrypt");
@@ -938,10 +939,50 @@ app.post(`/photosUploads`, photosmulter.array("photos", 100), (req, res) => {
   }
 });
 
+// 디테일페이지에 파람스로 들어간 id로 데이터를 불러옴
 app.post("/detailPage", async (req, res) => {
   const { id } = req.body;
   const acommodatonDoc = await Acommodaton.findById(id);
   res.json(acommodatonDoc);
+});
+
+app.post("/booking", async (req, res) => {
+  const {
+    place,
+    name,
+    checkIn,
+    checkOut,
+    guests,
+    numberOfNight,
+    phone,
+    prices,
+  } = req.body;
+
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, useData) => {
+    const { id } = useData;
+    if (err) throw err;
+    try {
+      const response = await Booking.create({
+        place,
+        user: id,
+        name,
+        checkIn,
+        checkOut,
+        guests,
+        numberOfNight,
+        phone,
+        prices,
+      });
+      res.json(response);
+    } catch (err) {
+      // 예외 처리: MongoDB 에러 발생 시
+      console.error(err);
+      res
+        .status(500)
+        .json({ message: "서버 에러: 예약 정보를 생성할 수 없습니다." });
+    }
+  });
 });
 
 const PORT = 4000 || process.nev.PORT;

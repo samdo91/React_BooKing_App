@@ -32,7 +32,7 @@ const CardBox = styled.div`
 const Image = styled.img`
   width: 260px;
   height: 250px;
-
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
 `;
