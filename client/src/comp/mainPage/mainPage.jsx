@@ -9,6 +9,7 @@ import styled from "@emotion/styled";
 
 function MainPage() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
+
   return (
     <Div>
       <Header />

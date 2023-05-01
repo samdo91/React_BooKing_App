@@ -38,9 +38,8 @@ function MainPageBoard() {
         const hostName = item.hostName;
 
         return (
-          <Link to={`DetailPage/${item._id}`}>
+          <Link to={`DetailPage/${item._id}`} key={item._id}>
             <BoardItemCard
-              key={item.price}
               country={item.country}
               city={item.city}
               hostName={item.hostName}

@@ -5,6 +5,8 @@ import styled from "@emotion/styled";
 import MyPageCard from "./myPageCard/myPageCard";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
+import LoginPopUp from "../loginPage/loginPopUp";
+import LoginAdvicePage from "../loginAdvicePage/loginAdvicePage";
 
 function MyPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
@@ -39,26 +41,35 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
     }
   }, []);
   return (
-    <MyPageContainer>
+    <>
       <Header />
-      <Body>
-        <Link to="/myPage">
-          <H1>마이 페이지</H1>
-        </Link>
-        <span>
-          {userData.name}, {userData.email}
-        </span>
-        <MyPageBody>
-          {MyPageList.map((item) => {
-            return (
-              <Link to={item.to}>
-                <MyPageCard name={item.name} introduction={item.introduction} />
-              </Link>
-            );
-          })}
-        </MyPageBody>
-      </Body>
-    </MyPageContainer>
+      {userData.login === false ? (
+        <LoginAdvicePage />
+      ) : (
+        <MyPageContainer>
+          <Body>
+            <Link to="/myPage">
+              <H1>마이 페이지</H1>
+            </Link>
+            <span>
+              {userData.name}, {userData.email}
+            </span>
+            <MyPageBody>
+              {MyPageList.map((item) => {
+                return (
+                  <Link to={item.to}>
+                    <MyPageCard
+                      name={item.name}
+                      introduction={item.introduction}
+                    />
+                  </Link>
+                );
+              })}
+            </MyPageBody>
+          </Body>
+        </MyPageContainer>
+      )}
+    </>
   );
 }
 
@@ -72,6 +83,9 @@ const MyPageBody = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-top: 100px;
+  flex-direction: ${(props) => {
+    return props.login === false ? "column" : "row";
+  }};
 `;
 
 const H1 = styled.div`
@@ -81,4 +95,14 @@ const H1 = styled.div`
 const Body = styled.div`
   margin-left: 200px;
   margin-right: 200px;
+`;
+
+const Button = styled.button`
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background-color: #f5002d;
+  color: white;
+  paddiog: 40px;
+  margin: 15px;
+  width: 100px;
 `;

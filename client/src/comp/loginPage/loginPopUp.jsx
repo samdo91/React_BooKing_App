@@ -8,6 +8,8 @@ import { IoMdClose } from "react-icons/io";
 import LoginBody from "./loginbody/loginbody";
 import LoginFooter from "./loginFooter/loginFooter";
 
+Modal.setAppElement("#root"); // App element를 정의해줍니다.
+
 function LoginPopUp() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
   return (
@@ -71,7 +73,7 @@ const ModalHaeder = styled.div`
   font-size: 7px;
   align-items: center;
   height: 30px;
-  justify-content: space-around; ;
+  justify-content: space-around;
 `;
 
 const IoMdCloses = styled(IoMdClose)`

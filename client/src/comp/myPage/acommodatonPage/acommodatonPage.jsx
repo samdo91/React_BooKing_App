@@ -12,6 +12,7 @@ import { Link, Outlet } from "react-router-dom";
 import MyAcommodatonList from "./myAcommodatonList/myAcommodatonList";
 
 import axios from "axios";
+import LoginAdvicePage from "../../loginAdvicePage/loginAdvicePage";
 
 function AcommodatonPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
@@ -43,40 +44,45 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   return (
     <div>
       <Header />
-
-      <Body>
-        <Directory>
-          <Link to="/myPage">
-            <H1>마이페이지</H1>
-          </Link>
-          <div>--</div>
-          <Link to="/myPage/Account">
-            <H1>숙소 등록</H1>
-          </Link>
-        </Directory>
-        {myAcommodatonList ? (
-          <MyAcommodatonList listData={myAcommodatonList} />
-        ) : (
-          ""
-        )}
-
-        {addPage ? (
-          <Outlet />
-        ) : (
-          <AddButtonSection>
-            <p>자신이 가진 에어비앤비를 등록하고 싶다면 이 버튼을 누르세요. </p>
-            <Link to="/myPage/Acommodaton/add">
-              <AddButton
-                onClick={() => {
-                  setAddPage(true);
-                }}
-              >
-                add Acommodato
-              </AddButton>
+      {userData.login === false ? (
+        <LoginAdvicePage />
+      ) : (
+        <Body>
+          <Directory>
+            <Link to="/myPage">
+              <H1>마이페이지</H1>
             </Link>
-          </AddButtonSection>
-        )}
-      </Body>
+            <div>--</div>
+            <Link to="/myPage/Account">
+              <H1>숙소 등록</H1>
+            </Link>
+          </Directory>
+          {myAcommodatonList ? (
+            <MyAcommodatonList listData={myAcommodatonList} />
+          ) : (
+            ""
+          )}
+
+          {addPage ? (
+            <Outlet />
+          ) : (
+            <AddButtonSection>
+              <p>
+                자신이 가진 에어비앤비를 등록하고 싶다면 이 버튼을 누르세요.{" "}
+              </p>
+              <Link to="/myPage/Acommodaton/add">
+                <AddButton
+                  onClick={() => {
+                    setAddPage(true);
+                  }}
+                >
+                  add Acommodato
+                </AddButton>
+              </Link>
+            </AddButtonSection>
+          )}
+        </Body>
+      )}
     </div>
   );
 }

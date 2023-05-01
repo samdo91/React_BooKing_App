@@ -54,7 +54,7 @@ function MainPageHeader() {
 
     const selectList = [];
     const itemList = [...itemData];
-    itemList.map((item) => {
+    itemList.forEach((item) => {
       if (item.type.includes(types)) {
         selectList.push(item);
       }
@@ -98,164 +98,166 @@ function MainPageHeader() {
         className="mySwiper"
       >
         <SwiperSlides>
-          <button value="koreaHome" onClick={clickIcon}>
+          <button value="koreaHome" key="koreaHomeButton" onClick={clickIcon}>
             <GiSouthKorea />
             한옥
           </button>
         </SwiperSlides>
         <SwiperSlides>
-          <button value="surprise" onClick={clickIcon}>
+          <button value="surprise" key="surpriseButton" onClick={clickIcon}>
             <GiSurprised />
             깜짝!
           </button>
         </SwiperSlides>
+
+        <SwiperSlides>
+          <button value="sea" key="seaButton" onClick={clickIcon}>
+            <GiJugglingSeal />
+            해변
+          </button>
+        </SwiperSlides>
+
         <label>
           <SwiperSlides>
-            <button value="sea" onClick={clickIcon}>
-              <GiJugglingSeal />
-              해변
+            <button value="child" key="childButton" onClick={clickIcon}>
+              <FaChild />
+              키즈
             </button>
           </SwiperSlides>
         </label>
         <SwiperSlides>
-          <button value="child" onClick={clickIcon}>
-            <FaChild />
-            키즈
-          </button>
-        </SwiperSlides>
-        <SwiperSlides>
-          <button value="mansion" onClick={clickIcon}>
+          <button value="mansion" key="mansionButton" onClick={clickIcon}>
             <GiCastle />
             저택
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="private" onClick={clickIcon}>
+          <button value="private" key="privateButton" onClick={clickIcon}>
             <GiPrivate />
             개인실
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="cliff" onClick={clickIcon}>
+          <button value="cliff" key="cliffButton" onClick={clickIcon}>
             <GiSeaCliff />
             전망
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="popularity" onClick={clickIcon}>
+          <button value="popularity" key="popularityButton" onClick={clickIcon}>
             <GiThumbUp />
             인기
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="Ryokan" onClick={clickIcon}>
+          <button value="Ryokan" key="RyokanButton" onClick={clickIcon}>
             <GiJapan />
             료칸
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="countrySide" onClick={clickIcon}>
+          <button
+            value="countrySide"
+            key="countrySideButton"
+            onClick={clickIcon}
+          >
             <GiFarmer />
             시골
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="park" onClick={clickIcon}>
+          <button value="park" key="parkButton" onClick={clickIcon}>
             <GiParkBench />
             국립공원
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="swimmingPool" onClick={clickIcon}>
+          <button
+            value="swimmingPool"
+            key="swimmingPoolButton"
+            onClick={clickIcon}
+          >
             <FaSwimmingPool />
             수영장
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="Luxe" onClick={clickIcon}>
+          <button value="Luxe" key="LuxeButton" onClick={clickIcon}>
             <GiSparkles />
             Luxe
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="design" onClick={clickIcon}>
+          <button value="design" key="designButton" onClick={clickIcon}>
             <GiAbdominalArmor /> 디자인
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="castle" onClick={clickIcon}>
+          <button value="castle" key="castleButton" onClick={clickIcon}>
             <GiElvenCastle /> 캐슬
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="camping" onClick={clickIcon}>
+          <button value="camping" key="campingButton" onClick={clickIcon}>
             <GiCampingTent />
             캠핑장
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="mini" onClick={clickIcon}>
+          <button value="mini" key="miniButton" onClick={clickIcon}>
             <FiMinimize2 />
             소형주택
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
-          <button value="farm" onClick={clickIcon}>
+          <button value="farm" key="farmButton" onClick={clickIcon}>
             <GiFarmTractor />
             농장
           </button>
         </SwiperSlides>
         <SwiperSlides>
-          <button value="city" onClick={clickIcon}>
+          <button value="city" key="cityButton" onClick={clickIcon}>
             <FaCity />
             상징적 도시
           </button>
         </SwiperSlides>
         <SwiperSlides>
-          <button value="boat" onClick={clickIcon}>
+          <button value="boat" key="boatButton" onClick={clickIcon}>
             <GiFishingBoat />
             보트
           </button>
         </SwiperSlides>
         <SwiperSlides>
-          <button value="new" onClick={clickIcon}>
+          <button value="new" key="newButton" onClick={clickIcon}>
             <GiNewBorn />
             신규
           </button>
         </SwiperSlides>
         <SwiperSlides>
-          <button value="cabin" onClick={clickIcon}>
+          <button value="cabin" key="cabinButton" onClick={clickIcon}>
             <GiWoodCabin />
             통나무집
           </button>
         </SwiperSlides>
         <SwiperSlides>
-          <button value="tropical" onClick={clickIcon}>
+          <button value="tropical" key="tropicalButton" onClick={clickIcon}>
             <GiTropicalFish />
             열대지역
           </button>
         </SwiperSlides>
-        {/* <SwiperSlides>속세를 벗어난 숙소</SwiperSlides>
-        <SwiperSlides>와인농장</SwiperSlides>
-        <SwiperSlides>섬</SwiperSlides>
-        <SwiperSlides>그랜드피아노</SwiperSlides>
-        <SwiperSlides>동굴</SwiperSlides>
-        <SwiperSlides>스키를 탄 채로 출입가능</SwiperSlides>
-        <SwiperSlides>스키</SwiperSlides>
-        <SwiperSlides>호숫가</SwiperSlides>
-        <SwiperSlides>사막</SwiperSlides>
-        <SwiperSlides>북극</SwiperSlides>
-        <SwiperSlides>B&B</SwiperSlides>
-        <SwiperSlides>창작공간</SwiperSlides>
-        <SwiperSlides>호수근처</SwiperSlides>
-        <SwiperSlides>트리하우스</SwiperSlides>
-        <SwiperSlides>전문가급 주방</SwiperSlides>
-        <SwiperSlides>세상의 꼭대기</SwiperSlides>
-        <SwiperSlides>골프장</SwiperSlides>
-        <SwiperSlides>민수</SwiperSlides>
-        <SwiperSlides>서핑</SwiperSlides>
-        <SwiperSlides>컨테이너 하우스</SwiperSlides>
-        <SwiperSlides>헛간</SwiperSlides> */}
       </Swipers>
     </Body>
   );
@@ -264,26 +266,51 @@ function MainPageHeader() {
 export default MainPageHeader;
 
 const Body = styled.div`
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  color: #000;
-  margin: 0;
-  padding: 0;
+  position: relative;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Swipers = styled(Swiper)`
   width: 100%;
-  height: 50px;
+  margin-bottom: 20px;
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    margin: 5px 20px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+
+    svg {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    &:hover {
+      color: #222;
+      transform: scale(1.05);
+      transition: all 0.2s ease-in;
+    }
+  }
 `;
 
 const SwiperSlides = styled(SwiperSlide)`
-  text-align: center;
-  width: 20%;
-  font-size: 15px;
-  background: #ffffff;
-  height: 50px;
-  display: flex;
-  width: 20px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  width: auto !important;
 `;

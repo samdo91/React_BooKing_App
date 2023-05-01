@@ -27,7 +27,7 @@ function LoginMenuBox() {
     if (loginModal === true) {
       setLoginMenuToggle(false);
     }
-  }, [loginModal]);
+  }, [loginModal, setLoginMenuToggle]);
 
   // 로그아웃 펑션
   const handlerLogout = async () => {
@@ -46,7 +46,13 @@ function LoginMenuBox() {
         {userDatas.login === true ? (
           <div>
             <Link to="/myPage">
-              <LoginButton>마이페이지</LoginButton>
+              <LoginButton
+                onClick={() => {
+                  setLoginMenuToggle(false);
+                }}
+              >
+                마이페이지
+              </LoginButton>
             </Link>
 
             <LoginButton onClick={handlerLogout}>로그아웃</LoginButton>
@@ -54,10 +60,17 @@ function LoginMenuBox() {
         ) : (
           <div>
             <Link to="/register">
-              <Membership>회원가입</Membership>
+              <Membership
+                onClick={() => {
+                  setLoginMenuToggle(false);
+                }}
+              >
+                회원가입
+              </Membership>
             </Link>
             <LoginButton
               onClick={() => {
+                console.log("회원가입");
                 setLoginModal(true);
               }}
             >
