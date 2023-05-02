@@ -26,7 +26,9 @@ function PriceBox(props) {
     country,
   } = props.detailData;
 
-  const { id } = props.id;
+  const { id } = props;
+
+  console.log("id", id);
   /*
 checkInState:체크인 스테이트
 checkOutState:체크아웃 스테이트

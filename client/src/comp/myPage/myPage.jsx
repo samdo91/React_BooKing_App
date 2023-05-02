@@ -26,12 +26,12 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
     {
       name: "예약 상황 ",
       introduction: "내가 예약한 숙소를 확인해보세요.",
-      to: "",
+      to: "/myPage/booking",
     },
     {
       name: "acommodatons",
       introduction: "숙박 업소를 등록해보자",
-      to: "/myPage/Acommodaton ",
+      to: "/myPage/Acommodaton",
     },
   ];
 

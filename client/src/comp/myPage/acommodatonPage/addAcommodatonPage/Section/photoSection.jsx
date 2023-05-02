@@ -82,7 +82,6 @@ function PhotoSection(props) {
           <PhotoLinkButton onClick={photoLinkButton}>
             링크 추가!
           </PhotoLinkButton>
-          F
         </div>
       </PhotoLink>
       <PhotoLabel>

@@ -24,6 +24,7 @@ function DetailPage() {
 
   const itemSearch = async () => {
     console.log(detailData);
+    console.log("ids", id);
 
     const response = await axios.post(`http://127.0.0.1:4000/detailPage`, {
       id: id,

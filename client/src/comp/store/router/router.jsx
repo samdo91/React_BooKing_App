@@ -8,6 +8,7 @@ import AccountPage from "../../myPage/accountpage/accountPage";
 import PrivacyPage from "../../myPage/accountPage/PrivacyPage/PrivacyPage";
 import AcommodatonPage from "../../myPage/acommodatonPage/acommodatonPage";
 import AddAcommodatonPage from "../../myPage/acommodatonPage/addAcommodatonPage/addAcommodatonPage.";
+import BookingPage from "../../myPage/bookingPage/bookingPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -50,5 +51,9 @@ export const router = createBrowserRouter([
         element: <AddAcommodatonPage />,
       },
     ],
+  },
+  {
+    path: `/myPage/booking`,
+    element: <BookingPage />,
   },
 ]);
