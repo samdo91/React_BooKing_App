@@ -70,7 +70,6 @@ function LoginMenuBox() {
             </Link>
             <LoginButton
               onClick={() => {
-                console.log("회원가입");
                 setLoginModal(true);
               }}
             >

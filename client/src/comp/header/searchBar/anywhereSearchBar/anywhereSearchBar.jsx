@@ -5,7 +5,6 @@ function AnywhereSearchBar() {
   const [underBorder, SetUnderBorder] = useState("lodgings");
 
   const handlebuttonclick = (e) => {
-    console.log("e.targer :>> ", e.target.value);
     SetUnderBorder(e.target.value);
   };
 

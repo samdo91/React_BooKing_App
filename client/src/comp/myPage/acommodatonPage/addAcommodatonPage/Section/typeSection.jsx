@@ -37,7 +37,6 @@ function TypeSection(props) {
     } else if (!checked) {
       setAcommodatonType(acommodatonType.filter((el) => el !== item));
     }
-    console.log(acommodatonType);
   };
 
   return (

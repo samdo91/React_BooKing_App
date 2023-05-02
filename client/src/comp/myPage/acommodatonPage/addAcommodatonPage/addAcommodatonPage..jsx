@@ -151,7 +151,6 @@ acommodatonPrice: 1박당 가격,
           "http://127.0.0.1:4000/acommodatonReseve",
           { id, ...acommodatoData }
         );
-        console.log(response);
       } else {
         const response = await axios.post(
           "http://127.0.0.1:4000/acommodatonSeve",

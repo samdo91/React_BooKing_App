@@ -8,7 +8,6 @@ function DefaultSearchBar() {
   const [searchBarState, setSearchBarState] = useAtom(searchBarStates);
 
   const handlebuttonclick = (e) => {
-    console.log("e.targer :>> ", e.target.value);
     setSearchBarState(e.target.value);
   };
   return (

@@ -43,7 +43,6 @@ function MyAcommodatonList(props) {
                 <Link to={`/myPage/Acommodaton/add/${itemList._id}`}>
                   <Button
                     onClick={() => {
-                      console.log(itemList._id);
                       setAddPage(true);
                     }}
                   >

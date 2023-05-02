@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -11,6 +11,8 @@ function PhotoSection(props) {
     photosLinks,
     setPhotosLinks,
   } = props;
+
+  const photoinput = useRef(null);
   const photoUpload = async (e) => {
     e.preventDefault();
     const files = e.target.files; // 파일 리스트
@@ -28,8 +30,6 @@ function PhotoSection(props) {
       .then((response) => {
         const links = response.data;
 
-        console.log("links", links);
-        console.log("response", response);
         setAcommodatonPhotos([...acommodatonPhotos, ...links]);
       });
   };
@@ -47,7 +47,7 @@ function PhotoSection(props) {
           link: photosLinks,
         }
       );
-      console.log(filename);
+
       setAcommodatonPhotos([...acommodatonPhotos, filename]);
       setPhotosLinks("");
     }
@@ -60,7 +60,6 @@ function PhotoSection(props) {
     } else if (!checked) {
       setAcommodatonPhotos(acommodatonPhotos.filter((el) => el !== item));
     }
-    console.log(acommodatonPhotos);
   };
   return (
     <PhotoSectionBox>
@@ -85,11 +84,11 @@ function PhotoSection(props) {
         </div>
       </PhotoLink>
       <PhotoLabel>
-        <PhotoInput type="file" onChange={photoUpload} />
-        <div>
+        <PhotoInput ref={photoinput} type="file" onChange={photoUpload} />
+        <Flex>
           <AiOutlineCloudUpload />
           사진 +
-        </div>
+        </Flex>
       </PhotoLabel>
       <PhotoZone>
         <PhotoList>
@@ -176,6 +175,7 @@ const PhotoLabel = styled.label`
   background-color: white;
 `;
 const PhotoInput = styled.input`
+  display: none;
   ::file-selector-button {
     display: none;
   }
@@ -271,4 +271,8 @@ const StarFill = styled(BsStarFill)`
   top: 30px;
   left: 30px;
   color: yellow;
+`;
+
+const Flex = styled.div`
+  display: flex;
 `;

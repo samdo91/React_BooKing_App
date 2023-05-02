@@ -8,6 +8,7 @@ import axios from "axios";
 import LoginPopUp from "../loginPage/loginPopUp";
 import styled from "@emotion/styled";
 import PriceBox from "./priceBox/priceBox";
+import MyBookingList from "../myPage/bookingPage/myBookingList/myBookingList";
 
 function DetailPage() {
   //useParams를 사용할때 넘겨준 인자와 같은 인자를 가져와야한다. props라고 생각하면 편함
@@ -16,22 +17,38 @@ function DetailPage() {
   const [detailData, setDetailData] = useState([]);
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [itemSearchSuccess, setItemSearchSuccess] = useState(false);
+  const [bookingState, setBookingState] = useState(false);
+  const [bookingData, setBookingData] = useState([]);
 
   useEffect(() => {
-    console.log(1);
+    bookingSearch();
     itemSearch();
   }, []);
 
-  const itemSearch = async () => {
-    console.log(detailData);
-    console.log("ids", id);
+  const bookingSearch = async () => {
+    const response = await axios.post("http://127.0.0.1:4000/myBooking");
+    const booking = response.data;
+    const bookingId = booking.map((item) => {
+      return item.place._id;
+    });
+    const bookingData = booking.filter((item) => {
+      return item.place._id === id;
+    });
+    if (bookingData.length >= 1) {
+      setBookingState(true);
+      setBookingData([...bookingData]);
+    } else {
+      setBookingState(false);
+    }
+  };
 
+  // 디테일 페이지가 렌더링될 때 id로 Accommodation의 데이터를 가져온다.
+  const itemSearch = async () => {
     const response = await axios.post(`http://127.0.0.1:4000/detailPage`, {
       id: id,
     });
-    const Acommodaton = response.data;
-    console.log("Acommodaton", Acommodaton);
-    setDetailData({ ...Acommodaton });
+    const Accommodation = response.data;
+    setDetailData({ ...Accommodation });
     setItemSearchSuccess(true);
   };
 
@@ -58,6 +75,9 @@ function DetailPage() {
       {loginModal ? <LoginPopUp /> : ""}
       {itemSearchSuccess === true ? (
         <Body>
+          {bookingState && bookingData.length > 0 ? (
+            <MyBookingList listData={bookingData} />
+          ) : null}
           <H1>
             <b>{title}</b>
           </H1>

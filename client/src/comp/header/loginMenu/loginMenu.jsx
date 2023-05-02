@@ -26,11 +26,8 @@ function LoginMenu() {
         return;
       } else {
         setUserData({ login: true, token: true, ...response.data });
-        console.log("토큰 있음", response.data);
       }
-    } catch (e) {
-      console.log("토큰 없음");
-    }
+    } catch (e) {}
 
     return response?.data; // Optional chaining operator를 사용하여 undefined인 경우를 처리
   };
@@ -44,7 +41,6 @@ function LoginMenu() {
   useEffect(() => {
     if (userDatas.login) {
       setLoginState(true);
-      console.log(userDatas);
     }
   }, [userDatas]);
 

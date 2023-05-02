@@ -6,9 +6,7 @@ import { FiArrowRightCircle } from "react-icons/fi";
 
 function MyBookingList(props) {
   const { listData } = props;
-  console.log(listData);
 
-  const date = new Date();
   return (
     <MyListBox>
       {listData.map((item) => {
@@ -34,12 +32,15 @@ function MyBookingList(props) {
                   <div> 투숙객 : {item.guests} 명 </div>
                   <div> 숙박일수: {item.numberOfNight} 일</div>
                   <div> 총 숙박비용: ₩ {item.prices.toLocaleString()} </div>
+                  <div>{item.place._id}</div>
                 </AddressDiv>
               </div>
               <div>
-                <Button onClick={() => {}}>
-                  <FiArrowRightCircle /> 자세하게 하게 보기
-                </Button>
+                <Link to={`/detailPage/${item.place._id}`}>
+                  <Button>
+                    <FiArrowRightCircle /> 자세하게 하게 보기
+                  </Button>
+                </Link>
               </div>
             </Body>
           </ItemBox>

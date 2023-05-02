@@ -13,7 +13,7 @@ function BoardItemCard(props) {
             return <Span>{item}</Span>;
           })}
         </div>
-        <div>₩ {price}/ 박</div>
+        <div>₩ {parseInt(price).toLocaleString()}/ 박</div>
       </div>
     </CardBox>
   );

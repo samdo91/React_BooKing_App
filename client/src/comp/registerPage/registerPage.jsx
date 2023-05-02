@@ -20,13 +20,14 @@ function RegisterPage() {
   // axios.post로 보낸다.
   const registerPost = async () => {
     try {
-      await axios.post("http://127.0.0.1:4000//register", {
+      await axios.post("http://127.0.0.1:4000/register", {
         name: name,
         email: email,
         password: password,
         countryCode: countryCode,
         phoneNumber: phoneNumber,
       });
+      window.location.href = "/";
     } catch (e) {
       alert("제출이 제대로 되지 않았음 왜일까?");
     }
@@ -34,7 +35,6 @@ function RegisterPage() {
 
   const postUserData = (e) => {
     e.preventDefault();
-    console.log(11);
     registerPost();
     // if (
     //   phoneNumber !== "" ||
@@ -72,7 +72,6 @@ function RegisterPage() {
             value={phoneNumber}
             placeholder={`${countryCode} 핸드폰 번호를 입력해주세요`}
             onChange={(e) => {
-              console.log(e.target.value);
               setPhoneNumber(e.target.value);
             }}
           ></Input>

@@ -47,11 +47,15 @@ function MainPageHeader() {
 
   // Object.keys로 키를 추출해 리턴한다.
   const findKeys = (e) => {
+    const vat = e.target.value;
     const List = Object.keys(e.target);
-    console.log(List);
     const propsKeys = List[1];
     const types = e.target[propsKeys].value;
 
+    console.log("List", List);
+    console.log("propsKeys", propsKeys);
+    console.log("types", types);
+    console.log("vat", vat);
     const selectList = [];
     const itemList = [...itemData];
     itemList.forEach((item) => {
@@ -68,7 +72,6 @@ function MainPageHeader() {
   const clickIcon = (event) => {
     const selectList = findKeys(event);
     setZoroItem(false);
-    console.log(selectList);
 
     // 인클루드 메서드를 돌았는 데도 불러온 에어비앤비 아이템이 0이라면 zoroItem을 true값으로 한다.
     if (Array.isArray(selectList) && selectList.length === 0) {
@@ -99,56 +102,67 @@ function MainPageHeader() {
       >
         <SwiperSlides>
           <button value="koreaHome" key="koreaHomeButton" onClick={clickIcon}>
-            <GiSouthKorea />
+            <PointerEvents>
+              <GiSouthKorea />
+            </PointerEvents>
             한옥
           </button>
         </SwiperSlides>
         <SwiperSlides>
           <button value="surprise" key="surpriseButton" onClick={clickIcon}>
-            <GiSurprised />
+            <PointerEvents>
+              <GiSurprised />
+            </PointerEvents>
             깜짝!
           </button>
         </SwiperSlides>
 
         <SwiperSlides>
           <button value="sea" key="seaButton" onClick={clickIcon}>
-            <GiJugglingSeal />
+            <PointerEvents>
+              <GiJugglingSeal />
+            </PointerEvents>
             해변
           </button>
         </SwiperSlides>
 
-        <label>
-          <SwiperSlides>
-            <button value="child" key="childButton" onClick={clickIcon}>
+        <SwiperSlides>
+          <button value="child" key="childButton" onClick={clickIcon}>
+            <PointerEvents>
               <FaChild />
-              키즈
-            </button>
-          </SwiperSlides>
-        </label>
+            </PointerEvents>
+            키즈
+          </button>
+        </SwiperSlides>
         <SwiperSlides>
           <button value="mansion" key="mansionButton" onClick={clickIcon}>
-            <GiCastle />
+            <PointerEvents>
+              <GiCastle />
+            </PointerEvents>
             저택
           </button>
         </SwiperSlides>
-
         <SwiperSlides>
           <button value="private" key="privateButton" onClick={clickIcon}>
-            <GiPrivate />
+            <PointerEvents>
+              <GiPrivate />
+            </PointerEvents>
             개인실
           </button>
         </SwiperSlides>
-
         <SwiperSlides>
           <button value="cliff" key="cliffButton" onClick={clickIcon}>
-            <GiSeaCliff />
+            <PointerEvents>
+              <GiSeaCliff />
+            </PointerEvents>
             전망
           </button>
         </SwiperSlides>
-
         <SwiperSlides>
           <button value="popularity" key="popularityButton" onClick={clickIcon}>
-            <GiThumbUp />
+            <PointerEvents>
+              <GiThumbUp />
+            </PointerEvents>
             인기
           </button>
         </SwiperSlides>
@@ -166,14 +180,18 @@ function MainPageHeader() {
             key="countrySideButton"
             onClick={clickIcon}
           >
-            <GiFarmer />
+            <PointerEvents>
+              <GiFarmer />
+            </PointerEvents>
             시골
           </button>
         </SwiperSlides>
 
         <SwiperSlides>
           <button value="park" key="parkButton" onClick={clickIcon}>
-            <GiParkBench />
+            <PointerEvents>
+              <GiParkBench />
+            </PointerEvents>
             국립공원
           </button>
         </SwiperSlides>
@@ -184,21 +202,48 @@ function MainPageHeader() {
             key="swimmingPoolButton"
             onClick={clickIcon}
           >
-            <FaSwimmingPool />
+            <PointerEvents>
+              <FaSwimmingPool />
+            </PointerEvents>
             수영장
           </button>
         </SwiperSlides>
 
         <SwiperSlides>
           <button value="Luxe" key="LuxeButton" onClick={clickIcon}>
-            <GiSparkles />
+            <PointerEvents>
+              <GiSparkles />
+            </PointerEvents>
             Luxe
           </button>
         </SwiperSlides>
 
         <SwiperSlides>
           <button value="design" key="designButton" onClick={clickIcon}>
-            <GiAbdominalArmor /> 디자인
+            <PointerEvents>
+              <GiAbdominalArmor />
+            </PointerEvents>
+            디자인
+          </button>
+        </SwiperSlides>
+
+        <SwiperSlides>
+          <button value="castle" key="castleButton" onClick={clickIcon}>
+            <GiElvenCastle /> 캐슬
+          </button>
+        </SwiperSlides>
+
+        <SwiperSlides>
+          <button value="camping" key="campingButton" onClick={clickIcon}>
+            <GiCampingTent />
+            캠핑장
+          </button>
+        </SwiperSlides>
+
+        <SwiperSlides>
+          <button value="mini" key="miniButton" onClick={clickIcon}>
+            <FiMinimize2 />
+            소형주택
           </button>
         </SwiperSlides>
 
@@ -228,30 +273,35 @@ function MainPageHeader() {
             농장
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
           <button value="city" key="cityButton" onClick={clickIcon}>
             <FaCity />
             상징적 도시
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
           <button value="boat" key="boatButton" onClick={clickIcon}>
             <GiFishingBoat />
             보트
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
           <button value="new" key="newButton" onClick={clickIcon}>
             <GiNewBorn />
             신규
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
           <button value="cabin" key="cabinButton" onClick={clickIcon}>
             <GiWoodCabin />
             통나무집
           </button>
         </SwiperSlides>
+
         <SwiperSlides>
           <button value="tropical" key="tropicalButton" onClick={clickIcon}>
             <GiTropicalFish />
@@ -313,4 +363,8 @@ const Swipers = styled(Swiper)`
 
 const SwiperSlides = styled(SwiperSlide)`
   width: auto !important;
+`;
+
+const PointerEvents = styled.div`
+  pointer-events: none;
 `;

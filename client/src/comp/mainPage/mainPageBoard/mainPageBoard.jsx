@@ -20,7 +20,6 @@ function MainPageBoard() {
   const itemDataFuntion = async () => {
     const response = await axios.post(`http://127.0.0.1:4000/mainacommodaton`);
 
-    console.log(response);
     const itemDatas = response.data;
     setItemData(itemDatas);
     setItemDataList(itemDatas);
@@ -38,7 +37,7 @@ function MainPageBoard() {
         const hostName = item.hostName;
 
         return (
-          <Link to={`DetailPage/${item._id}`} key={item._id}>
+          <Link to={`detailPage/${item._id}`} key={item._id}>
             <BoardItemCard
               country={item.country}
               city={item.city}

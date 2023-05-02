@@ -28,7 +28,6 @@ function PriceBox(props) {
 
   const { id } = props;
 
-  console.log("id", id);
   /*
 checkInState:체크인 스테이트
 checkOutState:체크아웃 스테이트
@@ -125,13 +124,12 @@ inputPhone: 예약할때 쓸 폰 번호
       phone: inputPhone,
       prices: parseFloat(price) * parseFloat(numberOfNight),
     });
-    console.log("response", response);
   };
 
   return (
     <PriceBoxContainer numberOfNight={numberOfNight}>
       <H2>
-        <div>₩ {price}/ 박</div>
+        <div>₩ {parseInt(price).toLocaleString()}/ 박</div>
       </H2>
       <CheckInBox>
         <CheckInputBox>

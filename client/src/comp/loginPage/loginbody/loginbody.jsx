@@ -13,7 +13,6 @@ function LoginBody() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
 
   const registerPost = async () => {
-    console.log("first");
     try {
       const loginSuccessData = await axios.post(
         "http://127.0.0.1:4000/login",
@@ -74,18 +73,16 @@ function LoginBody() {
         <Input
           type="text"
           value={phoneNumber}
-          placeholder={countryCode}
+          placeholder={`${countryCode} 핸드폰 번호를 적어주세요`}
           onChange={(e) => {
-            console.log(e.target.value);
             setPhoneNumber(e.target.value);
           }}
         ></Input>
         <Input
-          type="text"
+          type="password"
           value={passwords}
           placeholder="비밀번호입력해줘"
           onChange={(e) => {
-            console.log(e.target.value);
             setPasswords(e.target.value);
           }}
         ></Input>

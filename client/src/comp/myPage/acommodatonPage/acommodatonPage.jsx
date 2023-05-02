@@ -35,11 +35,11 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
     myAcommodatonFetchData();
   }, []);
 
-  useEffect(() => {
-    if (!loginState) {
-      setLoginModal(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (loginState === false) {
+  //     setLoginModal(true);
+  //   }
+  // }, []);
 
   return (
     <div>

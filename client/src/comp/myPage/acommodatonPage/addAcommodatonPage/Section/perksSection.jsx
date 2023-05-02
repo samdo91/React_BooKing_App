@@ -25,7 +25,6 @@ function PerksSection(props) {
     } else if (!checked) {
       setAcommodatonPerks(acommodatonPerks.filter((el) => el !== item));
     }
-    console.log(acommodatonPerks);
   };
 
   return (

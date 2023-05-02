@@ -275,7 +275,6 @@ app.post(`/login`, async (req, res) => {
 });
 
 app.post("/server", function (req, res) {
-  console.log(2);
   res.json("안들어가지네");
 });
 
@@ -368,9 +367,6 @@ app.post(`/photosUploads`, photosmulter.array("photos", 100), (req, res) => {
       const nowPath = path + "." + ext;
 
       fs.renameSync(path, newPath);
-      console.log("path", path);
-      console.log("ext", ext);
-      console.log("newPath", newPath);
 
       // 파일 저장 경로 검증 .fs사용
       if (!fs.existsSync("uploads/")) {
@@ -442,6 +438,7 @@ app.post(`/myBooking`, (req, res) => {
   const { token } = req.cookies;
   // 쿠키 불러오기
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    console.log(userData);
     if (err) {
       console.error(err);
       res.status(401).send("Unauthorized");
@@ -451,9 +448,10 @@ app.post(`/myBooking`, (req, res) => {
       /*populate() 메소드는 Mongoose에서 지원하는 메소드 중 하나로, MongoDB의 레퍼런스 필드를 쉽게 가져올 수 있도록 도와줍니다.
 예를 들어 위 코드에서 populate('acommodaton')는 Booking 모델에서 place 필드가 다른 컬렉션(예를 들어 Accommodation 모델)의 _id를 참조하고 있다면, 
 해당 _id에 대한 실제 컬렉션의 데이터를 Booking 모델에 연결시켜 줍니다. */
-      const bookingDoc = await Booking.find(userData.user).populate("place");
+      const bookingDoc = await Booking.find({ user: userData.id }).populate(
+        "place"
+      );
 
-      console.log(bookingDoc);
       res.json(bookingDoc);
     } catch (err) {
       console.error(err);

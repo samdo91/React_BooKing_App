@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: `detailPage/:id`,
+    path: `/detailPage/:id`,
     element: <DetailPage />,
   },
   {
