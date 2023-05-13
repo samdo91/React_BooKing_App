@@ -19,7 +19,7 @@
 - 1.  서버 만들기 통신 주고 받기
       서버를 만드는 일은 Express를 이용하였다. 서버 자체에 user의 데이터를 저장하여 사용했다.
 
-                 ```jsx
+```jsx
                        //임시 데이터 -이후 DB를 만들어 그쪽에 값을 저장하는 쪽으려 변경하였다.
                        const users = [
                        { id: 1, name: "유저1" password: ***},
@@ -31,69 +31,72 @@
 
                         res.json({ok: true, users: users}); })
 
-                 ```
-     임시로 저장된 데이터를 res.json으로 반환하여 임시 데이터와 내가 입력한 데이터를 비교하여 로그인이 되는지 안되는 지 판단하는 함수를 만든다.
-     그를 위해서는 두가지 만들것이 있다. <br>
+```
 
-     1. 로그인이 성공했을 때 성공한 상태를 저장하기.- 전역관리를 통해 해결가능(`Jotai` 사용)
-                jotai를 사용한 전역 관리는 사용법이 편리하고 간단하기 때문에 리덕스 대신 사용하고 있다.
+임시로 저장된 데이터를 res.json으로 반환하여 임시 데이터와 내가 입력한 데이터를 비교하여 로그인이 되는지 안되는 지 판단하는 함수를 만든다.
+그를 위해서는 두가지 만들것이 있다. <br>
 
-      ```jsx
-                // 로그인이 되어 있는가?를 확인하고 저장하는 atom
-                export const loginStates = atom(false);
+1.  로그인이 성공했을 때 성공한 상태를 저장하기.- 전역관리를 통해 해결가능(`Jotai` 사용)
+    jotai를 사용한 전역 관리는 사용법이 편리하고 간단하기 때문에 리덕스 대신 사용하고 있다.
 
-                // 유저데이터가 저장된다.
-                export const userDataAtom = atom({
-                  login: false,
-                  token: false,
-                  name: "",
-                  password: "",
-                  id: "",
-                });
-                ```
-                특히 loginStates atom은 이후 생성된 쿠키를 이용하기 위해 필요한 atom이다.
-                메 페이지가 랜더링 될때마다 loginStates의 상태를 확인하고 false라면 쿠키로 만든 토큰이 존재하는 지 서버에 확인하고 토큰이 있다면 로그인하고  userDataAtom 에 유저 데이터를 저장하게 만들수 있다.
+```jsx
+// 로그인이 되어 있는가?를 확인하고 저장하는 atom
+export const loginStates = atom(false);
 
-    2. 로그인이 성공한 상태를 유지하기. - cookie를 사용하면 된다.
-             `jsonwebtoken`를 이용하여 토큰을 만든다. 이후 만들어진 토큰은 로그아웃 할때까지 사용할 수 있다.
+// 유저데이터가 저장된다.
+export const userDataAtom = atom({
+  login: false,
+  token: false,
+  name: "",
+  password: "",
+  id: "",
+});
+```
 
-   ````jsx
+특히 loginStates atom은 이후 생성된 쿠키를 이용하기 위해 필요한 atom이다.
 
-               app.post(`/login`, async (req, res) => {
-                // post로 변경
-              const { password, name } = req.body;
-               // find로 같은 이름 가진 유저를 찾아온다.
-               const userDoc = await users.find({ name });
-               // 최종적으로 걸러낸 진짜 유저다.
-              const users = findPhoneNumber(password) //find로 찾은 유저들 중 password로 정확한 유저를 찾아주는 함수;
-              //토큰의 수명
-              const options = {
-               expiresIn: "12h", // 12시간
-              };
-             if (users) {
-                jwt.sign(
-               { id: users._id, name: users.name },
+매번 페이지가 랜더링 될때마다 loginStates의 상태를 확인하고 false라면 쿠키로 만든 토큰이 존재하는 지 서버에 확인하고 토큰이 있다면 로그인하고 userDataAtom 에 유저 데이터를 저장하게 만들수 있다.
 
-                  jwtSecret,
-                { expiresIn: "1d" },
-                (err, token) => {
-                  if (err) throw err;
+2. 로그인이 성공한 상태를 유지하기. - cookie를 사용하면 된다.
+   `jsonwebtoken`를 이용하여 토큰을 만든다. 이후 만들어진 토큰은 로그아웃 할때까지 사용할 수 있다.
 
-               res
-                 .cookie(`token`, token, { sameSite: "none", secure: true })
-                 .json(users);
-             }
-           );
+```jsx
+app.post(`/login`, async (req, res) => {
+  // post로 변경
+  const { password, name } = req.body;
+  // find로 같은 이름 가진 유저를 찾아온다.
+  const userDoc = await users.find({ name });
+  // 최종적으로 걸러낸 진짜 유저다.
+  const users = findPhoneNumber(password); //find로 찾은 유저들 중 password로 정확한 유저를 찾아주는 함수;
+  //토큰의 수명
+  const options = {
+    expiresIn: "12h", // 12시간
+  };
+  if (users) {
+    jwt.sign(
+      { id: users._id, name: users.name },
 
-            } else {
-             res.status(422).json("pass not ok");
-           }
-           });```
-      ````
+      jwtSecret,
+      { expiresIn: "1d" },
+      (err, token) => {
+        if (err) throw err;
 
-  이후 만들어진 쿠키를 통해 지속적인 로그인 상태를 유지 할 수 있다.
-  <br>
-  <br>
+        res
+          .cookie(`token`, token, { sameSite: "none", secure: true })
+          .json(users);
+      }
+    );
+  } else {
+    res.status(422).json("pass not ok");
+  }
+});
+```
+
+이후 만들어진 쿠키를 통해 지속적인 로그인 상태를 유지 할 수 있다.
+<br>
+<br>
+
+---
 
 - ### 로그인 모달페이지만들기 <br>
 
@@ -101,8 +104,8 @@
 
   따로 로그인을 위한 페이지를 만들어 라우팅처리하는 것도 좋겠지만 로그인은 사이트를 이용하는 내내 지속적으로 발생할 상황이다. 그렇기에 그때마다 로그인 페이지로 보내서 사용의 흐름을 끊는 것은 효율적인 방법이 아니다. - 스토리텔링적으로
 
-  그렇기에 여기서 사용할 것은 모달페이지다.  
-   모달은 무엇인가? 간단히 말하자면 화면에 레이어를 하나더 까는 것이다.
+  그렇기에 여기서 사용할 것은 모달페이지다.
+  모달은 무엇인가? 간단히 말하자면 화면에 레이어를 하나더 까는 것이다.
 
   - 팝업과 다른 점은?
 
@@ -123,7 +126,8 @@ function App() {
 }
 ```
 
-간단한 방법이다. isOpen의 값이 true면 모달이 지금 화면에 레이어된다. 그걸 위해서
+간단한 방법이다. isOpen의 값이 true면 모달이 지금 화면에 레이어된다.  
+ 그걸 위해서
 isOpen의 값을 전역처리 할것이다. - `jotai` 를 이용한다.
 
 ## !! 여기서 문제가 생겼다. !!
@@ -166,19 +170,19 @@ export const ModalDecorator = ({ className, ...props }) => {
 
     일단 로그인이 되어 있는가 와 로그인 한 유저의 데이터는 이미 저장되어 있다.
 
-        ```jsx
-               // 로그인이 되어 있는가?를 확인하고 저장하는 atom
-               export const loginStates = atom(false);
+    ```jsx
+    // 로그인이 되어 있는가?를 확인하고 저장하는 atom
+    export const loginStates = atom(false);
 
-               // 유저데이터가 저장된다.
-               export const userDataAtom = atom({
-                 login: false,
-                 token: false,
-                 name: "",
-                 password: "",
-                 id: "",
-              });
-              ```
+    // 유저데이터가 저장된다.
+    export const userDataAtom = atom({
+      login: false,
+      token: false,
+      name: "",
+      password: "",
+      id: "",
+    });
+    ```
 
 `jotai`로 만든 atom를 사용하면 된다. `emotion`으로 loginStates 가 true일 때 리렌더링 되게 만들면 된다.
 
@@ -516,7 +520,7 @@ if (tokens) {
 
   node Image Downloader는 Node.js 환경에서 이미지를 다운로드하는 라이브러리다.
 
-  ## 2. 내가 가진 디렉토리로
+- 2. 내가 가진 디렉토리로
 
   - 나는 이것을 알고 있다. input type="file"
     솔직히 책에서 한번 보고 써보지는 않았다. 하지만 생각보다 간단하다.  
@@ -526,7 +530,7 @@ if (tokens) {
 
   > Multer는 Node.js에서 파일 업로드를 처리하는 데 사용되는 미들웨어입니다. Multer는 multipart/form-data 형식으로 전송된 데이터를 처리할 수 있으며, Express 프레임워크와 함께 사용할 수 있습니다.
 
-      2.  대부분의 지문은 useState로 저장한 뒤에 서버로 요청을 보내고 그걸 몽고 디비로 loginPage를 만드는 공정을 그대로 사용한다.
+  대부분의 지문은 useState로 저장한 뒤에 서버로 요청을 보내고 그걸 몽고 디비로 loginPage를 만드는 공정을 그대로 사용한다.
 
   ***
 
