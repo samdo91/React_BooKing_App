@@ -253,7 +253,7 @@ app.post(`/login`, async (req, res) => {
 
   //토큰의 수명
   const options = {
-    expiresIn: 30, // 30 seconds
+    expiresIn: "12h", // 12 시간
   };
   if (users) {
     jwt.sign(
