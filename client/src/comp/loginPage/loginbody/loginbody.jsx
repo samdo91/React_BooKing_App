@@ -7,7 +7,7 @@ import { userDataAtom, loginModals } from "../../store/global/index";
 function LoginBody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [loginData, setLoginData] = useState(false);
+  const [loginData, setLoginData] = useState(false); //@NOTE 미사용 state
   const [passwords, setPasswords] = useState("");
   const [userData, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);

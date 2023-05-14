@@ -221,7 +221,7 @@ const AddressDiv = styled.div`
 const PhotosSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  margin-to: 20px;
+  margin-to: 20px; //@NOTE 오탈자
   height: 590px;
   width: 100%;
 `;
@@ -305,7 +305,7 @@ const H2 = styled.h2`
 
 const Section = styled.section`
   border-bottom: 1px solid #dcdcdc;
-  1px 1px #c0c0c0;
+  1px 1px #c0c0c0; //@NOTE 오탈자
   padding: 20px;
   `;
 

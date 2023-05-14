@@ -56,7 +56,7 @@ function PhotoSection(props) {
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAcommodatonPhotos([...acommodatonPhotos, , item]);
+      setAcommodatonPhotos([...acommodatonPhotos, , item]); //@NOTE 불필요한 콤마
     } else if (!checked) {
       setAcommodatonPhotos(acommodatonPhotos.filter((el) => el !== item));
     }

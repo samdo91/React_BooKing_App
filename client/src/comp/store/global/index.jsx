@@ -30,6 +30,7 @@ export const itemDataLists = atom([
 ]);
 
 // 더 이상 노출할 에어비앤비가 없다면?
+//@NOTE zoro ??
 export const zoroItems = atom(false);
 
 // 로그인이 되어 있는가?

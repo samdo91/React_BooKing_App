@@ -10,9 +10,9 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 function LoginMenuBox() {
-  /*loginModal: true면 모달창이 떠있음 
+  /*loginModal: true면 모달창이 떠있음
   loginMenuToggle: 상단 로그인 창의 메뉴를 토글함
-  userData: 말그대로 유저 데이터가 들어가있음 
+  userData: 말그대로 유저 데이터가 들어가있음
   login: false, - 이걸로 로그인이 되었는지 안되어 있는지 알 수 있음
   name: "",
   phoneNumber: "",
@@ -21,7 +21,7 @@ function LoginMenuBox() {
      */
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
-  const [userDatas, setUserData] = useAtom(userDataAtom);
+  const [userDatas, setUserData] = useAtom(userDataAtom); //@NOTE userDatas 라면 setUserData보다 setUserData`s` 로 동일하게 맞춰주는게 암묵적 컨벤션임
   const [loginState, setLoginState] = useAtom(loginStates);
   useEffect(() => {
     if (loginModal === true) {
@@ -103,7 +103,7 @@ const LoginMenu = styled.div`
   border-radius: 10px;
   width: 200px;
   height:  ${(props) => {
-    props.userDatas ? "200px" : "200px";
+    props.userDatas ? "200px" : "200px"; //@NOTE 리턴이 없는데?
   }}
   background-color: White;
   border: 1px solid #e9e9e9; ;

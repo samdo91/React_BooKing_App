@@ -38,6 +38,7 @@ function Header(props) {
 
   const AddAccommodation = () => {
     if (loginState) {
+      //@NOTE react-router-dom을 쓰는데 왜 링크를 이렇게 걸어야 하는지 모르겠음
       window.location.href = "/myPage/Acommodaton";
     } else {
       setLoginModal(true);

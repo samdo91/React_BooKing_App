@@ -90,6 +90,7 @@ inputPhone: 예약할때 쓸 폰 번호
     return daysDiff;
   };
   const checkHyphen = (inputValue) => {
+    //@NOTE alert이후에 return를 해주는게 더 좋지 않을까?
     if (inputValue.includes("-")) {
       alert("- 를 빼고 입력해주세요.");
     }
@@ -124,6 +125,8 @@ inputPhone: 예약할때 쓸 폰 번호
       phone: inputPhone,
       prices: parseFloat(price) * parseFloat(numberOfNight),
     });
+
+    //@NOTE 예약이 되었으면 예약 이후 처리가 되면 좋을듯 함. HOME으로 간다던가 등등
   };
 
   return (
@@ -224,11 +227,12 @@ const PriceBoxContainer = styled.div`
   height: ${(props) => (props.numberOfNight > 0 ? "750px" : "350px")};
   border-radius: 20px;
   border: 1px solid #dcdcdc;
-  align-items: center;
+  align-items: center; //@NOTE 중복 삭제
 `;
 
 const PriceButton = styled.button`
   margin: 10px;
+  margin-left: 40px; //@NOTE 이런건 같이 붙여놔야 좋음
   width: 200px;
   height: 40px;
   border-radius: 20px;
@@ -239,7 +243,6 @@ const PriceButton = styled.button`
     rgba(118, 9, 121, 1) 37%,
     rgba(0, 212, 255, 1) 100%
   );
-  margin-left: 40px;
 `;
 
 const H2 = styled.h2`
@@ -277,6 +280,6 @@ const CostBox = styled.div`
 
 const Section = styled.section`
   border-bottom: 1px solid #dcdcdc;
-  1px 1px #c0c0c0;
+  1px 1px #c0c0c0; //@NOTE 잘못된 코드는 정리할것
   padding: 20px;
   `;

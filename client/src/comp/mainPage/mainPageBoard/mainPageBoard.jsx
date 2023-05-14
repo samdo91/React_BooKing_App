@@ -7,16 +7,17 @@ import { itemDatas, zoroItems, itemDataLists } from "../../store/global";
 import { Link } from "react-router-dom";
 
 function MainPageBoard() {
-  /* country: 나라, 
-  city: 도시, 
-   picture: 사진, 
-  price: 1박당 가격, 
+  /* country: 나라,
+  city: 도시,
+   picture: 사진,
+  price: 1박당 가격,
   type: 해더부분의 검색에 이용
    hostName: 집주인, */
   const [itemData, setItemData] = useAtom(itemDatas);
   const [itemDataList, setItemDataList] = useAtom(itemDataLists);
   const [zoroItem, setZoroItem] = useAtom(zoroItems);
 
+  //@NOTE 오탈자
   const itemDataFuntion = async () => {
     const response = await axios.post(`http://127.0.0.1:4000/mainacommodaton`);
 
