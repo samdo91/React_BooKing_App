@@ -7,7 +7,7 @@ import MyPage from "../comp/MyPage/MyPage";
 import AccountPage from "../comp/MyPage/AccountPage/AccountPage";
 import PrivacyPage from "../comp/MyPage/AccountPage/PrivacyPage/PrivacyPage";
 import AccommodationPage from "../comp/MyPage/AccommodationPage/AccommodationPage";
-import AddAccommodationPage from "../comp/MyPage/AccommodationPage/AddAccommodationPage/AddAccommodationPage.";
+import AddAccommodationPage from "../comp/MyPage/AccommodationPage/AddAccommodationPage/AddAccommodationPage";
 import BookingPage from "../comp/MyPage/BookingPage/BookingPage";
 export const router = createBrowserRouter([
   {

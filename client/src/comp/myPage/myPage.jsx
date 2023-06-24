@@ -34,7 +34,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
     {
       name: "accommodations",
       introduction: "숙박 업소를 등록해보세요.",
-      to: "/myPage/Accommodation",
+      to: "/myPage/MyAccommodation",
     },
   ];
 
