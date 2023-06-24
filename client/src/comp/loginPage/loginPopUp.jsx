@@ -66,6 +66,7 @@ const StyledModal = styled(ModalDecorator)`
   }
 `;
 
+//@NOTE 오탈자
 const ModalHaeder = styled.div`
   border-bottom: 1px solid #e9e9e9;
   align-content: center;
@@ -81,6 +82,8 @@ const IoMdCloses = styled(IoMdClose)`
   font-size: 10px;
 `;
 
+//@NOTE span은 전형적인 인라인태그. 하지만 실제 태그는 div를 사용함.
+// 이런형태의 변수명선언은 좋지 않음. span이라는 이름을 사용하면 span태그를 사용하는것처럼 보이기 때문.
 const Spans = styled.div`
   margin-right: 75px;
 `;

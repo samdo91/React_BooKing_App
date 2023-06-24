@@ -13,10 +13,11 @@ import LoginMenuBox from "./loginMenuBox/loginMenuBox";
 
 function LoginMenu() {
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
-  const [userDatas, setUserData] = useAtom(userDataAtom);
+  const [userDatas, setUserData] = useAtom(userDataAtom); //@NOTE userDatas 라면 setUserData보다 setUserData`s` 로 동일하게 맞춰주는게 암묵적 컨벤션임
   const [loginState, setLoginState] = useAtom(loginStates);
 
   //쿠키가 있나 없나 검증하며 있다면 쿠키를 불러온다.
+  //@NOTE 단어의 결합은 대부분 lowerCamelCase를 사용함
   const logincookie = async () => {
     let response; // response 변수를 try 블록 내부에서 정의
     try {
@@ -79,7 +80,7 @@ const LoginMenuIcon = styled.div`
   border-radius: 15px;
   height: 30px;
   justify-content: space-between;
-  box-shadow: 0.5px 0.5px 00 #c0c0c0;
+  box-shadow: 0.5px 0.5px 00 #c0c0c0; //@NOTE çss property 확실히 작성할것
   width: 100px;
 `;
 

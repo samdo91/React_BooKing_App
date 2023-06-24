@@ -7,6 +7,7 @@ import { searchBarStates } from "../../store/global/index";
 function DefaultSearchBar() {
   const [searchBarState, setSearchBarState] = useAtom(searchBarStates);
 
+  //@NOTE 단어의 결합은 대부분 lowerCamelCase를 사용함
   const handlebuttonclick = (e) => {
     setSearchBarState(e.target.value);
   };
@@ -35,7 +36,7 @@ const DefaultSearchBarBox = styled.div`
   font-size: 15px;
   align-items: center;
   justify-content: space-around;
-  box-shadow: 0.5px 0.5px 00 #c0c0c0;
+  box-shadow: 0.5px 0.5px 00 #c0c0c0; //@NOTE 
 `;
 
 const BsSearchs = styled(BsSearch)`

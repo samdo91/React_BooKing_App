@@ -104,12 +104,13 @@ app.post(`/acommodatonSeve`, async (req, res) => {
 
       res.json(accommodationDoc);
     } catch (e) {
-      res.status(422).json(e);
+      res.status(422).json(e); //@NOTE 422는 무슨 에러코드?
     }
   });
 });
 
 // 숙소 다시 저장
+//@NOTE 오탈자 제대로 확인할것
 app.post(`/acommodatonReseve`, async (req, res) => {
   const { token } = req.cookies;
   const {
@@ -239,7 +240,7 @@ const findPhoneNumber = (userDoc, countryCode, password) => {
   if (passOK) {
     return userId[0];
   } else {
-    alert("비밀번호가 틀렸어");
+    alert("비밀번호가 틀렸어"); //@NOTE 서버에서는 alert 사용 불가. alert은 BOM 객체이기 때문에 브라우저에서만 사용 가능
   }
 };
 
@@ -446,7 +447,7 @@ app.post(`/myBooking`, (req, res) => {
     }
     try {
       /*populate() 메소드는 Mongoose에서 지원하는 메소드 중 하나로, MongoDB의 레퍼런스 필드를 쉽게 가져올 수 있도록 도와줍니다.
-예를 들어 위 코드에서 populate('acommodaton')는 Booking 모델에서 place 필드가 다른 컬렉션(예를 들어 Accommodation 모델)의 _id를 참조하고 있다면, 
+예를 들어 위 코드에서 populate('acommodaton')는 Booking 모델에서 place 필드가 다른 컬렉션(예를 들어 Accommodation 모델)의 _id를 참조하고 있다면,
 해당 _id에 대한 실제 컬렉션의 데이터를 Booking 모델에 연결시켜 줍니다. */
       const bookingDoc = await Booking.find({ user: userData.id }).populate(
         "place"
@@ -459,7 +460,7 @@ app.post(`/myBooking`, (req, res) => {
     }
   });
 });
-const PORT = 4000 || process.nev.PORT;
+const PORT = 4000 || process.nev.PORT; //@NOTE 오탈자
 
 app.listen(PORT, localhost, () => {
   console.log(`${localhost} ${PORT} 연결 완료`);

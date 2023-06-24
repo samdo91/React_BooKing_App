@@ -58,7 +58,7 @@ const Button = styled.button`
   border-radius: 10px;
   background-color: #f5002d;
   color: white;
-  paddiog: 40px;
+  paddiog: 40px; //@NOTE 오탈자
   margin: 15px;
   width: 100px;
 `;

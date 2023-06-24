@@ -113,6 +113,6 @@ const AddButton = styled.button`
   border-radius: 10px;
   background-color: #f5002d;
   color: white;
-  paddiog: 20px;
+  paddiog: 20px; //@NOTE 오탈자
   margin: 15px;
 `;

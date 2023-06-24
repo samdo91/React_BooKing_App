@@ -4,6 +4,7 @@ import { keyframes } from "@emotion/react";
 function AnywhereSearchBar() {
   const [underBorder, SetUnderBorder] = useState("lodgings");
 
+  //@NOTE 단어의 결합은 대부분 lowerCamelCase를 사용함
   const handlebuttonclick = (e) => {
     SetUnderBorder(e.target.value);
   };
