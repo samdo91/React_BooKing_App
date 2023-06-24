@@ -22,6 +22,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
       setLoginModal(true);
     }
   }, []);
+
   return (
     <div>
       <Header />
@@ -51,9 +52,11 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
 }
 
 export default PrivacyPage;
+
 const H1 = styled.div`
   font-size: 30px;
 `;
+
 const Body = styled.div`
   margin-left: 200px;
   margin-right: 200px;

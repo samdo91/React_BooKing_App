@@ -41,7 +41,7 @@ inputPhone: 예약할때 쓸 폰 번호
   const [maxGuestsState, setMaxGuestsState] = useState(1);
   const [numberOfNight, setNumberOfNight] = useState(0);
   const [inputName, setInputName] = useState("");
-  const [inputPhone, setInpuPhone] = useState("");
+  const [inputPhone, setInputPhone] = useState("");
   const [loginState, setLoginState] = useAtom(loginStates);
   const [loginModal, setLoginModal] = useAtom(loginModals);
 
@@ -69,11 +69,11 @@ inputPhone: 예약할때 쓸 폰 번호
       return;
     }
 
-    const daysDiff = differenceDays(checkInState, checkOutState);
+    const daysDiff = differenceDaysState(checkInState, checkOutState);
 
     if (daysDiff <= 0) {
       alert(
-        "유효하지 않는 날짜입니다. 체크인 하는 날과 체크 아웃하는 날짜가 최소 하루 차이가 나야합니다."
+        "유효하지 않는 날짜입니다. 체크인하는 날과 체크아웃하는 날짜가 최소 하루 차이가 나야합니다."
       );
       return;
     }
@@ -82,18 +82,18 @@ inputPhone: 예약할때 쓸 폰 번호
   };
 
   // 두 날짜 간의 일 수 차이를 계산하는 함수
-  const differenceDays = (checkIn, checkOut) => {
+  const differenceDaysState = (checkInState, checkOutState) => {
     const daysDiff = differenceInCalendarDays(
-      new Date(checkOut),
-      new Date(checkIn)
+      new Date(checkOutState),
+      new Date(checkInState)
     );
     return daysDiff;
   };
-  const checkHyphen = (inputValue) => {
+  const checkHyPhone = (inputValue) => {
     if (inputValue.includes("-")) {
       alert("- 를 빼고 입력해주세요.");
     }
-    setInpuPhone(inputValue);
+    setInputPhone(inputValue);
   };
 
   // 예약버튼 함수
@@ -124,6 +124,8 @@ inputPhone: 예약할때 쓸 폰 번호
       phone: inputPhone,
       prices: parseFloat(price) * parseFloat(numberOfNight),
     });
+
+    return response; // 수정: response 반환
   };
 
   return (
@@ -167,7 +169,7 @@ inputPhone: 예약할때 쓸 폰 번호
         </div>
       </CheckInBox>
 
-      <PriceButton onClick={handleNumberOfNight}>숙박비 계산</PriceButton>
+      <BookingButton onClick={handleNumberOfNight}>숙박비 계산</BookingButton>
 
       {numberOfNight > 0 ? (
         <div>
@@ -199,12 +201,12 @@ inputPhone: 예약할때 쓸 폰 번호
               value={inputPhone}
               type="text"
               onChange={(e) => {
-                checkHyphen(e.target.value);
+                checkHyPhone(e.target.value);
               }}
               placeholder=" 핸드폰 넘버를 입력해주세요. -뺴고"
             ></input>
           </Section>
-          <PriceButton onClick={booking}> 예약하기 </PriceButton>
+          <BookingButton onClick={booking}> 예약하기 </BookingButton>
         </div>
       ) : (
         ""
@@ -224,10 +226,9 @@ const PriceBoxContainer = styled.div`
   height: ${(props) => (props.numberOfNight > 0 ? "750px" : "350px")};
   border-radius: 20px;
   border: 1px solid #dcdcdc;
-  align-items: center;
 `;
 
-const PriceButton = styled.button`
+const BookingButton = styled.button`
   margin: 10px;
   width: 200px;
   height: 40px;

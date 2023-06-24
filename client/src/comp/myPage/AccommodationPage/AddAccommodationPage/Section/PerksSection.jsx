@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { AiOutlineWifi, AiOutlineCar } from "react-icons/ai";
 
 function PerksSection(props) {
   const { accommodationPerks, setAccommodationPerks } = props;
-  // perk 리스트만듬
+  // perk 리스트 만듬
   const CATEGORY_LIST = [
-    { id: 0, value: "wife", icon: "AiOutlineWifi" },
+    { id: 0, value: "wife", icon: AiOutlineWifi },
     { id: 1, value: "TV", icon: false },
     { id: 2, value: "Pets", icon: false },
-    { id: 3, value: "Free parking spot", icon: "AiOutlineCar" },
+    { id: 3, value: "Free parking spot", icon: AiOutlineCar },
     { id: 4, value: "라디오", icon: false },
     { id: 5, value: "드라이기", icon: false },
   ];
@@ -24,25 +25,26 @@ function PerksSection(props) {
 
   return (
     <PerksSectionBox>
+      {/* 기존 주석 유지 */}
       <H2>Perks</H2>
-      <p> 당신의 에어비엔비에 포함된 요소를 적어주세요.</p>
+      <p>당신의 에어비엔비에 포함된 요소를 적어주세요.</p>
       <PerksInput>
         {CATEGORY_LIST.map((item) => {
-          const icons = item.icon;
+          const Icon = item.icon;
           return (
-            <Perkslabel key={item.id}>
+            <PerksLabel key={item.id}>
               <input
                 type="checkbox"
                 value={item.value}
-                // onChange로 값이 변경할 때마다.  onCheckedElement 함수를 실행시킨다.
+                // onChange로 값이 변경할 때마다 onCheckedElement 함수를 실행시킨다.
                 onChange={(e) => {
                   onCheckedElement(e.target.checked, e.target.value);
                 }}
-                checked={accommodationPerks.includes(item.value) ? true : false}
+                checked={accommodationPerks.includes(item.value)}
               />
-              {icons ? <item.icon /> : ""}
+              {Icon ? <Icon /> : null}
               <span>{item.value}</span>
-            </Perkslabel>
+            </PerksLabel>
           );
         })}
       </PerksInput>
@@ -51,6 +53,7 @@ function PerksSection(props) {
 }
 
 export default PerksSection;
+
 const H2 = styled.div`
   font-size: 25px;
   margin: 20px;
@@ -68,7 +71,7 @@ const PerksInput = styled.div`
   flex-wrap: wrap;
 `;
 
-const Perkslabel = styled.label`
+const PerksLabel = styled.label`
   display: flex;
   flex-wrap: wrap;
   margin: 10px;
@@ -80,3 +83,10 @@ const Perkslabel = styled.label`
   height: 50px;
   width: 200px;
 `;
+
+// 수정된 코드:
+// 1. 컴포넌트 이름인 `Perkslabel`을 `PerksLabel`로 수정하였습니다.
+// 2. `AiOutlineWifi`와 `AiOutlineCar`를 `react-icons/ai`에서 불러오도록 수정하였습니다.
+// 3. `{icons ? <item.icon /> : ""}` 부분을 `{Icon ? <Icon /> : null}`로 수정하였습니다.
+// 4. `checked={accommodationPerks.includes(item.value) ? true : false}` 부분을 `checked={accommodationPerks.includes(item.value)}`로 수정하였습니다.
+// 5. 오탈자를 수정하였습니다.

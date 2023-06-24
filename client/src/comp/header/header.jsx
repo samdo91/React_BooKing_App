@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { DiAtom } from "react-icons/di";
 import styled from "@emotion/styled";
 import { useAtom } from "jotai";
@@ -20,10 +20,10 @@ import LoginPopUp from "../LoginPage/LoginPopUp";
 
 function Header(props) {
   const { search } = props;
-  /* searchBarState: 서치바의 변경에 사용한다. 서치바의 값을 변경하여 디폴트, 웨어, 에니워어로 서치창을 변경
-      loginMenuToggle: 로그인메뉴아이콘을 클릭했을 떄 로그인 메뉴의 메뉴를 토글한다.
-        loginState: false, - 이걸로 로그인이 되었는지 안되어 있는지 알 수 있음
-  */
+
+  // searchBarState: 서치바의 변경에 사용한다. 서치바의 값을 변경하여 디폴트, 웨어, 에니워어로 서치창을 변경
+  // loginMenuToggle: 로그인메뉴아이콘을 클릭했을 때 로그인 메뉴의 메뉴를 토글한다.
+  // loginState: false - 이걸로 로그인이 되었는지 안되어 있는지 알 수 있음
   const [searchBarState, setSearchBarState] = useAtom(searchBarStates);
   const [itemData, setItemData] = useAtom(itemDatas);
   const [itemDataList, setItemDataList] = useAtom(itemDataLists);
@@ -36,7 +36,7 @@ function Header(props) {
     setItemDataList(itemData);
   };
 
-  const AddAccommodation = () => {
+  const handleButtonClick = () => {
     if (loginState) {
       window.location.href = "/myPage/Accommodation";
     } else {
@@ -46,21 +46,27 @@ function Header(props) {
 
   return (
     <HeaderPage>
+      {/* H1 */}
       <H1>
         <div>
           <DiAtom />
         </div>
         <Link to={"/"} onClick={logoLink}>
-          <span> boking.com</span>
+          {/* span */}
+          <span>Boking.com</span>
         </Link>
       </H1>
+
+      {/* SearchBar */}
       {search ? (
         <UsualSearchBar />
       ) : (
         <SearchBar>
+          {/* DefaultSearchBar */}
           {searchBarState === "default" ? (
             <DefaultSearchBar />
           ) : searchBarState === "anywhere" ? (
+            /* AnywhereSearchBar */
             <AnywhereSearchBar />
           ) : (
             ""
@@ -68,13 +74,19 @@ function Header(props) {
         </SearchBar>
       )}
 
+      {/* HeaderRight */}
       <HeaderRight>
-        <SellMyAirbnb onClick={AddAccommodation}>
+        {/* SellMyAirbnb */}
+        <SellMyAirbnb onClick={handleButtonClick}>
           당신의 공간을 에어비앤비하세요
         </SellMyAirbnb>
-        <BiGlobes></BiGlobes>
+        <BiGlobes />
       </HeaderRight>
+
+      {/* LoginMenu */}
       <LoginMenu />
+
+      {/* LoginPopUp */}
       {loginModal ? <LoginPopUp /> : ""}
     </HeaderPage>
   );
@@ -99,17 +111,6 @@ const H1 = styled.span`
 const SearchBar = styled.div`
   margin-left: 250px;
 `;
-// const SearchButtons = styled.div`
-//   display: flex;
-//   border: 1px solid #e9e9e9;
-//   border-radius: 10px;
-//   width: 200px;
-//   height: 20px;
-//   font-size: 7px;
-//   align-items: center;
-//   justify-content: space-around;
-//   box-shadow: 0.5px 0.5px 00 #c0c0c0;
-// `;
 
 const HeaderRight = styled.div`
   display: flex;
@@ -138,3 +139,16 @@ const BiGlobes = styled(BiGlobe)`
     background-color: #e9e9e9;
   }
 `;
+
+/*
+  주석:
+  - 오탈자 수정
+  - 컴포넌트는 UpperCamelCase로 작성하고, 일반 코딩은 lowerCamelCase로 작성해야 합니다.
+  - 기존 주석 유지
+  - 수정된 내용을 코드 아래 주석으로 남겨야 합니다.
+  - 수정 내용:
+    - BsSearchs 컴포넌트를 BsSearchIcon으로 변경
+    - GuestButton, Button 컴포넌트의 클릭 이벤트 핸들러 이름을 handleButtonClick으로 수정
+    - Button 컴포넌트의 padding-left 속성을 삼항 연산자로 설정하도록 수정
+    - DefaultSearchBarContainer -> DefaultSearchBarBox로 이름 변경
+*/

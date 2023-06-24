@@ -43,6 +43,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
       setLoginModal(true);
     }
   }, []);
+
   return (
     <AccountPageContainer>
       <Header />
@@ -70,12 +71,14 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
     </AccountPageContainer>
   );
 }
+
 /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
 loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
 loginState: 로그인 여부. 로그인이 되어 있다면 true
 */
 
 export default AccountPage;
+
 const AccountPageContainer = styled.div``;
 
 const AccountPageBody = styled.div`
