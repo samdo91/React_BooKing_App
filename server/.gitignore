@@ -23,7 +23,6 @@ dist-ssr/
 *.sln
 *.sw?
 
-# Server-specific rules
 
 # Environment variables
 .env
