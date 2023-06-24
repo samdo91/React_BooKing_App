@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+.env
 node_modules/
 dist/
 dist-ssr/
@@ -23,10 +23,7 @@ dist-ssr/
 *.sln
 *.sw?
 
-# Server-specific rules
-
 # Environment variables
-.env
+
 
 # Dependency directories
-node_modules/
