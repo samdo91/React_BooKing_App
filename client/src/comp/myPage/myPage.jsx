@@ -23,17 +23,17 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   const MyPageList = [
     {
       name: "개인정보",
-      introduction: " 개인정보 및 연락처를 등록하고 관리하세요.",
+      introduction: "개인정보 및 연락처를 등록하고 관리하세요.",
       to: "/myPage/Account",
     },
     {
-      name: "예약 상황 ",
+      name: "예약 상황",
       introduction: "내가 예약한 숙소를 확인해보세요.",
       to: "/myPage/booking",
     },
     {
       name: "accommodations",
-      introduction: "숙박 업소를 등록해보자",
+      introduction: "숙박 업소를 등록해보세요.",
       to: "/myPage/Accommodation",
     },
   ];
@@ -43,6 +43,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
       setLoginModal(true);
     }
   }, []);
+
   return (
     <>
       <Header />
@@ -58,16 +59,14 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
               {userData.name}, {userData.email}
             </span>
             <MyPageBody>
-              {MyPageList.map((item) => {
-                return (
-                  <Link to={item.to}>
-                    <MyPageCard
-                      name={item.name}
-                      introduction={item.introduction}
-                    />
-                  </Link>
-                );
-              })}
+              {MyPageList.map((item) => (
+                <Link to={item.to} key={item.to}>
+                  <MyPageCard
+                    name={item.name}
+                    introduction={item.introduction}
+                  />
+                </Link>
+              ))}
             </MyPageBody>
           </Body>
         </MyPageContainer>
@@ -86,9 +85,7 @@ const MyPageBody = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-top: 100px;
-  flex-direction: ${(props) => {
-    return props.login === false ? "column" : "row";
-  }};
+  flex-direction: ${(props) => (props.login === false ? "column" : "row")};
 `;
 
 const H1 = styled.div`
@@ -105,7 +102,7 @@ const Button = styled.button`
   border-radius: 10px;
   background-color: #f5002d;
   color: white;
-  paddiog: 40px;
+  padding: 40px;
   margin: 15px;
   width: 100px;
 `;

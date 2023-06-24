@@ -46,15 +46,14 @@ function LoginAdvicePage() {
 }
 
 export default LoginAdvicePage;
+
 const MyPageBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 100px;
-  flex-direction: ${(props) => {
-    return props.login === false ? "column" : "row";
-  }};
+  flex-direction: ${(props) => (props.login === false ? "column" : "row")};
 `;
 
 const Button = styled.button`
@@ -62,7 +61,17 @@ const Button = styled.button`
   border-radius: 10px;
   background-color: #f5002d;
   color: white;
-  paddiog: 40px;
+  padding: 40px; /* Fix: Corrected the typo "paddiog" to "padding" */
   margin: 15px;
   width: 100px;
 `;
+
+/*
+  주석:
+  - 오탈자 수정
+  - 컴포넌트는 UpperCamelCase로 작성하고, 일반 코딩은 lowerCamelCase로 작성해야 합니다.
+  - 기존 주석 유지
+  - 수정된 내용을 코드 아래 주석으로 남겨야 합니다.
+  - 수정 내용:
+    - paddiog -> padding (Button 컴포넌트의 오탈자 수정)
+*/

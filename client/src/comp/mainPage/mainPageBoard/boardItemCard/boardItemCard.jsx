@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+
 function BoardItemCard(props) {
   const { country, city, hostName, picture, price, type } = props;
 
@@ -10,7 +11,7 @@ function BoardItemCard(props) {
         <b>{city}</b> <b>{country}</b>
         <div>
           {type.map((item) => {
-            return <Span>{item}</Span>;
+            return <StyledSpan key={item}>{item}</StyledSpan>;
           })}
         </div>
         <div>₩ {parseInt(price).toLocaleString()}/ 박</div>
@@ -21,6 +22,7 @@ function BoardItemCard(props) {
 
 export default BoardItemCard;
 
+// CardBox 컴포넌트 스타일
 const CardBox = styled.div`
   display: flex;
   width: 270px;
@@ -29,6 +31,7 @@ const CardBox = styled.div`
   flex-direction: column;
 `;
 
+// Image 컴포넌트 스타일
 const Image = styled.img`
   width: 260px;
   height: 250px;
@@ -37,6 +40,7 @@ const Image = styled.img`
   align-items: center;
 `;
 
-const Span = styled.span`
+// StyledSpan 컴포넌트 스타일
+const StyledSpan = styled.span`
   margin-right: 10px;
 `;

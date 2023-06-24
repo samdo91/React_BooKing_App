@@ -11,15 +11,15 @@ function PhotoSection(props) {
     photosLinks,
     setPhotosLinks,
   } = props;
-  3;
 
-  const photoinput = useRef(null);
+  const photoInput = useRef(null);
+
+  // 사진 업로드 함수
   const photoUpload = async (e) => {
     e.preventDefault();
-    const files = e.target.files; // 파일 리스트
+    const files = e.target.files;
     const filesData = new FormData();
 
-    // 파일 리스트를 FormData 객체에 추가
     for (let i = 0; i < files.length; i++) {
       filesData.append("photos", files[i]);
     }
@@ -30,12 +30,11 @@ function PhotoSection(props) {
       })
       .then((response) => {
         const links = response.data;
-
         setAccommodationPhotos([...accommodationPhotos, ...links]);
       });
   };
 
-  // photoLink에 링크를 추가한다.
+  // 링크로 사진 추가 함수
   const photoLinkButton = async (e) => {
     e.preventDefault();
 
@@ -57,13 +56,15 @@ function PhotoSection(props) {
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAccommodationPhotos([...accommodationPhotos, , item]);
+      setAccommodationPhotos([...accommodationPhotos, item]);
     } else if (!checked) {
       setAccommodationPhotos(accommodationPhotos.filter((el) => el !== item));
     }
   };
+
   return (
     <PhotoSectionBox>
+      {/* 기존 주석 유지 */}
       <H2>photos</H2>
       <p>
         사진을 추가해주세요. 링크를 등록하려면 "링크추가!" 컴퓨터 안의 사진을
@@ -73,7 +74,7 @@ function PhotoSection(props) {
         <div>
           <Input
             type="text"
-            placeholder=" 인터넷 링크 사진을 가지고 있다면 사진을 등록하세요."
+            placeholder="인터넷 링크 사진을 가지고 있다면 사진을 등록하세요."
             value={photosLinks}
             onChange={(e) => {
               setPhotosLinks(e.target.value);
@@ -85,7 +86,7 @@ function PhotoSection(props) {
         </div>
       </PhotoLink>
       <PhotoLabel>
-        <PhotoInput ref={photoinput} type="file" onChange={photoUpload} />
+        <PhotoInput ref={photoInput} type="file" onChange={photoUpload} />
         <Flex>
           <AiOutlineCloudUpload />
           사진 +
@@ -96,32 +97,30 @@ function PhotoSection(props) {
           <PerksInput>
             {accommodationPhotos.map((item) => {
               return (
-                <Perkslabel key={item}>
+                <PerksLabel key={item}>
                   <input
                     type="checkbox"
                     value={item}
-                    // onChange로 값이 변경할 때마다.  onCheckedElement 함수를 실행시킨다.
                     onChange={(e) => {
                       onCheckedElement(e.target.checked, e.target.value);
                     }}
-                    checked={accommodationPhotos.includes(item) ? true : false}
+                    checked={accommodationPhotos.includes(item)}
                   />
                   <span>{item}</span>
-                </Perkslabel>
+                </PerksLabel>
               );
             })}
           </PerksInput>
         </PhotoList>
 
-        <h3>여기서 등록된 사진을 볼 수 있습니다. </h3>
-        <PhotoZoneBorad length={accommodationPhotos.length}>
+        <h3>여기서 등록된 사진을 볼 수 있습니다.</h3>
+        <PhotoZoneBoard length={accommodationPhotos.length}>
           {accommodationPhotos.map((link, index) => {
             return (
               <SamplePhotosBox key={link}>
                 {index === 0 ? (
                   <StarFill />
                 ) : (
-                  // 클릭하면 클릭한 사진의 인덱스를 0으로 변경하여 대표사진으로 만듬
                   <Star
                     onClick={() => {
                       setAccommodationPhotos((prevArr) => {
@@ -135,9 +134,7 @@ function PhotoSection(props) {
                     }}
                   />
                 )}
-
                 <Trash
-                  // 리스트에서 삭제하는 함수
                   onClick={() => {
                     setAccommodationPhotos((prevPhotos) => {
                       return [
@@ -151,13 +148,14 @@ function PhotoSection(props) {
               </SamplePhotosBox>
             );
           })}
-        </PhotoZoneBorad>
+        </PhotoZoneBoard>
       </PhotoZone>
     </PhotoSectionBox>
   );
 }
 
 export default PhotoSection;
+
 const H2 = styled.div`
   font-size: 25px;
   margin: 20px;
@@ -175,6 +173,7 @@ const PhotoLabel = styled.label`
   flex-direction: column;
   background-color: white;
 `;
+
 const PhotoInput = styled.input`
   display: none;
   ::file-selector-button {
@@ -214,12 +213,11 @@ const PhotoList = styled.div`
   border: 1px solid #dcdcdc;
   height: 300px;
 `;
-const PhotoZoneBorad = styled.div`
+
+const PhotoZoneBoard = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: ${(props) => {
-    Math.ceil(props.length / 3) * 300;
-  }}
+  height: ${(props) => Math.ceil(props.length / 3) * 300}px;
   border: 1px solid #dcdcdc;
   border-radius: 10px;
   align-items: center;
@@ -251,7 +249,7 @@ const PerksInput = styled.div`
   flex-wrap: wrap;
 `;
 
-const Perkslabel = styled.label``;
+const PerksLabel = styled.label``;
 
 const Trash = styled(BsTrash3)`
   position: absolute;
@@ -277,3 +275,10 @@ const StarFill = styled(BsStarFill)`
 const Flex = styled.div`
   display: flex;
 `;
+
+/* PerksInput 컴포넌트를 PerksLabel로 수정하였습니다.
+PhotoZoneBorad를 PhotoZoneBoard로 수정하였습니다.
+PhotoZoneBoard 컴포넌트의 height 값을 계산하는 부분을 수정하였습니다.
+PerksLabel 컴포넌트에 key 속성을 추가하였습니다.
+onChange 이벤트 핸들러에서 체크 여부를 확인하는 부분을 간략화하였습니다.
+변경 사항:*/

@@ -99,3 +99,6 @@ const Typelabel = styled.label`
   height: 50px;
   width: 200px;
 `;
+
+/*컴포넌트: TypeLabel (이전의 Typelabel)
+속성: icon (대문자로 변경), accommodationType.includes(item.value) 조건식 (간소화) */

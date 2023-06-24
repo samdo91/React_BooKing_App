@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 import Header from "../Header/Header";
+
 function RegisterPage() {
   /* 
     회원가입에 필요한 양식 
@@ -11,9 +12,9 @@ function RegisterPage() {
     countryCode: 핸드폰 번호에 들어가는 국가 코드 
     phoneNumber: 핸드폰 번호
      */
-  const [name, setNames] = useState("");
-  const [email, setEmails] = useState("");
-  const [password, setPasswords] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [countryCode, setCountryCode] = useState("1");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -21,14 +22,14 @@ function RegisterPage() {
   const registerPost = async () => {
     try {
       await axios.post("http://127.0.0.1:4000/register", {
-        name: name,
-        email: email,
-        password: password,
-        countryCode: countryCode,
-        phoneNumber: phoneNumber,
+        name,
+        email,
+        password,
+        countryCode,
+        phoneNumber,
       });
       window.location.href = "/";
-    } catch (e) {
+    } catch (error) {
       alert("제출이 제대로 되지 않았음 왜일까?");
     }
   };
@@ -53,7 +54,6 @@ function RegisterPage() {
       </header>
       <Body>
         <H1>RegisterPage</H1>
-
         <Form onSubmit={postUserData}>
           <Select
             onChange={(e) => {
@@ -66,7 +66,6 @@ function RegisterPage() {
             <option value="595">파라과이(+595)</option>
             <option value="이하 생략">이하 생략</option>
           </Select>
-
           <Input
             type="text"
             value={phoneNumber}
@@ -74,33 +73,32 @@ function RegisterPage() {
             onChange={(e) => {
               setPhoneNumber(e.target.value);
             }}
-          ></Input>
-
+          />
           <Input
             type="text"
             placeholder="이름을 입력해주세요."
             value={name}
-            onChange={(event) => {
-              setNames(event.target.value);
+            onChange={(e) => {
+              setName(e.target.value);
             }}
           />
           <Input
             type="text"
             placeholder="이메일을 입력해주세요."
             value={email}
-            onChange={(event) => {
-              setEmails(event.target.value);
+            onChange={(e) => {
+              setEmail(e.target.value);
             }}
           />
           <Input
             type="password"
             placeholder="비밀번호를 입력해주세요."
             value={password}
-            onChange={(event) => {
-              setPasswords(event.target.value);
+            onChange={(e) => {
+              setPassword(e.target.value);
             }}
           />
-          <Button>제출 </Button>
+          <Button>제출</Button>
         </Form>
       </Body>
     </>
@@ -115,6 +113,7 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;

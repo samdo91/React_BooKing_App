@@ -23,8 +23,6 @@ import {
 import { FaChild, FaSwimmingPool, FaCity } from "react-icons/fa";
 import { FiMinimize2 } from "react-icons/fi";
 import styled from "@emotion/styled";
-// Import Swiper styles
-
 import React, { useRef, useState } from "react";
 import { useAtom } from "jotai";
 import {
@@ -32,15 +30,9 @@ import {
   zoroItems,
   itemDataLists,
 } from "../../../Store/Global/Index";
-// Import Swiper React components
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-
 import "swiper/css/navigation";
-
-// import required modules
 import { FreeMode } from "swiper";
 import { Navigation } from "swiper";
 
@@ -52,11 +44,11 @@ function MainPageHeader() {
   // Object.keys로 키를 추출해 리턴한다.
   const findKeys = (e) => {
     const vat = e.target.value;
-    const List = Object.keys(e.target);
-    const propsKeys = List[1];
+    const list = Object.keys(e.target);
+    const propsKeys = list[1];
     const types = e.target[propsKeys].value;
 
-    console.log("List", List);
+    console.log("List", list);
     console.log("propsKeys", propsKeys);
     console.log("types", types);
     console.log("vat", vat);
@@ -72,7 +64,6 @@ function MainPageHeader() {
     return selectList;
   };
 
-  //
   const clickIcon = (event) => {
     const selectList = findKeys(event);
     setZoroItem(false);
@@ -81,16 +72,9 @@ function MainPageHeader() {
     if (Array.isArray(selectList) && selectList.length === 0) {
       setZoroItem(true);
     }
-
-    // for (let i = 0, keys = Object.keys(e); i < keys.length; i++) {
-    //   if ((id = keys[i].match(/^__react[^$]*(\$.+)$/))) {
-    //     id = id[1];
-    //     console.log(keys);
-    //     setKeyList(id);
-    //     break;
-    //   }
-    // }
   };
+
+  // Rest of the code remains unchanged
 
   return (
     <Body>

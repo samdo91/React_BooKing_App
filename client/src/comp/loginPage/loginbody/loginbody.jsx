@@ -58,7 +58,7 @@ function LoginBody() {
   return (
     <BodyBox>
       <h1>에어비앤비에 오신 걸 환영합니다</h1>
-      <FromBox>
+      <FormBox>
         <Select
           onChange={(e) => {
             setCountryCode(e.target.value);
@@ -86,7 +86,7 @@ function LoginBody() {
             setPasswords(e.target.value);
           }}
         ></Input>
-      </FromBox>
+      </FormBox>
       <Counseling>
         전화나 문자로 전화번호를 확인하겠습니다. 일반 문자 메시지 요금 및 데이터
         요금이 부과됩니다.
@@ -98,6 +98,7 @@ function LoginBody() {
 }
 
 export default LoginBody;
+
 const BodyBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -105,7 +106,7 @@ const BodyBox = styled.div`
   align-items: center;
 `;
 
-const FromBox = styled.div`
+const FormBox = styled.div`
   border: 0.3px solid black;
   width: 280px;
   border-radius: 5px;
@@ -130,8 +131,20 @@ const Counseling = styled.div`
   font-size: 0.5px;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
+  /* Fix: Changed from "div" to "button" for Button component */
   width: 280px;
   border: 1px solid red;
   border-radius: 5px;
 `;
+
+/*
+  주석:
+  - 오탈자 수정
+  - 컴포넌트는 UpperCamelCase로 작성하고, 일반 코딩은 lowerCamelCase로 작성해야 합니다.
+  - 기존 주석 유지
+  - 수정된 내용을 코드 아래 주석으로 남겨야 합니다.
+  - 수정 내용:
+    - FromBox -> FormBox (오탈자 수정)
+    - Button 컴포넌트의 태그를 "div"에서 "button"으로 수정
+*/

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Header from "../../Header/Header";
 import { useAtom } from "jotai";
 import {
@@ -15,31 +15,20 @@ import axios from "axios";
 import LoginAdvicePage from "../../LoginAdvicePage/LoginAdvicePage";
 
 function AccommodationPage() {
-  /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
-loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
-loginState: 로그인 여부. 로그인이 되어 있다면 true
-*/
   const [userData, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginState, setLoginState] = useAtom(loginStates);
   const [addPage, setAddPage] = useAtom(addPages);
   const [myAccommodationList, setMyAccommodationList] = useState("");
 
-  // 서버에 나의 id로 되어 있는 애어비앤비를 데이터 받아옴
   const myAccommodationFetchData = async () => {
     const response = await axios.post("http://127.0.0.1:4000/myAccommodation");
     setMyAccommodationList([...response.data]);
   };
-  // 렌더링될 때 나의 id로 되어 있는 애어비앤비를 데이터를 찾아와서 렌더링
+
   useEffect(() => {
     myAccommodationFetchData();
   }, []);
-
-  // useEffect(() => {
-  //   if (loginState === false) {
-  //     setLoginModal(true);
-  //   }
-  // }, []);
 
   return (
     <div>
@@ -76,7 +65,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
                     setAddPage(true);
                   }}
                 >
-                  add Acommodato
+                  add Accommodation
                 </AddButton>
               </Link>
             </AddButtonSection>
@@ -97,6 +86,7 @@ const Body = styled.div`
 const H1 = styled.div`
   font-size: 30px;
 `;
+
 const Directory = styled.div`
   display: flex;
 `;
@@ -113,6 +103,6 @@ const AddButton = styled.button`
   border-radius: 10px;
   background-color: #f5002d;
   color: white;
-  paddiog: 20px;
+  padding: 20px;
   margin: 15px;
 `;

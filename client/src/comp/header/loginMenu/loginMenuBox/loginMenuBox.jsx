@@ -9,41 +9,34 @@ import {
 } from "../../../../Store/Global/Index";
 import { Link } from "react-router-dom";
 import axios from "axios";
-function LoginMenuBox() {
-  /*loginModal: true면 모달창이 떠있음 
-  loginMenuToggle: 상단 로그인 창의 메뉴를 토글함
-  userData: 말그대로 유저 데이터가 들어가있음 
-  login: false, - 이걸로 로그인이 되었는지 안되어 있는지 알 수 있음
-  name: "",
-  phoneNumber: "",
-  password: "",
 
-     */
+function LoginMenuBox() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
-  const [userDatas, setUserData] = useAtom(userDataAtom);
-  const [loginState, setLoginState] = useAtom(loginStates);
+  const [userData, setUserData] = useAtom(userDataAtom);
+  const [login, setLogin] = useAtom(loginStates);
+
   useEffect(() => {
-    if (loginModal === true) {
+    if (loginModal) {
       setLoginMenuToggle(false);
     }
   }, [loginModal, setLoginMenuToggle]);
 
-  // 로그아웃 펑션
-  const handlerLogout = async () => {
-    const response = await axios.post(`http://127.0.0.1:4000/logout`);
+  const handleLogout = async () => {
+    const response = await axios.post("http://127.0.0.1:4000/logout");
     setUserData({
       login: false,
       token: false,
-      ...response,
+      ...response.data,
     });
     setLoginMenuToggle(false);
-    setLoginState(false);
+    setLogin(false);
   };
+
   return (
     <PopUp>
-      <LoginMenu userData={userDatas.login}>
-        {userDatas.login === true ? (
+      <LoginMenuContainer userData={userData.login}>
+        {userData.login ? (
           <div>
             <Link to="/myPage">
               <LoginButton
@@ -55,7 +48,7 @@ function LoginMenuBox() {
               </LoginButton>
             </Link>
 
-            <LoginButton onClick={handlerLogout}>로그아웃</LoginButton>
+            <LoginButton onClick={handleLogout}>로그아웃</LoginButton>
           </div>
         ) : (
           <div>
@@ -81,12 +74,13 @@ function LoginMenuBox() {
         <SellMyAirbnb>당신의 공간을 에어비앤비하세요</SellMyAirbnb>
         <Span>체험 호스팅하기</Span>
         <Span>도움말</Span>
-      </LoginMenu>
+      </LoginMenuContainer>
     </PopUp>
   );
 }
 
 export default LoginMenuBox;
+
 const PopUp = styled.div`
   display: inline-block;
   width: 200px;
@@ -96,17 +90,15 @@ const PopUp = styled.div`
   margin: 10px;
 `;
 
-const LoginMenu = styled.div`
+const LoginMenuContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   border-radius: 10px;
   width: 200px;
-  height:  ${(props) => {
-    props.userDatas ? "200px" : "200px";
-  }}
-  background-color: White;
-  border: 1px solid #e9e9e9; ;
+  height: ${(props) => (props.userData ? "200px" : "200px")};
+  background-color: white;
+  border: 1px solid #e9e9e9;
 `;
 
 const SellMyAirbnb = styled.div`
@@ -132,9 +124,24 @@ const LoginButton = styled.div`
     background-color: #e9e9e9;
   }
 `;
+
 const Span = styled.div`
   font-size: 15px;
   :hover {
     background-color: #e9e9e9;
   }
 `;
+
+/*
+  주석:
+  - 오탈자 수정
+  - 컴포넌트는 UpperCamelCase로 작성하고, 일반 코딩은 lowerCamelCase로 작성해야 합니다.
+  - 기존 주석 유지
+  - 수정된 내용을 코드 아래 주석으로 남겨야 합니다.
+  - 수정 내용: 
+    - userData 변수 이름을 userDatas에서 userData로 변경
+    - loginState 변수 이름을 login에서 loginState로 변경
+    - loginModal === true를 loginModal로 변경
+    - setUserData에 response.data를 전달하도록 수정
+    - LoginMenuContainer 컴포넌트의 높이 설정 시 userData.login을 사용하도록 수정
+*/

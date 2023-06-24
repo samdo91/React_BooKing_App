@@ -20,21 +20,21 @@ function MyAccommodationList(props) {
 
             <Flex>
               <ItemData>
-                <div> 숙소명: {itemList.title} </div>
+                <div>숙소명: {itemList.title}</div>
                 <div>
-                  주소: {itemList.city} , {itemList.address} ,{itemList.country}
+                  주소: {itemList.city}, {itemList.address}, {itemList.country}
                 </div>
-                <div> 요금: {itemList.price} </div>
+                <div>요금: {itemList.price}</div>
                 <PerksDiv>
                   perks:
                   {itemList.perks.map((item) => {
-                    return <Item> {item} </Item>;
+                    return <Item>{item}</Item>;
                   })}
                 </PerksDiv>
                 <PerksDiv>
                   type:
                   {itemList.type.map((item) => {
-                    return <Item> {item} </Item>;
+                    return <Item>{item}</Item>;
                   })}
                 </PerksDiv>
               </ItemData>

@@ -27,9 +27,6 @@ function DetailPage() {
   const bookingSearch = async () => {
     const response = await axios.post("http://127.0.0.1:4000/myBooking");
     const booking = response.data;
-    const bookingId = booking.map((item) => {
-      return item.place._id;
-    });
     const bookingData = booking.filter((item) => {
       return item.place._id === id;
     });
@@ -200,8 +197,10 @@ function DetailPage() {
 export default DetailPage;
 
 const DetailPageContainer = styled.div`
-  margin-left: 300px;
-  margin-right: 300px;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
   flex-direction: column;
 `;
 
@@ -272,6 +271,7 @@ const AppPhotoButton = styled.button`
 const DetailDataSection = styled.section`
   display: flex;
   width: 100%;
+  margin-top: 20px;
 `;
 
 const LeftSection = styled.div`
@@ -282,9 +282,7 @@ const LeftSection = styled.div`
   padding: 30px;
 `;
 const RightSection = styled.div`
-  width: 35%;
-  height: 100%;
-
+  flex: 1;
   padding: 30px;
 `;
 
@@ -304,9 +302,9 @@ const H2 = styled.h2`
 
 const Section = styled.section`
   border-bottom: 1px solid #dcdcdc;
-  1px 1px #c0c0c0;
+  box-shadow: 1px 1px #c0c0c0;
   padding: 20px;
-  `;
+`;
 
 const Convenience = styled.div`
   display: flex;
@@ -316,4 +314,5 @@ const ConvenienceItem = styled.div`
   display: flex;
   width: 330px;
   height: 40px;
+  align-items: center;
 `;

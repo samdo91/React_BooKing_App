@@ -25,5 +25,5 @@ const Card = styled.div`
   border-radius: 10px;
   border: 1px solid #dcdcdc;
   box-shadow: 5px 5px 5px 5px gray;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
