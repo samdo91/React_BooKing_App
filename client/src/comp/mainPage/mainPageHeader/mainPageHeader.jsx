@@ -27,7 +27,11 @@ import styled from "@emotion/styled";
 
 import React, { useRef, useState } from "react";
 import { useAtom } from "jotai";
-import { itemDatas, zoroItems, itemDataLists } from "../../store/global";
+import {
+  itemDatas,
+  zoroItems,
+  itemDataLists,
+} from "../../../Store/Global/Index";
 // Import Swiper React components
 
 // Import Swiper styles

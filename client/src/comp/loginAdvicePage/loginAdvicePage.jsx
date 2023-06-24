@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
-import { userDataAtom, loginModals, loginStates } from "../store/global/index";
+import {
+  userDataAtom,
+  loginModals,
+  loginStates,
+} from "../../Store/Global/Index";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import LoginPopUp from "../loginPage/loginPopUp";
+import LoginPopUp from "../LoginPage/LoginPopUp";
 
 function LoginAdvicePage() {
   const [userData, setUserData] = useAtom(userDataAtom);

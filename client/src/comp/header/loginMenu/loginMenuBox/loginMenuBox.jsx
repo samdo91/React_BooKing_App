@@ -6,7 +6,7 @@ import {
   loginMenuToggles,
   userDataAtom,
   loginStates,
-} from "../../../store/global";
+} from "../../../../Store/Global/Index";
 import { Link } from "react-router-dom";
 import axios from "axios";
 function LoginMenuBox() {

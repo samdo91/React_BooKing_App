@@ -6,11 +6,12 @@ import { BsTrash3, BsStar, BsStarFill } from "react-icons/bs";
 
 function PhotoSection(props) {
   const {
-    acommodatonPhotos,
-    setAcommodatonPhotos,
+    accommodationPhotos,
+    setAccommodationPhotos,
     photosLinks,
     setPhotosLinks,
   } = props;
+  3;
 
   const photoinput = useRef(null);
   const photoUpload = async (e) => {
@@ -30,7 +31,7 @@ function PhotoSection(props) {
       .then((response) => {
         const links = response.data;
 
-        setAcommodatonPhotos([...acommodatonPhotos, ...links]);
+        setAccommodationPhotos([...accommodationPhotos, ...links]);
       });
   };
 
@@ -48,7 +49,7 @@ function PhotoSection(props) {
         }
       );
 
-      setAcommodatonPhotos([...acommodatonPhotos, filename]);
+      setAccommodationPhotos([...accommodationPhotos, filename]);
       setPhotosLinks("");
     }
   };
@@ -56,9 +57,9 @@ function PhotoSection(props) {
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAcommodatonPhotos([...acommodatonPhotos, , item]);
+      setAccommodationPhotos([...accommodationPhotos, , item]);
     } else if (!checked) {
-      setAcommodatonPhotos(acommodatonPhotos.filter((el) => el !== item));
+      setAccommodationPhotos(accommodationPhotos.filter((el) => el !== item));
     }
   };
   return (
@@ -93,7 +94,7 @@ function PhotoSection(props) {
       <PhotoZone>
         <PhotoList>
           <PerksInput>
-            {acommodatonPhotos.map((item) => {
+            {accommodationPhotos.map((item) => {
               return (
                 <Perkslabel key={item}>
                   <input
@@ -103,7 +104,7 @@ function PhotoSection(props) {
                     onChange={(e) => {
                       onCheckedElement(e.target.checked, e.target.value);
                     }}
-                    checked={acommodatonPhotos.includes(item) ? true : false}
+                    checked={accommodationPhotos.includes(item) ? true : false}
                   />
                   <span>{item}</span>
                 </Perkslabel>
@@ -113,8 +114,8 @@ function PhotoSection(props) {
         </PhotoList>
 
         <h3>여기서 등록된 사진을 볼 수 있습니다. </h3>
-        <PhotoZoneBorad length={acommodatonPhotos.length}>
-          {acommodatonPhotos.map((link, index) => {
+        <PhotoZoneBorad length={accommodationPhotos.length}>
+          {accommodationPhotos.map((link, index) => {
             return (
               <SamplePhotosBox key={link}>
                 {index === 0 ? (
@@ -123,7 +124,7 @@ function PhotoSection(props) {
                   // 클릭하면 클릭한 사진의 인덱스를 0으로 변경하여 대표사진으로 만듬
                   <Star
                     onClick={() => {
-                      setAcommodatonPhotos((prevArr) => {
+                      setAccommodationPhotos((prevArr) => {
                         const index = prevArr.indexOf(link);
                         const elem = prevArr[index];
                         const newArr = [...prevArr];
@@ -138,7 +139,7 @@ function PhotoSection(props) {
                 <Trash
                   // 리스트에서 삭제하는 함수
                   onClick={() => {
-                    setAcommodatonPhotos((prevPhotos) => {
+                    setAccommodationPhotos((prevPhotos) => {
                       return [
                         ...prevPhotos.slice(0, index),
                         ...prevPhotos.slice(index + 1),

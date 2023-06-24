@@ -9,14 +9,14 @@ import {
   itemDataLists,
   loginStates,
   loginModals,
-} from "../store/global/index";
-import DefaultSearchBar from "./searchBar/defaultSearchBar";
-import AnywhereSearchBar from "./searchBar/anywhereSearchBar/anywhereSearchBar";
+} from "../../Store/Global/Index";
+import DefaultSearchBar from "./SearchBar/DefaultSearchBar";
+import AnywhereSearchBar from "./SearchBar/AnywhereSearchBar/AnywhereSearchBar";
 import { BiGlobe } from "react-icons/bi";
-import LoginMenu from "./loginMenu/loginMenu";
+import LoginMenu from "./LoginMenu/LoginMenu";
 import { Link } from "react-router-dom";
-import UsualSearchBar from "./searchBar/usualSearchBar/usualSearchBar";
-import LoginPopUp from "../loginPage/loginPopUp";
+import UsualSearchBar from "./SearchBar/UsualSearchBar/UsualSearchBar";
+import LoginPopUp from "../LoginPage/LoginPopUp";
 
 function Header(props) {
   const { search } = props;
@@ -38,7 +38,7 @@ function Header(props) {
 
   const AddAccommodation = () => {
     if (loginState) {
-      window.location.href = "/myPage/Acommodaton";
+      window.location.href = "/myPage/Accommodation";
     } else {
       setLoginModal(true);
     }

@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { FiArrowRightCircle } from "react-icons/fi";
-import { addPages } from "../../../store/global";
+import { addPages } from "../../../../Store/Global/Index";
 import { useAtom } from "jotai";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
-function MyAcommodatonList(props) {
+function MyAccommodationList(props) {
   const { listData } = props;
   const [addPage, setAddPage] = useAtom(addPages);
 
@@ -40,7 +39,7 @@ function MyAcommodatonList(props) {
                 </PerksDiv>
               </ItemData>
               <label>
-                <Link to={`/myPage/Acommodaton/add/${itemList._id}`}>
+                <Link to={`/myPage/Accommodation/add/${itemList._id}`}>
                   <Button
                     onClick={() => {
                       setAddPage(true);
@@ -58,7 +57,7 @@ function MyAcommodatonList(props) {
   );
 }
 
-export default MyAcommodatonList;
+export default MyAccommodationList;
 
 const MyListBox = styled.div`
   display: flex;

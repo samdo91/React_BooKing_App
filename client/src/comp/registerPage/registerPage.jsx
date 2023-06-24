@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
-import Header from "../header/header";
+import Header from "../Header/Header";
 function RegisterPage() {
   /* 
     회원가입에 필요한 양식 

@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
-import { userDataAtom, loginModals, loginStates } from "../store/global/index";
+import {
+  userDataAtom,
+  loginModals,
+  loginStates,
+} from "../../Store/Global/Index";
 import styled from "@emotion/styled";
-import MyPageCard from "./myPageCard/myPageCard";
+import MyPageCard from "./MyPageCard/MyPageCard";
 import { Link } from "react-router-dom";
-import Header from "../header/header";
-import LoginPopUp from "../loginPage/loginPopUp";
-import LoginAdvicePage from "../loginAdvicePage/loginAdvicePage";
+import Header from "../Header/Header";
+import LoginAdvicePage from "../LoginAdvicePage/LoginAdvicePage";
 
 function MyPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
@@ -29,9 +32,9 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
       to: "/myPage/booking",
     },
     {
-      name: "acommodatons",
+      name: "accommodations",
       introduction: "숙박 업소를 등록해보자",
-      to: "/myPage/Acommodaton",
+      to: "/myPage/Accommodation",
     },
   ];
 

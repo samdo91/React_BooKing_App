@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { BsSearch } from "react-icons/bs";
 import { useAtom } from "jotai";
-import { searchBarStates } from "../../store/global/index";
+import { searchBarStates } from "../../../Store/Global/Index";
 
 function DefaultSearchBar() {
   const [searchBarState, setSearchBarState] = useAtom(searchBarStates);

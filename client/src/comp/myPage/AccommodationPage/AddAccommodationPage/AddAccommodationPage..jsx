@@ -1,105 +1,99 @@
 import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
+import { useParams, Link } from "react-router-dom";
 import {
   userDataAtom,
   loginModals,
   loginStates,
   addPages,
-} from "../../../store/global/index";
+} from "../../../../Store/Global/Index";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
-import {
-  AiOutlineCloudUpload,
-  AiOutlineWifi,
-  AiOutlineCar,
-} from "react-icons/ai";
 import axios from "axios";
 import PerksSection from "./Section/PerksSection";
-import TypeSection from "./Section/typeSection";
-import { useParams } from "react-router-dom";
-import PhotoSection from "./Section/photoSection";
+import TypeSection from "./Section/TypeSection";
+import PhotoSection from "./Section/PhotoSection";
 
-function AddAcommodatonPage() {
+function AddAccommodationPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
 loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
 loginState: 로그인 여부. 로그인이 되어 있다면 true
-addPage: AcommodatonPage에 숙소 추가 페이지를 열고 닫는 아톰
-acommodatonTitle: 숙소 이름, 간판
-acommodatonAddress: 주소
+addPage: AccommodationPage에 숙소 추가 페이지를 열고 닫는 아톰
+AccommodationTitle: 숙소 이름, 간판
+AccommodationAddress: 주소
 photosLinks: 사진을 링크로 저장할때 쓰는 스테이트
-acommodatonPhotos: 숙소 사진,링크나 디렉토리로 저장됨.
-acommodatonDescription: 숙소 설명 
-acommodatonCheckIn: 체크인 시간 
-acommodatonCheckOut: 체크 아웃 시간
-acommodatonMaxGuests: 최대 인원
-acommodatonType:숙소의 타입
-acommodatonhostName: 호스트 이름 
-acommodatonCountry: 나라, 
-acommodatonCity: 도시, 
-acommodatonPrice: 1박당 가격,
+AccommodationPhotos: 숙소 사진,링크나 디렉토리로 저장됨.
+AccommodationDescription: 숙소 설명 
+AccommodationCheckIn: 체크인 시간 
+AccommodationCheckOut: 체크 아웃 시간
+AccommodationMaxGuests: 최대 인원
+AccommodationType:숙소의 타입
+AccommodationhostName: 호스트 이름 
+AccommodationCountry: 나라, 
+AccommodationCity: 도시, 
+AccommodationPrice: 1박당 가격,
 
 */
   const [userData, setUserData] = useAtom(userDataAtom);
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginState, setLoginState] = useAtom(loginStates);
   const [addPage, setAddPage] = useAtom(addPages);
-  const [acommodatonTitle, setAcommodatonTitle] = useState("");
-  const [acommodatonAddress, setAcommodatonAddress] = useState("");
+  const [accommodationTitle, setAccommodationTitle] = useState("");
+  const [accommodationAddress, setAccommodationAddress] = useState("");
   const [photosLinks, setPhotosLinks] = useState("");
-  const [acommodatonPhotos, setAcommodatonPhotos] = useState([]);
-  const [acommodatonDescription, setAcommodatonDescription] = useState([]);
-  const [acommodatonPerks, setAcommodatonPerks] = useState([]);
-  const [acommodatonType, setAcommodatonType] = useState([]);
-  const [acommodatonExtraInfo, setAcommodatonExtraInfo] = useState("");
-  const [acommodatonCheckIn, setAcommodatonCheckIn] = useState("");
-  const [acommodatonCheckOut, setAcommodatonCheckOut] = useState("");
-  const [acommodatonMaxGuests, setAcommodatonMaxGuests] = useState("");
-  const [acommodatonCountry, setAcommodatonCountry] = useState("");
-  const [acommodatonCity, setAcommodatonCity] = useState("");
-  const [acommodatonPrice, setAcommodatonPrice] = useState("");
-  const [acommodatonhostName, setAcommodatonhostName] = useState("");
+  const [accommodationPhotos, setAccommodationPhotos] = useState([]);
+  const [accommodationDescription, setAccommodationDescription] = useState([]);
+  const [accommodationPerks, setAccommodationPerks] = useState([]);
+  const [accommodationType, setAccommodationType] = useState([]);
+  const [accommodationExtraInfo, setAccommodationExtraInfo] = useState("");
+  const [accommodationCheckIn, setAccommodationCheckIn] = useState("");
+  const [accommodationCheckOut, setAccommodationCheckOut] = useState("");
+  const [accommodationMaxGuests, setAccommodationMaxGuests] = useState("");
+  const [accommodationCountry, setAccommodationCountry] = useState("");
+  const [accommodationCity, setAccommodationCity] = useState("");
+  const [accommodationPrice, setAccommodationPrice] = useState("");
+  const [accommodationhostName, setAccommodationhostName] = useState("");
 
   const state_LIST = [
-    acommodatonTitle,
-    acommodatonAddress,
-    acommodatonPhotos,
-    acommodatonDescription,
-    acommodatonPerks,
-    acommodatonExtraInfo,
-    acommodatonCheckIn,
-    acommodatonCheckOut,
-    acommodatonMaxGuests,
-    acommodatonPrice,
-    acommodatonCity,
-    acommodatonhostName,
-    acommodatonCountry,
-    acommodatonType,
+    accommodationTitle,
+    accommodationAddress,
+    accommodationPhotos,
+    accommodationDescription,
+    accommodationPerks,
+    accommodationExtraInfo,
+    accommodationCheckIn,
+    accommodationCheckOut,
+    accommodationMaxGuests,
+    accommodationPrice,
+    accommodationCity,
+    accommodationhostName,
+    accommodationCountry,
+    accommodationType,
   ];
   const { id } = useParams();
 
   const detailFixButton = async (e) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:4000/detailFixAcommodaton",
+        "http://127.0.0.1:4000/detailFixAccommodation",
         {
           id: id,
         }
       );
-      const myAcommodaton = response.data[0];
-      setAcommodatonTitle(myAcommodaton.title);
-      setAcommodatonAddress(myAcommodaton.address);
-      setAcommodatonPhotos(myAcommodaton.photos);
-      setAcommodatonDescription(myAcommodaton.description);
-      setAcommodatonPerks(myAcommodaton.perks);
-      setAcommodatonType(myAcommodaton.type);
-      setAcommodatonExtraInfo(myAcommodaton.extraInfo);
-      setAcommodatonCheckIn(myAcommodaton.checkIn);
-      setAcommodatonCheckOut(myAcommodaton.checkOut);
-      setAcommodatonMaxGuests(myAcommodaton.maxGuests);
-      setAcommodatonCountry(myAcommodaton.country);
-      setAcommodatonCity(myAcommodaton.city);
-      setAcommodatonPrice(myAcommodaton.price);
-      setAcommodatonhostName(myAcommodaton.hostName);
+      const myAccommodation = response.data[0];
+      setAccommodationTitle(myAccommodation.title);
+      setAccommodationAddress(myAccommodation.address);
+      setAccommodationPhotos(myAccommodation.photos);
+      setAccommodationDescription(myAccommodation.description);
+      setAccommodationPerks(myAccommodation.perks);
+      setAccommodationType(myAccommodation.type);
+      setAccommodationExtraInfo(myAccommodation.extraInfo);
+      setAccommodationCheckIn(myAccommodation.checkIn);
+      setAccommodationCheckOut(myAccommodation.checkOut);
+      setAccommodationMaxGuests(myAccommodation.maxGuests);
+      setAccommodationCountry(myAccommodation.country);
+      setAccommodationCity(myAccommodation.city);
+      setAccommodationPrice(myAccommodation.price);
+      setAccommodationhostName(myAccommodation.hostName);
     } catch (error) {
       console.error("id가 없은 토큰이 없거나 로그인이 안되어 있음");
       // 에러 메시지를 사용자에게 알려줄 수 있는 방법을 구현해주세요.
@@ -121,20 +115,20 @@ acommodatonPrice: 1박당 가격,
   }, []);
 
   const acommodatoData = {
-    title: acommodatonTitle,
-    address: acommodatonAddress,
-    photos: acommodatonPhotos,
-    description: acommodatonDescription,
-    perks: acommodatonPerks,
-    extraInfo: acommodatonExtraInfo,
-    checkIn: acommodatonCheckIn,
-    checkOut: acommodatonCheckOut,
-    maxGuests: acommodatonMaxGuests,
-    type: acommodatonType,
-    hostName: acommodatonhostName,
-    city: acommodatonCity,
-    price: acommodatonPrice,
-    country: acommodatonCountry,
+    title: accommodationTitle,
+    address: accommodationAddress,
+    photos: accommodationPhotos,
+    description: accommodationDescription,
+    perks: accommodationPerks,
+    extraInfo: accommodationExtraInfo,
+    checkIn: accommodationCheckIn,
+    checkOut: accommodationCheckOut,
+    maxGuests: accommodationMaxGuests,
+    type: accommodationType,
+    hostName: accommodationhostName,
+    city: accommodationCity,
+    price: accommodationPrice,
+    country: accommodationCountry,
   };
 
   // saveButten 펑션 서버에 db로 데이터를 보내는 펑션
@@ -148,12 +142,12 @@ acommodatonPrice: 1박당 가격,
     if (blankTest) {
       if (id) {
         const response = await axios.post(
-          "http://127.0.0.1:4000/acommodatonReseve",
+          "http://127.0.0.1:4000/accommodationReseve",
           { id, ...acommodatoData }
         );
       } else {
         const response = await axios.post(
-          "http://127.0.0.1:4000/acommodatonSeve",
+          "http://127.0.0.1:4000/accommodationSeve",
           { ...acommodatoData }
         );
       }
@@ -183,7 +177,7 @@ acommodatonPrice: 1박당 가격,
         const links = filename[0].filename;
         console.log("response", response);
         console.log("link", links);
-        setAcommodatonPhotos([...acommodatonPhotos, links]);
+        setAccommodationPhotos([...AccommodationPhotos, links]);
       });
   };
    */
@@ -198,9 +192,9 @@ acommodatonPrice: 1박당 가격,
           <Input
             type="text"
             placeholder="숙소 이름을 적어주세요"
-            value={acommodatonTitle}
+            value={accommodationTitle}
             onChange={(e) => {
-              setAcommodatonTitle(e.target.value);
+              setAccommodationTitle(e.target.value);
             }}
           />
 
@@ -208,25 +202,25 @@ acommodatonPrice: 1박당 가격,
           <Input
             type="text"
             placeholder="나라를 적어주세요."
-            value={acommodatonCountry}
+            value={accommodationCountry}
             onChange={(e) => {
-              setAcommodatonCountry(e.target.value);
+              setAccommodationCountry(e.target.value);
             }}
           />
           <Input
             type="text"
             placeholder="도시를 적어주세요."
-            value={acommodatonCity}
+            value={accommodationCity}
             onChange={(e) => {
-              setAcommodatonCity(e.target.value);
+              setAccommodationCity(e.target.value);
             }}
           />
           <Input
             type="text"
             placeholder=" 나머지 주소를 적어주세요."
-            value={acommodatonAddress}
+            value={accommodationAddress}
             onChange={(e) => {
-              setAcommodatonAddress(e.target.value);
+              setAccommodationAddress(e.target.value);
             }}
           />
 
@@ -235,9 +229,9 @@ acommodatonPrice: 1박당 가격,
           <Input
             type="text"
             placeholder="당신 혹은 숙소 주인 이름이요."
-            value={acommodatonhostName}
+            value={accommodationhostName}
             onChange={(e) => {
-              setAcommodatonhostName(e.target.value);
+              setAccommodationhostName(e.target.value);
             }}
           />
 
@@ -246,14 +240,14 @@ acommodatonPrice: 1박당 가격,
           <Input
             type="text"
             placeholder="₩"
-            value={acommodatonPrice}
+            value={accommodationPrice}
             onChange={(e) => {
-              setAcommodatonPrice(e.target.value);
+              setAccommodationPrice(e.target.value);
             }}
           />
           <PhotoSection
-            acommodatonPhotos={acommodatonPhotos}
-            setAcommodatonPhotos={setAcommodatonPhotos}
+            AccommodationPhotos={accommodationPhotos}
+            setAccommodationPhotos={setAccommodationPhotos}
             photosLinks={photosLinks}
             setPhotosLinks={setPhotosLinks}
           />
@@ -263,9 +257,9 @@ acommodatonPrice: 1박당 가격,
           <Input
             type="text"
             placeholder="숙소 설명을 적어주세요"
-            value={acommodatonDescription}
+            value={accommodationDescription}
             onChange={(e) => {
-              setAcommodatonDescription(e.target.value);
+              setAccommodationDescription(e.target.value);
             }}
           />
           {/* <PerksSection>
@@ -302,21 +296,21 @@ acommodatonPrice: 1박당 가격,
           </PerksSection> */}
 
           <PerksSection
-            acommodatonPerks={acommodatonPerks}
-            setAcommodatonPerks={setAcommodatonPerks}
+            AccommodationPerks={accommodationPerks}
+            setAccommodationPerks={setAccommodationPerks}
           />
           <TypeSection
-            acommodatonType={acommodatonType}
-            setAcommodatonType={setAcommodatonType}
+            AccommodationType={accommodationType}
+            setAccommodationType={setAccommodationType}
           />
           <H2>Extra Info</H2>
           <p>숙소의 규칙이나 기타 정보를 기입해주세요. </p>
           <Input
             type="text"
             placeholder="숙소의 규칙이나 기타 정보를 기입해주세요. "
-            value={acommodatonExtraInfo}
+            value={accommodationExtraInfo}
             onChange={(e) => {
-              setAcommodatonExtraInfo(e.target.value);
+              setAccommodationExtraInfo(e.target.value);
             }}
           />
           <CheckInSection>
@@ -327,9 +321,9 @@ acommodatonPrice: 1박당 가격,
               <CheckInput
                 type="text"
                 placeholder="14:00"
-                value={acommodatonCheckIn}
+                value={accommodationCheckIn}
                 onChange={(e) => {
-                  setAcommodatonCheckIn(e.target.value);
+                  setAccommodationCheckIn(e.target.value);
                 }}
               />
             </div>
@@ -338,9 +332,9 @@ acommodatonPrice: 1박당 가격,
               <CheckInput
                 type="text"
                 placeholder="11:00"
-                value={acommodatonCheckOut}
+                value={accommodationCheckOut}
                 onChange={(e) => {
-                  setAcommodatonCheckOut(e.target.value);
+                  setAccommodationCheckOut(e.target.value);
                 }}
               />
             </div>
@@ -349,13 +343,13 @@ acommodatonPrice: 1박당 가격,
               <CheckInput
                 type="text"
                 placeholder="최대 수용인원"
-                value={acommodatonMaxGuests}
+                value={accommodationMaxGuests}
                 onChange={(e) => {
-                  setAcommodatonMaxGuests(e.target.value);
+                  setAccommodationMaxGuests(e.target.value);
                 }}
               />
             </div>
-            <SaveLink to="/myPage/Acommodaton" onClick={savebuttons}>
+            <SaveLink to="/myPage/Accommodation" onClick={savebuttons}>
               <SaveButton> 저장</SaveButton>
             </SaveLink>
           </CheckInSection>
@@ -365,7 +359,7 @@ acommodatonPrice: 1박당 가격,
   );
 }
 
-export default AddAcommodatonPage;
+export default AddAccommodationPage;
 
 const Body = styled.div`
   margin-left: 200px;

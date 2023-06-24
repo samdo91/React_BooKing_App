@@ -1,6 +1,6 @@
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
-import { router } from "./comp/store/router/router.jsx";
+import { router } from "./Router/Router";
 import { Provider } from "jotai";
 import axios from "axios";
 import styled from "@emotion/styled";

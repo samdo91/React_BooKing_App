@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import BoardItemCard from "./boardItemCard/boardItemCard";
+import BoardItemCard from "./BoardItemCard/BoardItemCard";
 import styled from "@emotion/styled";
 import { useAtom } from "jotai";
-import { itemDatas, zoroItems, itemDataLists } from "../../store/global";
+import {
+  itemDatas,
+  zoroItems,
+  itemDataLists,
+} from "../../../Store/Global/Index";
 import { Link } from "react-router-dom";
 
 function MainPageBoard() {
@@ -18,7 +22,9 @@ function MainPageBoard() {
   const [zoroItem, setZoroItem] = useAtom(zoroItems);
 
   const itemDataFuntion = async () => {
-    const response = await axios.post(`http://127.0.0.1:4000/mainacommodaton`);
+    const response = await axios.post(
+      `http://127.0.0.1:4000/mainAccommodation`
+    );
 
     const itemDatas = response.data;
     setItemData(itemDatas);

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../header/header";
+import Header from "../../Header/Header";
 import { useAtom } from "jotai";
 import {
   userDataAtom,
   loginModals,
   loginStates,
   addPages,
-} from "../../store/global/index";
+} from "../../../Store/Global/Index";
 import styled from "@emotion/styled";
 import { Link, Outlet } from "react-router-dom";
-import MyAcommodatonList from "./myAcommodatonList/myAcommodatonList";
+import MyAccommodationList from "./MyAccommodationList/MyAccommodationList";
 
 import axios from "axios";
-import LoginAdvicePage from "../../loginAdvicePage/loginAdvicePage";
+import LoginAdvicePage from "../../LoginAdvicePage/LoginAdvicePage";
 
-function AcommodatonPage() {
+function AccommodationPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
 loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
 loginState: 로그인 여부. 로그인이 되어 있다면 true
@@ -23,16 +23,16 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   const [loginModal, setLoginModal] = useAtom(loginModals);
   const [loginState, setLoginState] = useAtom(loginStates);
   const [addPage, setAddPage] = useAtom(addPages);
-  const [myAcommodatonList, setMyAcommodatonList] = useState("");
+  const [myAccommodationList, setMyAccommodationList] = useState("");
 
   // 서버에 나의 id로 되어 있는 애어비앤비를 데이터 받아옴
-  const myAcommodatonFetchData = async () => {
-    const response = await axios.post("http://127.0.0.1:4000/myAcommodaton");
-    setMyAcommodatonList([...response.data]);
+  const myAccommodationFetchData = async () => {
+    const response = await axios.post("http://127.0.0.1:4000/myAccommodation");
+    setMyAccommodationList([...response.data]);
   };
   // 렌더링될 때 나의 id로 되어 있는 애어비앤비를 데이터를 찾아와서 렌더링
   useEffect(() => {
-    myAcommodatonFetchData();
+    myAccommodationFetchData();
   }, []);
 
   // useEffect(() => {
@@ -57,8 +57,8 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
               <H1>숙소 등록</H1>
             </Link>
           </Directory>
-          {myAcommodatonList ? (
-            <MyAcommodatonList listData={myAcommodatonList} />
+          {myAccommodationList ? (
+            <MyAccommodationList listData={myAccommodationList} />
           ) : (
             ""
           )}
@@ -70,7 +70,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
               <p>
                 자신이 가진 에어비앤비를 등록하고 싶다면 이 버튼을 누르세요.{" "}
               </p>
-              <Link to="/myPage/Acommodaton/add">
+              <Link to="/myPage/Accommodation/add">
                 <AddButton
                   onClick={() => {
                     setAddPage(true);
@@ -87,7 +87,7 @@ loginState: 로그인 여부. 로그인이 되어 있다면 true
   );
 }
 
-export default AcommodatonPage;
+export default AccommodationPage;
 
 const Body = styled.div`
   margin-left: 200px;

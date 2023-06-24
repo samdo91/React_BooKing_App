@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SlMenu } from "react-icons/sl";
 import { FiUser } from "react-icons/fi";
 import {
   loginMenuToggles,
   userDataAtom,
   loginStates,
-} from "../../store/global";
+} from "../../../Store/Global/Index";
 import { useAtom } from "jotai";
 import axios from "axios";
-import LoginMenuBox from "./loginMenuBox/loginMenuBox";
+import LoginMenuBox from "./LoginMenuBox/LoginMenuBox";
 
 function LoginMenu() {
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);

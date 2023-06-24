@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import Header from "../../header/header";
+import Header from "../../Header/Header";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import {
   userDataAtom,
   loginModals,
   loginStates,
-} from "../../store/global/index";
-import MyPageCard from "../myPageCard/myPageCard";
+} from "../../../Store/Global/Index";
+import MyPageCard from "../MyPageCard/MyPageCard";
 import { useAtom } from "jotai";
 
 function AccountPage() {

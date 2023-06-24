@@ -2,11 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import Modal from "react-modal";
 import { useAtom } from "jotai";
-import { loginModals } from "../store/global/index";
-import { ModalDecorator } from "../store/wrapper/modalDecorator";
+import { loginModals } from "../../Store/Global/Index";
+import { ModalDecorator } from "../../Store/Wrapper/ModalDecorator";
 import { IoMdClose } from "react-icons/io";
-import LoginBody from "./loginbody/loginbody";
-import LoginFooter from "./loginFooter/loginFooter";
+import LoginBody from "./Loginbody/Loginbody";
+import LoginFooter from "./LoginFooter/LoginFooter";
 
 Modal.setAppElement("#root"); // App element를 정의해줍니다.
 

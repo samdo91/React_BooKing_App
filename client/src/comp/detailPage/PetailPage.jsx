@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAtom } from "jotai";
-import { itemDatas } from "../store/global";
-import Header from "../header/header";
-import { loginModals } from "../store/global";
+import { itemDatas, loginModals } from "../../Store/Global/Index";
+import Header from "../Header/Header";
 import axios from "axios";
-import LoginPopUp from "../loginPage/loginPopUp";
+import LoginPopUp from "../LoginPage/LoginPopUp";
 import styled from "@emotion/styled";
-import PriceBox from "./priceBox/priceBox";
-import MyBookingList from "../myPage/bookingPage/myBookingList/myBookingList";
+import PriceBox from "./PriceBox/PriceBox";
+import MyBookingList from "../MyPage/BookingPage/MyBookingList/MyBookingList";
 
 function DetailPage() {
   //useParams를 사용할때 넘겨준 인자와 같은 인자를 가져와야한다. props라고 생각하면 편함

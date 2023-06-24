@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../header/header";
+import Header from "../../Header/Header";
 import styled from "@emotion/styled";
 import { useAtom } from "jotai";
 import {
   userDataAtom,
   loginModals,
   loginStates,
-} from "../../store/global/index";
+} from "../../../Store/Global/Index";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LoginAdvicePage from "../../loginAdvicePage/loginAdvicePage";
-import MyBookingList from "./myBookingList/myBookingList";
+import LoginAdvicePage from "../../LoginAdvicePage/LoginAdvicePage";
+import MyBookingList from "./MyBookingList/MyBookingList";
 function BookingPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
 loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음

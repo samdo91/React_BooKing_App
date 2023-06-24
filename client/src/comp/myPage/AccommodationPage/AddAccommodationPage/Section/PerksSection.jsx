@@ -1,13 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {
-  AiOutlineCloudUpload,
-  AiOutlineWifi,
-  AiOutlineCar,
-} from "react-icons/ai";
 
 function PerksSection(props) {
-  const { acommodatonPerks, setAcommodatonPerks } = props;
+  const { accommodationPerks, setAccommodationPerks } = props;
   // perk 리스트만듬
   const CATEGORY_LIST = [
     { id: 0, value: "wife", icon: "AiOutlineWifi" },
@@ -21,9 +16,9 @@ function PerksSection(props) {
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAcommodatonPerks([...acommodatonPerks, item]);
+      setAccommodationPerks([...accommodationPerks, item]);
     } else if (!checked) {
-      setAcommodatonPerks(acommodatonPerks.filter((el) => el !== item));
+      setAccommodationPerks(accommodationPerks.filter((el) => el !== item));
     }
   };
 
@@ -43,7 +38,7 @@ function PerksSection(props) {
                 onChange={(e) => {
                   onCheckedElement(e.target.checked, e.target.value);
                 }}
-                checked={acommodatonPerks.includes(item.value) ? true : false}
+                checked={accommodationPerks.includes(item.value) ? true : false}
               />
               {icons ? <item.icon /> : ""}
               <span>{item.value}</span>

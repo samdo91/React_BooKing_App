@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 function TypeSection(props) {
-  const { acommodatonType, setAcommodatonType } = props;
+  const { accommodationType, setAccommodationType } = props;
   // perk 리스트만듬
   const CATEGORY_LIST = [
     { id: 0, typeName: "한옥", icon: "AiOutlineWifi", value: "koreaHome" },
@@ -33,9 +33,9 @@ function TypeSection(props) {
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAcommodatonType([...acommodatonType, item]);
+      setAccommodationType([...accommodationType, item]);
     } else if (!checked) {
-      setAcommodatonType(acommodatonType.filter((el) => el !== item));
+      setAccommodationType(accommodationType.filter((el) => el !== item));
     }
   };
 
@@ -55,7 +55,7 @@ function TypeSection(props) {
                 onChange={(e) => {
                   onCheckedElement(e.target.checked, e.target.value);
                 }}
-                checked={acommodatonType.includes(item.value) ? true : false}
+                checked={accommodationType.includes(item.value) ? true : false}
               />
               {icons ? <item.icon /> : ""}
 

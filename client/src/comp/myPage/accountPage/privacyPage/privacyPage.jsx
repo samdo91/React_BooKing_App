@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import Header from "../../../header/header";
+import Header from "../../../Header/Header";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import {
   userDataAtom,
   loginModals,
   loginStates,
-} from "../../../store/global/index";
+} from "../../../../Store/Global/Index";
 import { useAtom } from "jotai";
 
 function PrivacyPage() {

@@ -55,12 +55,12 @@ const { DB_URL, DB_URL_TEST } = process.env;
 mongoose.connect(DB_URL_TEST);
 
 //
-app.post(`/mainacommodaton`, async (req, res) => {
+app.post(`/mainAccommodation`, async (req, res) => {
   res.json(await Accommodation.find());
 });
 
 // 숙소 저장
-app.post(`/acommodatonSeve`, async (req, res) => {
+app.post(`/accommodationSeve`, async (req, res) => {
   console.log(req.body);
   const { token } = req.cookies;
   const {
@@ -110,7 +110,7 @@ app.post(`/acommodatonSeve`, async (req, res) => {
 });
 
 // 숙소 다시 저장
-app.post(`/acommodatonReseve`, async (req, res) => {
+app.post(`/accommodationReseve`, async (req, res) => {
   const { token } = req.cookies;
   const {
     id,
@@ -161,16 +161,16 @@ set() 메서드는 이전 문서 객체의 내용을 바꾸지 않고 새로운 
       });
       console.log(reSaveDcoc);
       //save() 메서드는 Mongoose 모델 객체의 메서드 중 하나 데이터베이스에 저장된 문서의 내용이 모델 객체의 상태와 일치하도록 갱신함
-      const reAcommodatonDoc = accommodationDoc.save();
-      res.json(reAcommodatonDoc);
+      const reAccommodationDoc = accommodationDoc.save();
+      res.json(reAccommodationDoc);
     } catch (e) {
       res.status(422).json(e);
     }
   });
 });
 
-//myAcommodaton 불러오기
-app.post(`/myAcommodaton`, (req, res) => {
+//myAccommodation 불러오기
+app.post(`/myAccommodation`, (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) {
@@ -188,7 +188,7 @@ app.post(`/myAcommodaton`, (req, res) => {
   });
 });
 
-app.post(`/detailFixAcommodaton`, async (req, res) => {
+app.post(`/detailFixAccommodation`, async (req, res) => {
   const { id } = req.body;
   console.log("id", id);
   const { token } = req.cookies;
@@ -446,7 +446,7 @@ app.post(`/myBooking`, (req, res) => {
     }
     try {
       /*populate() 메소드는 Mongoose에서 지원하는 메소드 중 하나로, MongoDB의 레퍼런스 필드를 쉽게 가져올 수 있도록 도와줍니다.
-예를 들어 위 코드에서 populate('acommodaton')는 Booking 모델에서 place 필드가 다른 컬렉션(예를 들어 Accommodation 모델)의 _id를 참조하고 있다면, 
+예를 들어 위 코드에서 populate('Accommodation')는 Booking 모델에서 place 필드가 다른 컬렉션(예를 들어 Accommodation 모델)의 _id를 참조하고 있다면, 
 해당 _id에 대한 실제 컬렉션의 데이터를 Booking 모델에 연결시켜 줍니다. */
       const bookingDoc = await Booking.find({ user: userData.id }).populate(
         "place"

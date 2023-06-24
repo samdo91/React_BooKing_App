@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../header/header";
-import LoginPopUp from "../loginPage/loginPopUp";
+import Header from "../Header/Header";
+import LoginPopUp from "../LoginPage/LoginPopUp";
 import { useAtom } from "jotai";
-import { loginModals } from "../store/global/index";
-import MainPageHeader from "./mainPageHeader/mainPageHeader";
-import MainPageBoard from "./mainPageBoard/mainPageBoard";
+import { loginModals } from "../../Store/Global/Index";
+import MainPageHeader from "./MainPageHeader/MainPageHeader";
+import MainPageBoard from "./MainPageBoard/MainPageBoard";
 import styled from "@emotion/styled";
 
 function MainPage() {

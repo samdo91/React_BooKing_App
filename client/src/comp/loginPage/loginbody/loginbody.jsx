@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { userDataAtom, loginModals } from "../../store/global/index";
+import { userDataAtom, loginModals } from "../../../Store/Global/Index";
 
 function LoginBody() {
   const [countryCode, setCountryCode] = useState("+1");

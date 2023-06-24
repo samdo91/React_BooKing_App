@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { loginStates, loginModals } from "../../store/global";
+import { loginStates, loginModals } from "../../../Store/Global/Index";
 function PriceBox(props) {
   const {
     address,
