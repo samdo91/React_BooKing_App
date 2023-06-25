@@ -14,6 +14,8 @@ function PerksSection(props) {
     { id: 5, value: "드라이기", icon: false },
   ];
 
+  ("거짓말이야.");
+
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
