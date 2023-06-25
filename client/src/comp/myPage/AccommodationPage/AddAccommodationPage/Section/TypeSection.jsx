@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 function TypeSection(props) {
   const { accommodationType, setAccommodationType } = props;
+  const accommodationTypeList = accommodationType || [];
   // perk 리스트만듬
   const CATEGORY_LIST = [
     { id: 0, typeName: "한옥", icon: "AiOutlineWifi", value: "koreaHome" },
@@ -31,38 +31,34 @@ function TypeSection(props) {
   ];
 
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
+
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAccommodationType([...accommodationType, item]);
-    } else if (!checked) {
-      setAccommodationType(accommodationType.filter((el) => el !== item));
+      setAccommodationType([...accommodationTypeList, item]);
+    } else {
+      setAccommodationType(accommodationTypeList.filter((el) => el !== item));
     }
   };
 
   return (
     <TypeSectionBox>
       <H2>Type</H2>
-      <p> 당신의 에어비엔비에 장점을 선택해주세요.</p>
+      <p>당신의 에어비엔비에 장점을 선택해주세요.</p>
       <TypeInput>
-        {CATEGORY_LIST.map((item) => {
-          const icons = item.icon;
-          return (
-            <Typelabel key={item.id}>
-              <input
-                type="checkbox"
-                value={item.value}
-                // onChange로 값이 변경할 때마다.  onCheckedElement 함수를 실행시킨다.
-                onChange={(e) => {
-                  onCheckedElement(e.target.checked, e.target.value);
-                }}
-                checked={accommodationType.includes(item.value) ? true : false}
-              />
-              {icons ? <item.icon /> : ""}
-
-              <span>{item.typeName}</span>
-            </Typelabel>
-          );
-        })}
+        {CATEGORY_LIST.map((item) => (
+          <Typelabel key={item.id}>
+            <input
+              type="checkbox"
+              value={item.value}
+              onChange={(e) => {
+                onCheckedElement(e.target.checked, e.target.value);
+              }}
+              checked={accommodationTypeList.includes(item.value)}
+            />
+            {item.icon && <IconWrapper>{item.icon}</IconWrapper>}
+            <span>{item.typeName}</span>
+          </Typelabel>
+        ))}
       </TypeInput>
     </TypeSectionBox>
   );
@@ -100,5 +96,6 @@ const Typelabel = styled.label`
   width: 200px;
 `;
 
-/*컴포넌트: TypeLabel (이전의 Typelabel)
-속성: icon (대문자로 변경), accommodationType.includes(item.value) 조건식 (간소화) */
+const IconWrapper = styled.div`
+  /* Add your styles here */
+`;

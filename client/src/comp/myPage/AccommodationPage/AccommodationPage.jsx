@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Header/Header";
 import { useAtom } from "jotai";
 import {
@@ -59,7 +59,7 @@ function AccommodationPage() {
               <p>
                 자신이 가진 에어비앤비를 등록하고 싶다면 이 버튼을 누르세요.{" "}
               </p>
-              <Link to="/myPage/Accommodation/add">
+              <Link to="/myPage/MyAccommodation/add">
                 <AddButton
                   onClick={() => {
                     setAddPage(true);

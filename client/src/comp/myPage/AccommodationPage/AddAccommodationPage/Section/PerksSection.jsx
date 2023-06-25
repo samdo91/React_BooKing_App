@@ -6,7 +6,7 @@ function PerksSection(props) {
   const { accommodationPerks, setAccommodationPerks } = props;
   // perk 리스트 만듬
   const CATEGORY_LIST = [
-    { id: 0, value: "wife", icon: AiOutlineWifi },
+    { id: 0, value: "wifi", icon: AiOutlineWifi },
     { id: 1, value: "TV", icon: false },
     { id: 2, value: "Pets", icon: false },
     { id: 3, value: "Free parking spot", icon: AiOutlineCar },
@@ -25,7 +25,6 @@ function PerksSection(props) {
 
   return (
     <PerksSectionBox>
-      {/* 기존 주석 유지 */}
       <H2>Perks</H2>
       <p>당신의 에어비엔비에 포함된 요소를 적어주세요.</p>
       <PerksInput>
@@ -40,7 +39,11 @@ function PerksSection(props) {
                 onChange={(e) => {
                   onCheckedElement(e.target.checked, e.target.value);
                 }}
-                checked={accommodationPerks.includes(item.value)}
+                checked={
+                  accommodationPerks && accommodationPerks.includes(item.value)
+                    ? true
+                    : false
+                }
               />
               {Icon ? <Icon /> : null}
               <span>{item.value}</span>
