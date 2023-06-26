@@ -7,13 +7,14 @@ import {
 } from "react-icons/ai";
 
 function PerksSection(props) {
-  const { accommodationPerks, setAccommodationPerks } = props;
+  const { perks, setPerks } = props;
   // perk 리스트만듬
+
   const CATEGORY_LIST = [
-    { id: 0, value: "wife", icon: "AiOutlineWifi" },
+    { id: 0, value: "wifi", icon: AiOutlineWifi }, // Use the imported icon component directly
     { id: 1, value: "TV", icon: false },
     { id: 2, value: "Pets", icon: false },
-    { id: 3, value: "Free parking spot", icon: "AiOutlineCar" },
+    { id: 3, value: "Free parking spot", icon: AiOutlineCar }, // Use the imported icon component directly
     { id: 4, value: "라디오", icon: false },
     { id: 5, value: "드라이기", icon: false },
   ];
@@ -21,9 +22,9 @@ function PerksSection(props) {
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setAccommodationPerks([...accommodationPerks, item]);
+      setPerks([...perks, item]);
     } else if (!checked) {
-      setAccommodationPerks(accommodationPerks.filter((el) => el !== item));
+      setPerks(perks.filter((el) => el !== item));
     }
   };
 
@@ -43,7 +44,7 @@ function PerksSection(props) {
                 onChange={(e) => {
                   onCheckedElement(e.target.checked, e.target.value);
                 }}
-                checked={accommodationPerks.includes(item.value) ? true : false}
+                checked={perks?.includes(item.value) ?? false}
               />
               {icons ? <item.icon /> : ""}
               <span>{item.value}</span>

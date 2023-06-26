@@ -37,6 +37,3 @@ export const loginStates = atom(false);
 
 // AccommodationPage에 숙소 추가 페이지를 열고 닫는 아톰
 export const addPages = atom(false);
-
-//
-export const addLogin = atom(false);

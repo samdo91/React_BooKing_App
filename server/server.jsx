@@ -49,10 +49,21 @@ const download = require("image-downloader");
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 // 내 mongoDB uri인겁니다 api에 연결해줘요.
-const { DB_URL, DB_URL_TEST } = process.env;
 
 // mongoose를 사용해보자.
-mongoose.connect(DB_URL_TEST);
+const { DB_URL, DB_URL_TEST } = process.env;
+mongoose
+  .connect(DB_URL_TEST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB에 연결되었습니다.");
+    // 여기에서 서버를 시작하거나 다른 작업을 수행할 수 있습니다.
+  })
+  .catch((error) => {
+    console.error("MongoDB 연결 오류:", error);
+  });
 
 //
 app.post(`/mainAccommodation`, async (req, res) => {
