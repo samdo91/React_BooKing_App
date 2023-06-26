@@ -1,20 +1,22 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { AiOutlineWifi, AiOutlineCar } from "react-icons/ai";
+import {
+  AiOutlineCloudUpload,
+  AiOutlineWifi,
+  AiOutlineCar,
+} from "react-icons/ai";
 
 function PerksSection(props) {
   const { accommodationPerks, setAccommodationPerks } = props;
-  // perk 리스트 만듬
+  // perk 리스트만듬
   const CATEGORY_LIST = [
-    { id: 0, value: "wifi", icon: AiOutlineWifi },
+    { id: 0, value: "wife", icon: "AiOutlineWifi" },
     { id: 1, value: "TV", icon: false },
     { id: 2, value: "Pets", icon: false },
-    { id: 3, value: "Free parking spot", icon: AiOutlineCar },
+    { id: 3, value: "Free parking spot", icon: "AiOutlineCar" },
     { id: 4, value: "라디오", icon: false },
     { id: 5, value: "드라이기", icon: false },
   ];
-
-  ("거짓말이야.");
 
   // 체크 박스에 쓰이는 함수. 체크 이벤트를 감지하여 값을 필터 돌려 토글(빼거나 넣거나)한다
   const onCheckedElement = (checked, item) => {
@@ -28,28 +30,24 @@ function PerksSection(props) {
   return (
     <PerksSectionBox>
       <H2>Perks</H2>
-      <p>당신의 에어비엔비에 포함된 요소를 적어주세요.</p>
+      <p> 당신의 에어비엔비에 포함된 요소를 적어주세요.</p>
       <PerksInput>
         {CATEGORY_LIST.map((item) => {
-          const Icon = item.icon;
+          const icons = item.icon;
           return (
-            <PerksLabel key={item.id}>
+            <Perkslabel key={item.id}>
               <input
                 type="checkbox"
                 value={item.value}
-                // onChange로 값이 변경할 때마다 onCheckedElement 함수를 실행시킨다.
+                // onChange로 값이 변경할 때마다.  onCheckedElement 함수를 실행시킨다.
                 onChange={(e) => {
                   onCheckedElement(e.target.checked, e.target.value);
                 }}
-                checked={
-                  accommodationPerks && accommodationPerks.includes(item.value)
-                    ? true
-                    : false
-                }
+                checked={accommodationPerks.includes(item.value) ? true : false}
               />
-              {Icon ? <Icon /> : null}
+              {icons ? <item.icon /> : ""}
               <span>{item.value}</span>
-            </PerksLabel>
+            </Perkslabel>
           );
         })}
       </PerksInput>
@@ -58,7 +56,6 @@ function PerksSection(props) {
 }
 
 export default PerksSection;
-
 const H2 = styled.div`
   font-size: 25px;
   margin: 20px;
@@ -76,7 +73,7 @@ const PerksInput = styled.div`
   flex-wrap: wrap;
 `;
 
-const PerksLabel = styled.label`
+const Perkslabel = styled.label`
   display: flex;
   flex-wrap: wrap;
   margin: 10px;
