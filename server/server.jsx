@@ -22,9 +22,9 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // rgister와 login에 쓰이는 모델
-const User = require(`./models/user.js`);
-const Accommodation = require(`./models/Accommodation.js`);
-const Booking = require(`./models/booking.js`);
+const User = require(`./models/user.jsx`);
+const Accommodation = require(`./models/Accommodation.jsx`);
+const Booking = require(`./models/booking.jsx`);
 // bcrypt 란 암호 복호화이다.
 
 const bcrypt = require("bcrypt");
@@ -49,10 +49,21 @@ const download = require("image-downloader");
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 // 내 mongoDB uri인겁니다 api에 연결해줘요.
-const { DB_URL, DB_URL_TEST } = process.env;
 
 // mongoose를 사용해보자.
-mongoose.connect(DB_URL_TEST);
+const { DB_URL, DB_URL_TEST } = process.env;
+mongoose
+  .connect(DB_URL_TEST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB에 연결되었습니다.");
+    // 여기에서 서버를 시작하거나 다른 작업을 수행할 수 있습니다.
+  })
+  .catch((error) => {
+    console.error("MongoDB 연결 오류:", error);
+  });
 
 //
 app.post(`/mainAccommodation`, async (req, res) => {
@@ -233,16 +244,20 @@ const findPhoneNumber = (userDoc, countryCode, password) => {
     return item.countryCode === countryCode;
   });
 
-  // bcrypt.compareSync 통해 복호화된 페스워드와 loginpage에서 포스트한 페스워드와 비교한다. 결과는 boolean으로 재출된다.
+  if (userId.length === 0) {
+    console.log("유저를 찾을 수 없습니다.");
+    return null; // 혹은 적절한 오류 처리를 수행하세요.
+  }
+
   const passOK = bcrypt.compareSync(password, userId[0].password);
 
   if (passOK) {
     return userId[0];
   } else {
-    alert("비밀번호가 틀렸어");
+    console.log("비밀번호가 틀렸어");
+    return null; // 혹은 적절한 오류 처리를 수행하세요.
   }
 };
-
 app.post(`/login`, async (req, res) => {
   // post로 변경
   const { password, countryCode, phoneNumber } = req.body;
