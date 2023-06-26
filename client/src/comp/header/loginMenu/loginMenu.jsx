@@ -36,7 +36,8 @@ function LoginMenu() {
   }, [userData.token]);
 
   useEffect(() => {
-    if (userData.login) {
+    if (userData.login == true) {
+      console.log(2);
       setLoginState(true);
     }
   }, [userData]);
