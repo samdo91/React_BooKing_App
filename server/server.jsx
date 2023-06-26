@@ -22,9 +22,9 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // rgister와 login에 쓰이는 모델
-const User = require(`./models/user.js`);
-const Accommodation = require(`./models/Accommodation.js`);
-const Booking = require(`./models/booking.js`);
+const User = require(`./models/user.jsx`);
+const Accommodation = require(`./models/Accommodation.jsx`);
+const Booking = require(`./models/booking.jsx`);
 // bcrypt 란 암호 복호화이다.
 
 const bcrypt = require("bcrypt");
