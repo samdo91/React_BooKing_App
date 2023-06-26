@@ -9,6 +9,7 @@ import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { loginStates, loginModals } from "../../../Store/Global/Index";
+import { useNavigate } from "react-router-dom";
 function PriceBox(props) {
   const {
     address,
@@ -45,6 +46,7 @@ inputPhone: 예약할때 쓸 폰 번호
   const [loginState, setLoginState] = useAtom(loginStates);
   const [loginModal, setLoginModal] = useAtom(loginModals);
 
+  const navigate = useNavigate();
   // select 만들어주는 함수
   const generateSelectOptions = (n) => {
     const options = [];
@@ -97,12 +99,16 @@ inputPhone: 예약할때 쓸 폰 번호
   };
 
   // 예약버튼 함수
+
   const booking = async () => {
+    console.log("first");
+
     // 로그인이 되어 있는 지 확인
     if (!loginState) {
       setLoginModal(true);
       return;
     }
+
     // 예외처리 했다.
     if (
       !checkInState ||
@@ -114,6 +120,7 @@ inputPhone: 예약할때 쓸 폰 번호
       alert("빈칸을 채워주세요.");
       return;
     }
+
     const response = await axios.post(`http://127.0.0.1:4000/booking`, {
       place: id,
       name: inputName,
@@ -125,7 +132,11 @@ inputPhone: 예약할때 쓸 폰 번호
       prices: parseFloat(price) * parseFloat(numberOfNight),
     });
 
-    return response; // 수정: response 반환
+    if (response && response.status === 200) {
+      navigate("/BookingSuccess");
+    }
+
+    return await response; // 수정: await 추가
   };
 
   return (

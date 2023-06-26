@@ -38,7 +38,7 @@ function Header(props) {
 
   const handleButtonClick = () => {
     if (loginState) {
-      window.location.href = "/myPage/Accommodation";
+      window.location.href = "/myPage/MyAccommodation";
     } else {
       setLoginModal(true);
     }

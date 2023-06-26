@@ -9,6 +9,7 @@ import PrivacyPage from "../comp/MyPage/AccountPage/PrivacyPage/PrivacyPage";
 import AccommodationPage from "../comp/MyPage/AccommodationPage/AccommodationPage";
 import AddAccommodationPage from "../comp/MyPage/AccommodationPage/AddAccommodationPage/AddAccommodationPage";
 import BookingPage from "../comp/MyPage/BookingPage/BookingPage";
+import BookingSuccessPage from "../comp/DetailPage/PriceBox/BookingSuccessPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -55,5 +56,9 @@ export const router = createBrowserRouter([
   {
     path: `/myPage/booking`,
     element: <BookingPage />,
+  },
+  {
+    path: `/BookingSuccess`,
+    element: <BookingSuccessPage />,
   },
 ]);
