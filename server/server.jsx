@@ -22,9 +22,9 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // rgister와 login에 쓰이는 모델
-const User = require(`./models/user.js`);
-const Accommodation = require(`./models/Accommodation.js`);
-const Booking = require(`./models/booking.js`);
+const User = require(`./models/user.jsx`);
+const Accommodation = require(`./models/Accommodation.jsx`);
+const Booking = require(`./models/booking.jsx`);
 // bcrypt 란 암호 복호화이다.
 
 const bcrypt = require("bcrypt");
@@ -233,16 +233,20 @@ const findPhoneNumber = (userDoc, countryCode, password) => {
     return item.countryCode === countryCode;
   });
 
-  // bcrypt.compareSync 통해 복호화된 페스워드와 loginpage에서 포스트한 페스워드와 비교한다. 결과는 boolean으로 재출된다.
+  if (userId.length === 0) {
+    console.log("유저를 찾을 수 없습니다.");
+    return null; // 혹은 적절한 오류 처리를 수행하세요.
+  }
+
   const passOK = bcrypt.compareSync(password, userId[0].password);
 
   if (passOK) {
     return userId[0];
   } else {
-    alert("비밀번호가 틀렸어");
+    console.log("비밀번호가 틀렸어");
+    return null; // 혹은 적절한 오류 처리를 수행하세요.
   }
 };
-
 app.post(`/login`, async (req, res) => {
   // post로 변경
   const { password, countryCode, phoneNumber } = req.body;
