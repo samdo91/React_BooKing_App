@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainPage from "../comp/MainPage/MainPage";
 import LoginPage from "../comp/LoginPage/LoginPage";
 import DetailPage from "../comp/DetailPage/PetailPage";
-import RegisterPage from "../comp/registerPage/registerPage";
+import RegisterPage from "../comp/RegisterPage/RegisterPage";
 import MyPage from "../comp/MyPage/MyPage";
 import AccountPage from "../comp/MyPage/AccountPage/AccountPage";
 import PrivacyPage from "../comp/MyPage/AccountPage/PrivacyPage/PrivacyPage";
