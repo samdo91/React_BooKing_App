@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
 import React from "react";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function BoardItemCard(props) {
   const { country, city, hostName, picture, price, type } = props;
 
   return (
     <CardBox>
-      <Image src={`${import.meta.env.PROXY_SERVER}/${picture}`} />
+      <Image src={`${PROXY}/${picture}`} />
       <div>
         <b>{city}</b> <b>{country}</b>
         <div>

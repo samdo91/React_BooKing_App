@@ -13,6 +13,8 @@ import PerksSection from "./Section/PerksSection";
 import TypeSection from "./Section/TypeSection";
 import PhotoSection from "./Section/PhotoSection";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
 function AddAccommodationPage() {
   /* 
   userData: DB에서 가져온 유저의 데이터. 로그인이 되어 있다면 데이터가 있음. (!! 기본 데이터가 있어서 불리언으로 못씀)
@@ -74,7 +76,7 @@ function AddAccommodationPage() {
 
   useEffect(() => {
     async function fetchAccommodationData() {
-      const response = await axios.get(`/api/accommodation/${id}`);
+      const response = await axios.get(`${PROXY}/accommodation/${id}`);
       const data = response.data;
       // Fetch and set the accommodation data based on the ID parameter
       setAccommodationTitle(data.title);
@@ -123,7 +125,7 @@ function AddAccommodationPage() {
   const saveButtons = async () => {
     try {
       const response = await axios.post(
-        "/api/accommodation/save",
+        `${PROXY}/accommodation/save`,
         accommodationData
       );
       const data = response.data;

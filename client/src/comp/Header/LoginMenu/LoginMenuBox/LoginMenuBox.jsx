@@ -9,6 +9,8 @@ import {
 } from "../../../../Store/Global/Index";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
 
 function LoginMenuBox() {
   const [loginModal, setLoginModal] = useAtom(loginModals);
@@ -23,7 +25,7 @@ function LoginMenuBox() {
   }, [loginModal, setLoginMenuToggle]);
 
   const handleLogout = async () => {
-    const response = await axios.post(`${import.meta.env.PROXY_SERVER}/logout`);
+    const response = await axios.post(`${PROXY}/logout`);
     setUserData({
       login: false,
       token: false,

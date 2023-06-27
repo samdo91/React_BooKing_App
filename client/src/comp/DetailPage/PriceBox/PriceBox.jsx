@@ -10,6 +10,9 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import { loginStates, loginModals } from "../../../Store/Global/Index";
 import { useNavigate } from "react-router-dom";
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function PriceBox(props) {
   const {
     address,
@@ -121,19 +124,16 @@ inputPhone: 예약할때 쓸 폰 번호
       return;
     }
 
-    const response = await axios.post(
-      `${import.meta.env.PROXY_SERVER}/booking`,
-      {
-        place: id,
-        name: inputName,
-        checkIn: checkInState,
-        checkOut: checkOutState,
-        guests: maxGuestsState,
-        numberOfNight: numberOfNight,
-        phone: inputPhone,
-        prices: parseFloat(price) * parseFloat(numberOfNight),
-      }
-    );
+    const response = await axios.post(`${PROXY}/booking`, {
+      place: id,
+      name: inputName,
+      checkIn: checkInState,
+      checkOut: checkOutState,
+      guests: maxGuestsState,
+      numberOfNight: numberOfNight,
+      phone: inputPhone,
+      prices: parseFloat(price) * parseFloat(numberOfNight),
+    });
 
     if (response && response.status === 200) {
       navigate("/BookingSuccess");
