@@ -15,7 +15,9 @@ function MyAccommodationList(props) {
         return (
           <ItemBox key={itemList._id}>
             <ItemPhotosWrapper>
-              <ItemPhotos src={`http://127.0.0.1:4000/${itemList.photos[0]}`} />
+              <ItemPhotos
+                src={`${process.env.PROXY_SERVER}/${itemList.photos[0]}`}
+              />
             </ItemPhotosWrapper>
 
             <Flex>

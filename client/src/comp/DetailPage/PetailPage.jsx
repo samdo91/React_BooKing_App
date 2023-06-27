@@ -25,7 +25,7 @@ function DetailPage() {
   }, []);
 
   const bookingSearch = async () => {
-    const response = await axios.post("http://127.0.0.1:4000/myBooking");
+    const response = await axios.post(`${process.env.PROXY_SERVER}/myBooking`);
     const booking = response.data;
     const bookingData = booking.filter((item) => {
       return item.place._id === id;
@@ -40,9 +40,12 @@ function DetailPage() {
 
   // 디테일 페이지가 렌더링될 때 id로 Accommodation의 데이터를 가져온다.
   const itemSearch = async () => {
-    const response = await axios.post(`http://127.0.0.1:4000/detailPage`, {
-      id: id,
-    });
+    const response = await axios.post(
+      `${process.env.PROXY_SERVER}/detailPage`,
+      {
+        id: id,
+      }
+    );
     const Accommodation = response.data;
     setDetailData({ ...Accommodation });
     setItemSearchSuccess(true);

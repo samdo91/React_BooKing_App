@@ -21,7 +21,7 @@ function RegisterPage() {
   // axios.post로 보낸다.
   const registerPost = async () => {
     try {
-      await axios.post("http://127.0.0.1:4000/register", {
+      await axios.post(`${process.env.PROXY_SERVER}/register`, {
         name,
         email,
         password,

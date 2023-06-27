@@ -22,7 +22,9 @@ function AccommodationPage() {
   const [myAccommodationList, setMyAccommodationList] = useState("");
 
   const myAccommodationFetchData = async () => {
-    const response = await axios.post("http://127.0.0.1:4000/myAccommodation");
+    const response = await axios.post(
+      `${process.env.PROXY_SERVER}/myAccommodation`
+    );
     setMyAccommodationList([...response.data]);
   };
 

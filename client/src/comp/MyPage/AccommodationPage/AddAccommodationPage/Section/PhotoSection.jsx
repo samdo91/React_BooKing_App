@@ -25,7 +25,7 @@ function PhotoSection(props) {
     }
 
     await axios
-      .post("http://127.0.0.1:4000/photosUploads", filesData, {
+      .post(`${process.env.PROXY_SERVER}/photosUploads`, filesData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
@@ -42,7 +42,7 @@ function PhotoSection(props) {
       alert("링크를 등록해주세요.");
     } else {
       const { data: filename } = await axios.post(
-        "http://127.0.0.1:4000/photoLink",
+        `${process.env.PROXY_SERVER}/photoLink`,
         {
           link: photosLinks,
         }

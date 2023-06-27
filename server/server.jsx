@@ -11,6 +11,7 @@ app.use(
   })
 ); // Use this after the variable declaration
 
+const proxyServer = process.env.PROXY_SERVER;
 app.use(express.json());
 //mongoDB를 사용해보자.
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -66,12 +67,12 @@ mongoose
   });
 
 //
-app.post(`/mainAccommodation`, async (req, res) => {
+app.post(`${proxyServer}/mainAccommodation`, async (req, res) => {
   res.json(await Accommodation.find());
 });
 
 // 숙소 저장
-app.post(`/accommodationSeve`, async (req, res) => {
+app.post(`${proxyServer}/accommodationSeve`, async (req, res) => {
   console.log(req.body);
   const { token } = req.cookies;
   const {
@@ -121,7 +122,7 @@ app.post(`/accommodationSeve`, async (req, res) => {
 });
 
 // 숙소 다시 저장
-app.post(`/accommodationReseve`, async (req, res) => {
+app.post(`${proxyServer}/accommodationReseve`, async (req, res) => {
   const { token } = req.cookies;
   const {
     id,
@@ -181,7 +182,7 @@ set() 메서드는 이전 문서 객체의 내용을 바꾸지 않고 새로운 
 });
 
 //myAccommodation 불러오기
-app.post(`/myAccommodation`, (req, res) => {
+app.post(`${proxyServer}/myAccommodation`, (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) {
@@ -199,7 +200,7 @@ app.post(`/myAccommodation`, (req, res) => {
   });
 });
 
-app.post(`/detailFixAccommodation`, async (req, res) => {
+app.post(`${proxyServer}/detailFixAccommodation`, async (req, res) => {
   const { id } = req.body;
   console.log("id", id);
   const { token } = req.cookies;
@@ -218,7 +219,7 @@ app.post(`/detailFixAccommodation`, async (req, res) => {
 });
 
 // 회원가입
-app.post(`/register`, async (req, res) => {
+app.post(`${proxyServer}/register`, async (req, res) => {
   console.log(req.body);
   const { name, email, password, countryCode, phoneNumber } = req.body;
 
@@ -258,7 +259,7 @@ const findPhoneNumber = (userDoc, countryCode, password) => {
     return null; // 혹은 적절한 오류 처리를 수행하세요.
   }
 };
-app.post(`/login`, async (req, res) => {
+app.post(`${proxyServer}/login`, async (req, res) => {
   // post로 변경
   const { password, countryCode, phoneNumber } = req.body;
   // find로 맞는 폰 넘버를 가진 쿼리? 도큐먼트?를 찾아온다.
@@ -289,7 +290,7 @@ app.post(`/login`, async (req, res) => {
   }
 });
 
-app.post("/server", function (req, res) {
+app.post(`${proxyServer}/server`, function (req, res) {
   res.json("안들어가지네");
 });
 
@@ -303,7 +304,7 @@ function verifyToken(token) {
   }
 }
 
-app.post(`/profile`, (req, res) => {
+app.post(`${proxyServer}/profile`, (req, res) => {
   const { token } = req.cookies;
   const tokens = verifyToken(token);
 
@@ -321,7 +322,7 @@ app.post(`/profile`, (req, res) => {
   }
 });
 
-app.post(`/logout`, (req, res) => {
+app.post(`${proxyServer}/logout`, (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
   const { token } = req.cookies;
   const tokens = verifyToken(token);
@@ -338,7 +339,7 @@ app.post(`/logout`, (req, res) => {
 
 // 사진 링크로 저장
 
-app.post("/photoLink", async (req, res) => {
+app.post(`${proxyServer}/photoLink`, async (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Date.now() + ".jpg";
   const newNames = "uploads/photo" + Date.now() + ".jpg";
@@ -368,47 +369,51 @@ app.post("/photoLink", async (req, res) => {
 });
 
 const photosmulter = multer({ dest: "uploads/" });
-app.post(`/photosUploads`, photosmulter.array("photos", 100), (req, res) => {
-  const files = req.files;
-  const uploadfiles = [];
+app.post(
+  `${proxyServer}/photosUploads`,
+  photosmulter.array("photos", 100),
+  (req, res) => {
+    const files = req.files;
+    const uploadfiles = [];
 
-  try {
-    // 다수의 파일을 서버에 저장
-    for (let i = 0; i < files.length; i++) {
-      const { path, originalname } = files[i];
-      const paths = originalname.split(".");
-      const ext = paths[paths.length - 1];
-      const newPath = path + "." + ext;
-      const nowPath = path + "." + ext;
+    try {
+      // 다수의 파일을 서버에 저장
+      for (let i = 0; i < files.length; i++) {
+        const { path, originalname } = files[i];
+        const paths = originalname.split(".");
+        const ext = paths[paths.length - 1];
+        const newPath = path + "." + ext;
+        const nowPath = path + "." + ext;
 
-      fs.renameSync(path, newPath);
+        fs.renameSync(path, newPath);
 
-      // 파일 저장 경로 검증 .fs사용
-      if (!fs.existsSync("uploads/")) {
-        fs.mkdirSync("uploads/");
+        // 파일 저장 경로 검증 .fs사용
+        if (!fs.existsSync("uploads/")) {
+          fs.mkdirSync("uploads/");
+        }
+
+        uploadfiles.push(nowPath);
       }
+      console.log(uploadfiles);
 
-      uploadfiles.push(nowPath);
+      res.json(uploadfiles);
+      // 예외처리 완료
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Failed to upload files.");
     }
-    console.log(uploadfiles);
-
-    res.json(uploadfiles);
-    // 예외처리 완료
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Failed to upload files.");
   }
-});
+);
 
 // 디테일페이지에 파람스로 들어간 id로 데이터를 불러옴
-app.post("/detailPage", async (req, res) => {
+app.post(`${proxyServer}/detailPage`, async (req, res) => {
   const { id } = req.body;
   const accommodationDoc = await Accommodation.findById(id);
   res.json(accommodationDoc);
 });
 
 // 디테일페이지에 예약을 확정함
-app.post("/booking", async (req, res) => {
+app.post(`${proxyServer}/booking`, async (req, res) => {
   const {
     place,
     name,
@@ -448,7 +453,7 @@ app.post("/booking", async (req, res) => {
 });
 
 //bookingPage에 예약 상황에 사용되는 데이터 불러오기
-app.post(`/myBooking`, (req, res) => {
+app.post(`${proxyServer}/myBooking`, (req, res) => {
   //쿠키가 있는 지 확인
   const { token } = req.cookies;
   // 쿠키 불러오기

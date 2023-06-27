@@ -121,7 +121,7 @@ inputPhone: 예약할때 쓸 폰 번호
       return;
     }
 
-    const response = await axios.post(`http://127.0.0.1:4000/booking`, {
+    const response = await axios.post(`${process.env.PROXY_SERVER}/booking`, {
       place: id,
       name: inputName,
       checkIn: checkInState,
