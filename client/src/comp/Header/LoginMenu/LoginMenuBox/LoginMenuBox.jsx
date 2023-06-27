@@ -23,7 +23,7 @@ function LoginMenuBox() {
   }, [loginModal, setLoginMenuToggle]);
 
   const handleLogout = async () => {
-    const response = await axios.post("http://127.0.0.1:4000/logout");
+    const response = await axios.post(`${process.env.PROXY_SERVER}/logout`);
     setUserData({
       login: false,
       token: false,
