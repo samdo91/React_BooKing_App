@@ -29,7 +29,7 @@ export const itemDataLists = atom([
   { country: "", city: "", hostName: "", picture: " ", price: " ", type: [] },
 ]);
 
-// 더 이상 노출할 에어비앤비가 없다면?
+// 더 이상 노출할 에어비앤비가 없다면 이 값이 변한다.
 export const zoroItems = atom(false);
 
 // 로그인이 되어 있는가?
