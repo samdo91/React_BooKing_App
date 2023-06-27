@@ -9,6 +9,8 @@ import {
   itemDataLists,
 } from "../../../Store/Global/Index";
 import { Link } from "react-router-dom";
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
 
 function MainPageBoard() {
   // itemData: 아이템 데이터,
@@ -21,9 +23,7 @@ function MainPageBoard() {
   // 아이템 데이터를 가져오는 비동기 함수
   const fetchItemData = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.PROXY_SERVER}/mainAccommodation`
-      );
+      const response = await axios.post(`${PROXY}/mainAccommodation`);
       const fetchedItemData = response.data;
       setItemData(fetchedItemData);
       setItemDataList(fetchedItemData);

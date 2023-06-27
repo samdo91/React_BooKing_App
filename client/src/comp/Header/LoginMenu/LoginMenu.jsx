@@ -11,6 +11,9 @@ import { useAtom } from "jotai";
 import axios from "axios";
 import LoginMenuBox from "./LoginMenuBox/LoginMenuBox";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function LoginMenu() {
   const [loginMenuToggle, setLoginMenuToggle] = useAtom(loginMenuToggles);
   const [userData, setUserData] = useAtom(userDataAtom);
@@ -19,7 +22,8 @@ function LoginMenu() {
   const loginCookie = async () => {
     let response;
     try {
-      response = await axios.post(`${import.meta.env.PROXY_SERVER}/profile`);
+      console.log("PROXY", PROXY);
+      response = await axios.post(`${PROXY}/profile`);
       if (response.data === false) {
         return;
       } else {

@@ -9,6 +9,9 @@ import styled from "@emotion/styled";
 import PriceBox from "./PriceBox/PriceBox";
 import MyBookingList from "../MyPage/BookingPage/MyBookingList/MyBookingList";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function DetailPage() {
   //useParams를 사용할때 넘겨준 인자와 같은 인자를 가져와야한다. props라고 생각하면 편함
   let { id } = useParams();
@@ -25,9 +28,7 @@ function DetailPage() {
   }, []);
 
   const bookingSearch = async () => {
-    const response = await axios.post(
-      `${import.meta.env.PROXY_SERVER}/myBooking`
-    );
+    const response = await axios.post(`${PROXY}/myBooking`);
     const booking = response.data;
     const bookingData = booking.filter((item) => {
       return item.place._id === id;
@@ -42,12 +43,9 @@ function DetailPage() {
 
   // 디테일 페이지가 렌더링될 때 id로 Accommodation의 데이터를 가져온다.
   const itemSearch = async () => {
-    const response = await axios.post(
-      `${import.meta.env.PROXY_SERVER}/detailPage`,
-      {
-        id: id,
-      }
-    );
+    const response = await axios.post(`${PROXY}/detailPage`, {
+      id: id,
+    });
     const Accommodation = response.data;
     setDetailData({ ...Accommodation });
     setItemSearchSuccess(true);

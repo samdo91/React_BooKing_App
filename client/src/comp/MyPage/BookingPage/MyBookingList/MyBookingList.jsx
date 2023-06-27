@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { FiArrowRightCircle } from "react-icons/fi";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function MyBookingList(props) {
   const { listData } = props;
 
@@ -13,9 +16,7 @@ function MyBookingList(props) {
         return (
           <ItemBox key={item._id}>
             <ItemPhotosWrapper>
-              <ItemPhotos
-                src={`${import.meta.env.PROXY_SERVER}/${item.place.photos[0]}`}
-              />
+              <ItemPhotos src={`${PROXY}/${item.place.photos[0]}`} />
             </ItemPhotosWrapper>
             <Body>
               <div>

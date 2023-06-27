@@ -13,6 +13,8 @@ import MyAccommodationList from "./MyAccommodationList/MyAccommodationList";
 
 import axios from "axios";
 import LoginAdvicePage from "../../LoginAdvicePage/LoginAdvicePage";
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
 
 function AccommodationPage() {
   const [userData, setUserData] = useAtom(userDataAtom);
@@ -22,9 +24,7 @@ function AccommodationPage() {
   const [myAccommodationList, setMyAccommodationList] = useState("");
 
   const myAccommodationFetchData = async () => {
-    const response = await axios.post(
-      `${import.meta.env.PROXY_SERVER}/myAccommodation`
-    );
+    const response = await axios.post(`${PROXY}/myAccommodation`);
     setMyAccommodationList([...response.data]);
   };
 

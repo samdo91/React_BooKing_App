@@ -4,6 +4,9 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import { userDataAtom, loginModals } from "../../../Store/Global/Index";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function LoginBody() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,7 +18,7 @@ function LoginBody() {
   const registerPost = async () => {
     try {
       const loginSuccessData = await axios.post(
-        `${import.meta.env.PROXY_SERVER}/login`,
+        `${PROXY}/login`,
         {
           password: passwords,
           countryCode: countryCode,

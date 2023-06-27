@@ -3,6 +3,9 @@ import axios from "axios";
 import styled from "@emotion/styled";
 import Header from "../Header/Header";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function RegisterPage() {
   /* 
     회원가입에 필요한 양식 
@@ -21,7 +24,7 @@ function RegisterPage() {
   // axios.post로 보낸다.
   const registerPost = async () => {
     try {
-      await axios.post(`${import.meta.env.PROXY_SERVER}/register`, {
+      await axios.post(`${PROXY}/register`, {
         name,
         email,
         password,

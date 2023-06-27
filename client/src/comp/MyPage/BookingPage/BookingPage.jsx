@@ -12,6 +12,9 @@ import axios from "axios";
 import LoginAdvicePage from "../../LoginAdvicePage/LoginAdvicePage";
 import MyBookingList from "./MyBookingList/MyBookingList";
 
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
+
 function BookingPage() {
   /* userData: DB에서 가져온 유저의 데이터 로그인이 되어 있다면 데이터가 있음.(!! 기본 데이터가 있어서 불리언으로 못씀)
     loginModal:로그인용 모달을 불러옴 : 불리언 값으로 되어있음
@@ -24,9 +27,7 @@ function BookingPage() {
 
   // 서버에 나의 id로 되어 있는 애어비앤비 데이터를 받아옴
   const myBookingFetchData = async () => {
-    const response = await axios.post(
-      `${import.meta.env.PROXY_SERVER}/myBooking`
-    );
+    const response = await axios.post(`${PROXY}/myBooking`);
     setMyBookingList(response.data);
   };
 

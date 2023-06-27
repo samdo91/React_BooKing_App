@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsTrash3, BsStar, BsStarFill } from "react-icons/bs";
+const PROXY =
+  window.location.hostname === "localhost" ? "http://127.0.0.1:4000" : "/proxy";
 
 function PhotoSection(props) {
   const {
@@ -25,7 +27,7 @@ function PhotoSection(props) {
     }
 
     await axios
-      .post(`${import.meta.env.PROXY_SERVER}/photosUploads`, filesData, {
+      .post(`${PROXY}/photosUploads`, filesData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
@@ -41,12 +43,9 @@ function PhotoSection(props) {
     if (photosLinks === "") {
       alert("링크를 등록해주세요.");
     } else {
-      const { data: filename } = await axios.post(
-        `${import.meta.env.PROXY_SERVER}/photoLink`,
-        {
-          link: photosLinks,
-        }
-      );
+      const { data: filename } = await axios.post(`${PROXY}/photoLink`, {
+        link: photosLinks,
+      });
 
       setAccommodationPhotos([...accommodationPhotos, filename]);
       setPhotosLinks("");
