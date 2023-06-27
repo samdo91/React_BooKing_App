@@ -6,7 +6,7 @@ function BoardItemCard(props) {
 
   return (
     <CardBox>
-      <Image src={`${process.env.PROXY_SERVER}/${picture}`} />
+      <Image src={`${import.meta.env.PROXY_SERVER}/${picture}`} />
       <div>
         <b>{city}</b> <b>{country}</b>
         <div>

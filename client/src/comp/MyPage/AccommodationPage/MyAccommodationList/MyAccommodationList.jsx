@@ -16,7 +16,7 @@ function MyAccommodationList(props) {
           <ItemBox key={itemList._id}>
             <ItemPhotosWrapper>
               <ItemPhotos
-                src={`${process.env.PROXY_SERVER}/${itemList.photos[0]}`}
+                src={`${import.meta.env.PROXY_SERVER}/${itemList.photos[0]}`}
               />
             </ItemPhotosWrapper>
 

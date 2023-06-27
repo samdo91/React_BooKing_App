@@ -21,7 +21,7 @@ function RegisterPage() {
   // axios.post로 보낸다.
   const registerPost = async () => {
     try {
-      await axios.post(`${process.env.PROXY_SERVER}/register`, {
+      await axios.post(`${import.meta.env.PROXY_SERVER}/register`, {
         name,
         email,
         password,

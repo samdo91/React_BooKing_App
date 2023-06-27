@@ -19,7 +19,7 @@ function LoginMenu() {
   const loginCookie = async () => {
     let response;
     try {
-      response = await axios.post(`${process.env.PROXY_SERVER}/profile`);
+      response = await axios.post(`${import.meta.env.PROXY_SERVER}/profile`);
       if (response.data === false) {
         return;
       } else {

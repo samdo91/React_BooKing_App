@@ -24,7 +24,9 @@ function BookingPage() {
 
   // 서버에 나의 id로 되어 있는 애어비앤비 데이터를 받아옴
   const myBookingFetchData = async () => {
-    const response = await axios.post(`${process.env.PROXY_SERVER}/myBooking`);
+    const response = await axios.post(
+      `${import.meta.env.PROXY_SERVER}/myBooking`
+    );
     setMyBookingList(response.data);
   };
 
