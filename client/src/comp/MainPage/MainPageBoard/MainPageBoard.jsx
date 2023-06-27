@@ -22,7 +22,7 @@ function MainPageBoard() {
   const fetchItemData = async () => {
     try {
       const response = await axios.post(
-        `${process.env.PROXY_SERVER}/mainAccommodation`
+        `${import.meta.env.PROXY_SERVER}/mainAccommodation`
       );
       const fetchedItemData = response.data;
       setItemData(fetchedItemData);

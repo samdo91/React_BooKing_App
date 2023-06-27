@@ -15,7 +15,7 @@ function LoginBody() {
   const registerPost = async () => {
     try {
       const loginSuccessData = await axios.post(
-        `${process.env.PROXY_SERVER}/login`,
+        `${import.meta.env.PROXY_SERVER}/login`,
         {
           password: passwords,
           countryCode: countryCode,

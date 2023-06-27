@@ -23,7 +23,7 @@ function AccommodationPage() {
 
   const myAccommodationFetchData = async () => {
     const response = await axios.post(
-      `${process.env.PROXY_SERVER}/myAccommodation`
+      `${import.meta.env.PROXY_SERVER}/myAccommodation`
     );
     setMyAccommodationList([...response.data]);
   };

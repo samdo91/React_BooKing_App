@@ -25,7 +25,9 @@ function DetailPage() {
   }, []);
 
   const bookingSearch = async () => {
-    const response = await axios.post(`${process.env.PROXY_SERVER}/myBooking`);
+    const response = await axios.post(
+      `${import.meta.env.PROXY_SERVER}/myBooking`
+    );
     const booking = response.data;
     const bookingData = booking.filter((item) => {
       return item.place._id === id;
@@ -41,7 +43,7 @@ function DetailPage() {
   // 디테일 페이지가 렌더링될 때 id로 Accommodation의 데이터를 가져온다.
   const itemSearch = async () => {
     const response = await axios.post(
-      `${process.env.PROXY_SERVER}/detailPage`,
+      `${import.meta.env.PROXY_SERVER}/detailPage`,
       {
         id: id,
       }
