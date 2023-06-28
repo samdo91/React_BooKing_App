@@ -474,7 +474,7 @@ app.post(`/myBooking`, (req, res) => {
     }
   });
 });
-const PORT = 4000 || process.nev.PORT;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, localhost, () => {
   console.log(`${localhost} ${PORT} 연결 완료`);
