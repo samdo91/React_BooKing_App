@@ -12,7 +12,7 @@ app.use(
       const allowedOrigins = [
         "http://localhost:5173",
         "https://magenta-cat-723c98.netlify.app",
-        "https://resplendent-sawine-11c48c.netlify.app/",
+        "https://master--resplendent-sawine-11c48c.netlify.app",
       ];
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
