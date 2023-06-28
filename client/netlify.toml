@@ -3,5 +3,7 @@
 
 [[redirects]]
   from = "/proxy/*"
-  to = "https://magenta-cat-723c98.netlify.app/:splat"
+  to = "https://resplendent-sawine-11c48c.netlify.app/:splat"
   force = true
+
+ 
