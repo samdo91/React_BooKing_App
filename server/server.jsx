@@ -3,13 +3,25 @@ const app = express();
 http = require("http");
 var cors = require("cors");
 const localhost = "127.0.0.1";
+
 app.use(
   cors({
     optionSuccessStatus: 200,
-    origin: `http://localhost:5173`,
-    credentials: true, // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
+    origin: (req, callback) => {
+      const origin = req.headers.origin;
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://magenta-cat-723c98.netlify.app",
+      ];
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
-); // Use this after the variable declaration
+);
 
 app.use(express.json());
 //mongoDB를 사용해보자.
